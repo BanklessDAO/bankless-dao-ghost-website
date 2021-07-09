@@ -56,6 +56,32 @@ export default function Home({ featuredPages, featured, posts }) {
           )) }
         </SimpleGrid>
       </Container>
+      <Box>
+        <Heading>{ featured.title }</Heading>
+      </Box>
+
+      <SimpleGrid columns={2} rows={2} gap={8}>
+        { posts.map(post => (
+          <Box key={post.id} padding="16px" borderLeft="2px dotted" background="black" color="white">
+            <Heading as="h3">
+              <Link>
+                { post.title }
+              </Link>
+            </Heading>
+            <Text>
+              { post.primary_author.name }
+            </Text>
+            <Text isTruncated>
+              { post.excerpt }
+            </Text>
+            <Box>
+              { post.tags.map(tag => (
+                <Link key={tag.id} textTransform="lowercase">#{ tag.name }</Link>
+              )) }
+            </Box>
+          </Box>
+        )) }
+      </SimpleGrid>
     </div>
   )
 }
