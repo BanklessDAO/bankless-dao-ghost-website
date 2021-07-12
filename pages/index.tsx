@@ -4,7 +4,7 @@ import { Container, Box, Text, Heading, Link, SimpleGrid } from '@chakra-ui/reac
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 
-export default function Home() {
+export default function Home({ posts }) {
   return (
     <div >
       <Head>
@@ -18,6 +18,11 @@ export default function Home() {
           <Text fontSize="xl">Welcome to the bankless community.</Text>
           <Link mx="20px" href="/">home</Link>
         </Box>
+        <Box>
+          { posts.map(post => (
+            <Heading as="h2" my="2em">{ post.title }</Heading>
+          ))}
+        </Box>
       </Container>
     </div>
   )
@@ -30,7 +35,7 @@ export async function getStaticProps(context: GetStaticProps) {
 
   if (!posts) {
     return {
-      props: { notFound: true },
+      notFound: true
     }
   }
 
