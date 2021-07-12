@@ -4,6 +4,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
 import { PostOrPage } from '@tryghost/content-api';
+import { Post } from '../lib/types/ghost-types';
 
 export default function Home({ featuredPages, featured, posts }) {
 
@@ -16,7 +17,7 @@ export default function Home({ featuredPages, featured, posts }) {
       </Head>
       <Container maxW="100%" px="6%" color="white">
         <Heading as="h3">Announcments</Heading>
-        { featuredPages.map(page => (
+        { featuredPages.map(( page: any ) => (
           <Box>
             <Text>{ page.title }</Text>
           </Box>
@@ -34,7 +35,7 @@ export default function Home({ featuredPages, featured, posts }) {
         </Box>
 
         <SimpleGrid columns={2} rows={2} gap={8}>
-          { posts.map(post => (
+          { posts.map((post: Post) => (
             <Box key={post.id} padding="16px" borderLeft="1px dashed #485b73" color="white">
               <Heading as="h3">
                 <Link href={`${post.slug}`}>
@@ -48,7 +49,7 @@ export default function Home({ featuredPages, featured, posts }) {
                 { post.excerpt }
               </Text>
               <Box>
-                { post.tags.map(tag => (
+                { post.tags.map((tag: Tag) => (
                   <Link key={tag.id} textTransform="lowercase">#{ tag.name }</Link>
                 )) }
               </Box>
@@ -74,13 +75,17 @@ export async function getStaticProps(context: GetStaticProps) {
     }
   }
 
-  let pageContent = {
+  let pageContent: {
+    featuredPages: any,
+    featured: any,
+    posts: Array<Post>
+  } = {
     featuredPages: featuredPages,
     featured: {},
     posts: []
   };
 
-  posts.forEach(post => {
+  posts.forEach((post: any) => {
     if(post.featured) {
       pageContent.featured = post;
     } else {
