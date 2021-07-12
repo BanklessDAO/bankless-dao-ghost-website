@@ -36,9 +36,7 @@ export async function getStaticProps(context: GetStaticProps) {
   const posts = await getPosts();
 
   if (!posts) {
-    return {
-      props: { notFound: true }
-    }
+    return !posts && { props: { notFound: true } }
   }
 
   return {
