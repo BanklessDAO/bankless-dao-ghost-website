@@ -20,7 +20,7 @@ export default function Home({ posts }: { posts: any }) {
         </Box>
         <Box>
           { posts ?
-              posts.map(post => (
+              posts.map((post: any) => (
                 <Heading as="h2" my="2em" key={post.id}>{ post.title }</Heading>
               )) : <Heading>No posts!</Heading>
           }
@@ -33,7 +33,7 @@ export default function Home({ posts }: { posts: any }) {
 
 export async function getStaticProps(context: GetStaticProps) {
 
-  const posts = await getPosts();
+  const posts: any = await getPosts();
 
   if (!posts) {
     return !posts && { props: { notFound: true } }
