@@ -4,7 +4,7 @@ import { Container, Box, Text, Heading, Link, SimpleGrid } from '@chakra-ui/reac
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 
-export default function Home({ posts }) {
+export default function Home({ posts }: { posts: any }) {
   return (
     <div >
       <Head>
