@@ -8,7 +8,7 @@ const PostPage = ({ post }) => {
   // Render post title and content in the page from props
   return (
     <Container color="white" maxW="100%" px="6%" className="test">
-        <Box className="post-header" flexBasis="100%" maxWidth="100%" padding="50px 0" marginTop="3vh">
+        <Box className="post-header" flexBasis="100%" maxWidth="100%" padding="50px 0" marginTop="3vh" position="relative">
             <Flex sx={{
                 _before: {
                     content: '" "',
@@ -19,7 +19,7 @@ const PostPage = ({ post }) => {
                     zIndex: "-2",
                     right: "0",
                     top: "6vh",
-                    bottom: "175vh",
+                    bottom: "-4vh",
                     backgroundImage: "radial-gradient(white 6%, transparent 0)",
                 },
                 _after: {
@@ -29,18 +29,38 @@ const PostPage = ({ post }) => {
                     bg: "#ff4a97",
                     top: "7vh",
                     right: "70px",
-                    bottom: "175vh",
+                    bottom: "5px",
                     maxW: "calc(59.7% - 65px)",
                     zIndex: "-3"
                 }
-            }} boxSizing="border-box"
-            className="postHeader" maxW="100%" maxH="45vh">
+            }} 
+            boxSizing="border-box"
+            className="postHeader" 
+            maxW="100%" 
+            maxH="45vh"
+            marginBottom="8vh"
+            marginTop="3vh"
+            padding="50px 0"
+            flex="1 0 50%"
+            flex-basis="100%"
+            max-width="100%"
+            >
                 <Box className=".itemImage" order={2} height="100%">
                     <Image src={ post.feature_image } alt="image of publishing options" width="290px"/>
                 </Box>
-                <Box className=".itemContent" transform="translateY(-4vh)" paddingRight="5%">
+                <Box className=".itemContent" transform="translateY(-4vh)" paddingRight="5%" width="100%">
                     <Text marginBottom="2vh">A year ago by Authors - { post.reading_time} minutes</Text>
-                    <Heading as="h1" fontSize="55px" lineHeight="1.3" maxW="1000px" margin="0 0 2vh -2vh">{ post.title }</Heading>
+                    <Heading 
+                      as="h2" 
+                      fontSize="55px" 
+                      lineHeight="1.3" 
+                      maxW="1000px" 
+                      margin="0 0 2vh -2vh"
+                      letterSpacing="-.5px"
+                      marginBlockStart="0.83em"
+                      marginBlockEnd="0.83em"
+                      marginInlineStart="0px"
+                      marginInlineEnd="0px">{ post.title }</Heading>
                     <Text maxW="380px" lineHeight="1.7" fontSize="14px">{ post.excerpt }</Text>
                     { post.tags.map((tag) => (
                         <Text key={tag.id} textTransform="lowercase">#{tag.name}</Text>
