@@ -22,3 +22,20 @@ export default function Home() {
     </div>
   )
 }
+
+
+export async function getStaticProps(context: GetStaticProps) {
+
+  const posts = await getPosts();
+
+  if (!posts) {
+    return {
+      props: { notFound: true },
+    }
+  }
+
+  return {
+    props: { posts }
+  }
+
+}
