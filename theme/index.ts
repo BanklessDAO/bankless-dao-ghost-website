@@ -7,13 +7,15 @@ import styles from './styles';
 
 // Import component overrides.
 import Button from './components/button';
+import List from "./components/list";
 
 // Custom app theme overrides.
 const overrides = {
     styles,
     breakpoints,
     components: {
-        Button
+        Button,
+        List
     }
 };
 

@@ -3,10 +3,17 @@ import { Container, Box, Text, Heading, Link, SimpleGrid, Image } from '@chakra-
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
-import { PostOrPage } from '@tryghost/content-api';
-import { Post } from '../lib/types/ghost-types';
+import { PostOrPage } from '../lib/types/ghost-types';
 
-export default function Home({ featuredPages, featured, posts }) {
+import Navbar from '../components/Navbar';
+
+type HomeProps = {
+  featuredPages: PostOrPage[],
+  featured: PostOrPage,
+  posts: PostOrPage[]
+};
+
+export default function Home({ featuredPages, featured, posts }: HomeProps) {
 
   return (
     <div >
@@ -15,25 +22,11 @@ export default function Home({ featuredPages, featured, posts }) {
         <meta name="description" content="Bankless DAO community site" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container maxW="100%" px="6%" color="white">
-        <Heading as="h3">Announcments</Heading>
-        { featuredPages.map(( page: any ) => (
-          <Box>
-            <Text>{ page.title }</Text>
-          </Box>
-        )) }
-      </Container>
       <Container maxW="100%" px="6%">
-        <Box color="white">
-          <Image src="bankless-logo.png" width="300px" height="auto" alt="Bankless DAO logo"/>
-          <Heading as="h1" mb={4}>Bankless DAO</Heading>
-          <Text fontSize="xl">Welcome to the bankless community.</Text>
-          <Link mx="20px" href="/">home</Link>
-        </Box>
+        <Navbar />
         <Box>
           <Heading>{ featured.title }</Heading>
         </Box>
-
         <SimpleGrid columns={2} rows={2} gap={8}>
           { posts.map((post: Post) => (
             <Box key={post.id} padding="16px" borderLeft="1px dashed #485b73" color="white">
@@ -77,8 +70,8 @@ export async function getStaticProps(context: GetStaticProps) {
 
   let pageContent: {
     featuredPages: any,
-    featured: any,
-    posts: Array<Post>
+    featured: PostOrPage,
+    posts: PostOrPage[]
   } = {
     featuredPages: featuredPages,
     featured: {},
