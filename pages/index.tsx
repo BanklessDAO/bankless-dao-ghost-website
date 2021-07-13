@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import { Container, Box, Text, Heading, Link, SimpleGrid, Image } from '@chakra-ui/react';
+import { Container, Box, Text, Flex, Heading, Link, SimpleGrid, Image } from '@chakra-ui/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
-import { PostOrPage } from '../lib/types/ghost-types';
+import { PostOrPage, Tag, Author } from '../lib/types/ghost-types';
 
 import Navbar from '../components/Navbar';
 
@@ -25,27 +25,65 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
       <Container maxW="100%" px="6%">
         <Navbar />
         <Box>
-          <Heading>{ featured.title }</Heading>
+          <Heading className="global-underline">{ featured.title }</Heading>
         </Box>
         <SimpleGrid columns={2} rows={2} gap={8}>
-          { posts.map((post: Post) => (
-            <Box key={post.id} padding="16px" borderLeft="1px dashed #485b73" color="white">
-              <Heading as="h3">
-                <Link href={`${post.slug}`}>
-                  { post.title }
-                </Link>
-              </Heading>
-              <Text>
-                { post.primary_author.name }
-              </Text>
-              <Text isTruncated>
-                { post.excerpt }
-              </Text>
-              <Box>
-                { post.tags.map((tag: Tag) => (
-                  <Link key={tag.id} textTransform="lowercase">#{ tag.name }</Link>
-                )) }
-              </Box>
+          { posts.map((post: PostOrPage) => (
+            <Box 
+              as="article" 
+              key={post.id} 
+              color="white"
+              paddingRight="35px"
+              paddingLeft="60px"
+              width="100%"
+              marginTop="12vh"
+              paddingTop="0"
+              paddingBottom="0"
+            >
+              <Flex 
+                className="item-container"
+                position="relative"
+                maxW="100%"
+                boxSizing="border-box"
+                borderLeft="1px dashed #485b73"
+                flexDir="column"
+                >
+                <Box 
+                  className="item-content"
+                  width="100%"
+                  padding= "10px 0 10px 5%"
+                  >
+                  <Heading 
+                    as="h2" 
+                    fontSize="24px" 
+                    fontFamily="one"
+                    width="calc(93% - 125px)"
+                    >
+                    <Link 
+                      className="global-underline" 
+                      href={`${post.slug}`} 
+                      textDecoration="none"
+                      >
+                      { post.title }
+                    </Link>
+                  </Heading>
+                  <Text className="global-meta">
+                    { post.primary_author.name }
+                  </Text>
+                  <Text fontFamily="one" fontWeight="500" fontSize="13px" isTruncated>
+                    { post.excerpt }
+                  </Text>
+                  <Box className="global-tags">
+                    { post.tags.map((tag: Tag) => (
+                      <Link 
+                        key={tag.id} 
+                        textTransform="lowercase" 
+                        textDecoration="none"
+                        >#{ tag.name }</Link>
+                    )) }
+                  </Box>
+                </Box>
+              </Flex>
             </Box>
           )) }
         </SimpleGrid>
@@ -60,7 +98,6 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
 
 export async function getStaticProps(context: GetStaticProps) {
   const posts = await getPosts();
-  const featuredPages = await getFeaturedPages();
 
   if (!posts) {
     return {
@@ -69,11 +106,9 @@ export async function getStaticProps(context: GetStaticProps) {
   }
 
   let pageContent: {
-    featuredPages: any,
     featured: PostOrPage,
     posts: PostOrPage[]
   } = {
-    featuredPages: featuredPages,
     featured: {},
     posts: []
   };

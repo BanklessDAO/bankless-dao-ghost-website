@@ -3,7 +3,7 @@ export default {
         "container",
         "item",
         "icon"
-    ]
+    ],
     baseStyle: { 
         display: "inline-block"
     },

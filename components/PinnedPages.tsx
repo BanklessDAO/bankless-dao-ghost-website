@@ -8,14 +8,14 @@ type PinnedPagesProps = {
 export default function PinnedPages({ featuredPages }: PinnedPagesProps) {
     return (
         <Flex>
-            <Heading as="h2">
+            <Heading as="h2" >
                 Announcements
             </Heading>
             {featuredPages.map(page => {
 
                 <Box as="article">
-                    <Heading as="h3">
-                        <Link href={ page.slug }>
+                    <Heading as="h3" className="global-underline">
+                        <Link textDecoration="none" href={ page.slug }>
                             { page.title }
                         </Link>
                     </Heading>

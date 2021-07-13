@@ -743,6 +743,21 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/mulish@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/mulish/-/mulish-4.5.0.tgz#ca6f8ac30f6d131209e80ffeaacf6d3d46c9b863"
+  integrity sha512-zwYPSlVr5Q7LGf+bduneM6dWd9uOVMcoGllhTrXMEb2pmfhZIeTd22Pn8zY5k2BOHvmLJ849JgJ8xtUkZkvTbQ==
+
+"@fontsource/source-code-pro@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/source-code-pro/-/source-code-pro-4.5.0.tgz#0dabcefeb7ff0ded884f1113a86473eebe5aac95"
+  integrity sha512-IKB+oQfwjj9DzEM2sc5rO70BZV7+ksmZbB+1KzyiZp2VroPw7Lm1ovXBU2JYWIWXmNY+gDudvyZXZHE+6cG47Q==
+
+"@fontsource/spartan@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/spartan/-/spartan-4.5.0.tgz#fe4febe6ea336b227203c20bf963d5258c5fd348"
+  integrity sha512-KurffdkmBm5E1NUfi6gDU+NZNEXuE9rliENkpNVN+Odh0bVZI+H+TWPGHQVl1kZa5rYDQGQiEMuDqP+NQVhXIg==
+
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"

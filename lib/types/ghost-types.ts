@@ -33,8 +33,8 @@ export type PostOrPage = {
     meta_description?: string | null,
     email_subject?: string | null
     authors?: Author[],
-    tags?: Tag[]
-    primary_author?: Author,
+    tags: Tag[]
+    primary_author: Author,
     primary_tag?: Tag
 };
 
