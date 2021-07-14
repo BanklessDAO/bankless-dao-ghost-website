@@ -2,17 +2,16 @@
 import { getSinglePost, getPosts } from '../lib/posts';
 // import Header from '../../components/Header';
 import { Link, Flex, Box, Heading, Container, Text, Image, chakra } from '@chakra-ui/react';
+import { PostOrPage } from '../lib/types/ghost-types';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Navbar from '../components/Navbar';
 
 // PostPage page component
-const PostPage = ({ post }) => {
+const PostPage = ({ post }: { post: PostOrPage}) => {
   // Render post title and content in the page from props
   return (
     <Container color="white" maxW="100%" px="6%" className="test">
-      <Box max="100%">
-        <Flex my="30px" position="relative">
-          <Text>Fake Nav bar for the win!</Text>
-        </Flex>
-      </Box>
+      <Navbar />
       <chakra.article maxW="1200px" mx="auto">
         <Box 
           className="post-header" 
@@ -101,7 +100,7 @@ const PostPage = ({ post }) => {
                       paddingBottom="5px" 
                       lineHeight="1.7" 
                       fontSize="14px">{ post.excerpt }</Text>
-                    { post.tags.map((tag) => (
+                    { post.tags.map((tag: any) => (
                         <Text key={tag.id} textTransform="lowercase">#{tag.name}</Text>
                     ))}
                 </Box>
@@ -118,11 +117,11 @@ const PostPage = ({ post }) => {
   )
 }
 
-export async function getStaticPaths() {
-  const posts = await getPosts()
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts: any = await getPosts()
 
   // Get the paths we want to create based on posts
-  const paths = posts.map((post) => ({
+  const paths = posts.map((post: PostOrPage) => ({
     params: { slug: post.slug },
   }))
 
@@ -133,7 +132,7 @@ export async function getStaticPaths() {
 
 // Pass the page slug over to the "getSinglePost" function
 // In turn passing it to the posts.read() to query the Ghost Content API
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async (context:any) => {
   const post = await getSinglePost(context.params.slug)
 
   if (!post) {

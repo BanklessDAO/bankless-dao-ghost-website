@@ -5,16 +5,19 @@ import {
     Flex, 
     Link, 
     Image, 
-    ListItem, 
-    List
+    ListItem,
+    ListIcon, 
+    List,
+    Button
 } from "@chakra-ui/react";
+import { Search2Icon } from '@chakra-ui/icons';
 import { 
     PostOrPage, 
     Author, 
     Tag 
 } from '../lib/types/ghost-types';
 
-export default function Navbar(props) {
+export default function Navbar() {
     return (
         <Box as="header" width="100%" color="white">
             <Flex 
@@ -31,22 +34,41 @@ export default function Navbar(props) {
                     display="inline-block"
                     wordBreak="normal"
                     flex="1 0 auto"
+                    textAlign={{
+                        base: "left",
+                        md: "center",
+                        lg: "center"
+                    }}
+                    position={{
+                        lg: "absolute",
+                    }}
+                    left={{
+                        lg: "calc(50% - 150px)"
+                    }}
+                    top={{
+                        lg: "0"
+                    }}
+                    width={{
+                        lg: "300px"
+                    }}
                     >
                     <Heading 
                         as="h1" 
                         margin="0"
                         lineHeight="0"
                         >
-                        <Link href="/">
+                        <Link 
+                            display="inline-block"
+                            href="/">
                             <Image src="bankless-logo.png" alt="Bankless" maxW="300px" maxH="60px"/>
                         </Link>
                     </Heading>
                 </Box>
                 <Box 
                     className="headerNav"
-                    lineHeight="1.5"
-                    textAlign="right"
-                    flexBasis="50%"
+                    position="relative"
+                    zIndex="99"
+                    flex="0 1 100%"
                     >
                     <Flex 
                         as="nav"
@@ -61,17 +83,24 @@ export default function Navbar(props) {
                             listStyleType="none"
                             wordBreak="normal"
                             >
-                            <ListItem>
-                                <Link>Home</Link>
+                            <ListItem display="inline-block">
+                                <Link href="/" marginRight="18px">Home</Link>
                             </ListItem>
-                            <ListItem>
-                                <Link>Features</Link>
+                            <ListItem display="inline-block">
+                                <Link href="/features" marginRight="18px">Features</Link>
                             </ListItem>
-                            <ListItem>
-                                <Link>Authors</Link>
+                            <ListItem display="inline-block">
+                                <Link href="/authors" marginRight="18px">Authors</Link>
                             </ListItem>
-                            <ListItem>
-                                <Link>Tags</Link>
+                        </List>
+                        <List 
+                            display="flex"
+                            flex="0 0 auto"
+                            alignItems="center">
+                            <ListItem marginRight="18px">Register for Free!</ListItem>
+                            <ListItem marginRight="18px">Sign In</ListItem>
+                            <ListItem marginRight="18px">
+                                <ListIcon as={Search2Icon} color="white"/>
                             </ListItem>
                         </List>
                     </Flex>

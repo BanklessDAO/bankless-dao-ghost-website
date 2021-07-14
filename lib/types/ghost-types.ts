@@ -3,7 +3,7 @@ export type PostOrPage = {
     id?: string
     uuid?: string,
     title?: string, 
-    html?: string,
+    html: string,
     comment_id?: string ,
     feature_image?: string,
     feature_image_alt?: string | null,

@@ -3,7 +3,7 @@ import api from './ghost-api';
 export async function getPosts() {
     return await api.posts
       .browse({
-        limit: "all",
+        limit: "5",
         formats: ['plaintext'],
         include: ['tags','authors']
       })

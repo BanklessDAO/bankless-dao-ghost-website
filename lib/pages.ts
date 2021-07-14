@@ -1,4 +1,5 @@
 import api from './ghost-api';
+import { PostOrPage } from './types/ghost-types';
 
 export async function getFeaturedPages() {
     return await api.pages
@@ -11,18 +12,19 @@ export async function getFeaturedPages() {
       });
   }
 
-// export async function getPages() {
-//     return await api.posts
-//       .browse({
-//         limit: "all",
-//         formats: ['plaintext'],
-//         include: ['tags','authors'],
-//         filter: 
-//       })
-//       .catch(err => {
-//         console.error(err);
-//       });
-//   }
+export async function getPages(): Promise<PostOrPage> {
+    let posts: any = await api.posts
+      .browse({
+        limit: "all",
+        formats: ['plaintext'],
+        include: ['tags','authors'],
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+      return posts;
+  }
 
 // export async function getSinglePost(postSlug: string) {
 //   return await api.posts
