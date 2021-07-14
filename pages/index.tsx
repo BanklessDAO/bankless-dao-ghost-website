@@ -15,13 +15,6 @@ type HomeProps = {
 
 export default function Home({ featuredPages, featured, posts }: HomeProps) {
 
-  return (
-    <div >
-      <Head>
-        <title>Bankless DAO</title>
-        <meta name="description" content="Bankless DAO community site" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Container maxW="100%" px="6%">
         <Navbar />
         <SimpleGrid columns={2} rows={2}>
@@ -186,6 +179,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
         <chakra.footer color="white" height="300px">
           A Footer!
         </chakra.footer>
+
       </Container>
     </div>
   )
@@ -197,9 +191,7 @@ export async function getStaticProps(context: GetStaticProps) {
   const pages = await getPages();
 
   if (!posts) {
-    return {
-      notFound: true,
-    }
+    return !posts && { props: { notFound: true } }
   }
 
   posts.forEach((post: any) => {
