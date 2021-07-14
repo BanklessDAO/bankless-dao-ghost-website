@@ -14,7 +14,8 @@ type HomeProps = {
 };
 
 export default function Home({ featuredPages, featured, posts }: HomeProps) {
-  <div>
+  return (
+    <div>
       <Head>
         <title>Bankless DAO</title>
         <meta name="description" content="Bankless DAO community site" />
@@ -187,6 +188,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
 
       </Container>
     </div>
+  )
 }
 
 

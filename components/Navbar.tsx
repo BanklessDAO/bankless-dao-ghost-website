@@ -59,7 +59,7 @@ export default function Navbar() {
                         >
                         <Link 
                             display="inline-block"
-                            href="/">
+                            >
                             <Image src="bankless-logo.png" alt="Bankless" maxW="300px" maxH="60px"/>
                         </Link>
                     </Heading>

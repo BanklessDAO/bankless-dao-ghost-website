@@ -126,12 +126,12 @@ const PostPage = ({ post }: { post: PostOrPage}) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts: any = await getPosts()
+  const posts: any = await getPosts();
 
   // Get the paths we want to create based on posts
   const paths = posts.map((post: PostOrPage) => ({
     params: { slug: post.slug },
-  }))
+  }));
 
   // { fallback: false } means posts not found should 404.
   return { paths, fallback: false }
@@ -140,8 +140,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 // Pass the page slug over to the "getSinglePost" function
 // In turn passing it to the posts.read() to query the Ghost Content API
-export const getStaticProps: GetStaticProps = async (context:any) => {
-  const post = await getSinglePost(context.params.slug)
+export const getStaticProps: GetStaticProps = async (context: any) => {
+  const post = await getSinglePost(context.params.slug);
 
   if (!post) {
     return {
