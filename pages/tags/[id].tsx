@@ -17,3 +17,5 @@ const PostsByTag = () => {
     </>
   )
 }
+
+export default PostsByTag;
