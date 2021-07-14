@@ -9,10 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/mulish": "^4.5.0",
+    "@fontsource/source-code-pro": "^4.5.0",
+    "@fontsource/spartan": "^4.5.0",
     "@tryghost/content-api": "^1.5.9",
+    "@tryghost/helpers": "^1.1.49",
     "framer-motion": "^4",
     "next": "11.0.1",
     "react": "17.0.2",
