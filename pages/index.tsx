@@ -14,7 +14,12 @@ type HomeProps = {
 };
 
 export default function Home({ featuredPages, featured, posts }: HomeProps) {
-
+  <div>
+      <Head>
+        <title>Bankless DAO</title>
+        <meta name="description" content="Bankless DAO community site" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Container maxW="100%" px="6%">
         <Navbar />
         <SimpleGrid columns={2} rows={2}>
@@ -182,7 +187,6 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
 
       </Container>
     </div>
-  )
 }
 
 
@@ -191,7 +195,7 @@ export async function getStaticProps(context: GetStaticProps) {
   const pages = await getPages();
 
   if (!posts) {
-    return !posts && { props: { notFound: true } }
+    return { props: { notFound: true } }
   }
 
   posts.forEach((post: any) => {
