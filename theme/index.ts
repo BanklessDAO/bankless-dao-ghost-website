@@ -12,7 +12,9 @@ import List from "./components/list";
 import Link from "./components/link";
 
 // Custom app theme overrides.
-const overrides = {
+
+// TODO: figure out correct typing for override. If any is not added causes VSCode to yell at me.
+const overrides : any = {
     styles,
     breakpoints,
     fonts,
