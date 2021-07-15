@@ -7,6 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SubscribeSection from '../components/SubscribeSection';
 
 // PostPage page component
 const PostPage = ({ post }: { post: PostOrPage}) => {
@@ -118,6 +119,7 @@ const PostPage = ({ post }: { post: PostOrPage}) => {
           </Box>
           <Box className="postContent" dangerouslySetInnerHTML={{ __html: post.html}} maxW="700px" margin="0 auto 15vh"></Box>
         </chakra.article>
+        <SubscribeSection />
         <Footer />
       </Container>
     </>

@@ -1,11 +1,12 @@
 import Head from 'next/head';
-import { Container, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
+import { Container, Button, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getPosts } from '../lib/posts';
 import { getPages } from '../lib/pages';
 import { PostOrPage, Tag, Author } from '../lib/types/ghost-types';
 
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 type HomeProps = {
   featuredPages: PostOrPage[],
@@ -23,17 +24,15 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
       </Head>
       <Container maxW="100%" px="6%">
         <Navbar />
-        <SimpleGrid columns={2} rows={2}>
+        <SimpleGrid columns={2} rows={2} className="loop-wrap">
           { posts.map((post: PostOrPage, index: number) => {
               if(index == 0) {
                 return (
                     <Box 
-                      className="is-hero is-first"
+                      className="item is-hero is-first is-image"
                       as="article" 
                       key={post.id} 
                       color="white"
-                      paddingRight="35px"
-                      paddingLeft="60px"
                       width="100%"
                       marginTop="12vh"
                       paddingTop="0"
@@ -41,12 +40,60 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
                       gridColumn="span 2"
                     >
                       <Flex 
-                        className="item-container"
+                        className="item-container global-color"
                         position="relative"
                         maxW="100%"
                         boxSizing="border-box"
-                        flexDir="column"
+                        sx={{
+                          _before: {
+                            base: {
+                              ".item.is-hero.is-image &": {
+                                maxW: "491px"
+                              },
+                              ".item.is-hero &": {
+                                position: "absolute",
+                                width: "100%",
+                                content: "''",
+                                zIndex: "-2",
+                                top: "-6vh",
+                                right: "0",
+                                bottom: "-4vh",
+                                maxW: "59.7%",
+                                background: "radial-gradient(white 6%, transparent 0)",
+                                backgroundSize: "28px 28px"
+                              }
+                            }
+                          },
+                          _after: {
+                            base: {
+                              content: '""',
+                              background: "#ff4a97",
+                              width: "100%",
+                              position: "absolute",
+                              ".item.is-hero &": {
+                                zIndex: "-3",
+                                top: "-7vh",
+                                right: "70px",
+                                bottom: "4vh",
+                                maxW: "calc(59.7% - 65px)"
+                              },
+                              ".item.is-hero.is-image &": {
+                                maxW: "427px"
+                              }
+                            }
+                         }
+                       }}
                         >
+                        <Link 
+                          className="item-image global-image global-color"
+                          href={`${post.slug}`}
+                          >
+                          <Image 
+                            loading="lazy"
+                            objectFit="cover"
+                            src="https://via.placeholder.com/500" 
+                            alt="placeholder image"/>
+                        </Link>
                         <Box 
                           className="item-content"
                           width="100%"
@@ -57,16 +104,6 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
                           <Text className="global-meta">
                             A long time ago by { post.primary_author.name } - { post.reading_time } minutes
                           </Text>
-                          <Link 
-                            className="item-image global-image"
-                            href={`${post.slug}`}
-                            >
-                            <Image 
-                              loading="lazy"
-                              objectFit="cover"
-                              src="https://via.placeholder.com/500" 
-                              alt="placeholder image"/>
-                          </Link>
                           <Heading 
                             as="h2" 
                             fontSize="65px"
@@ -182,10 +219,12 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
           )}
         
         </SimpleGrid>
-        <chakra.footer color="white" height="300px">
-          A Footer!
-        </chakra.footer>
-
+        <Box className="pagination-section"
+        margin="10vh auto 15vh" textAlign="center">
+            <Link href="/page/2/" id="next-page" display="none"/>
+            <Button variant="loadMore" aria-label="Load more" display="inline-block"></Button>
+        </Box>
+        <Footer />
       </Container>
     </div>
   )

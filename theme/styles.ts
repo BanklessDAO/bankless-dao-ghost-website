@@ -1,7 +1,9 @@
 export default {
     global: {
         ":root": {
-            "--accent-color": "#00e6cb"
+            "--accent-color": "#00e6cb",
+            "--color-body": "#182029",
+            "--color-details": "#b690ff"
         },
         ".global-underline": {
             paddingBottom: ".2%",
@@ -47,10 +49,19 @@ export default {
             }
         },
         ".is-hero": {
-            flexBasis: "100%",
-            maxW: "100%",
-            marginTop: "10vh",
-            padding: "50px"
+            ".item&": {
+                maxW:"100%",
+                marginTop: "10vh",
+                padding: "50px 0",
+                flexBasis: "100%"
+            }
+        },
+        ".item": {
+            maxW: "50%",
+            marginTop: "12vh",
+            paddingTop: "0",
+            paddingBottom: "0",
+            flexBasis: "100%"
         },
         ".item-excerpt": {
             base: {
@@ -73,6 +84,10 @@ export default {
                 columnCount: "1"
             }
         },
+        ".loop-wrap": {
+            marginBottom: "5vh",
+            flexWrap: "wrap"
+        },
         ".item-image": {
             base: {
                 lineHeight: "0",
@@ -85,7 +100,6 @@ export default {
                 marginLeft: "7%",
                 ".item.is-hero &": {
                     top: "0",
-                    right: "50px",
                     float: "none",
                     width: "350px",
                     height: "100%",
@@ -93,6 +107,23 @@ export default {
                     order: "2",
                     flex: "0 0 350px"
                 }
+            },
+            md: {
+                ".item.is-hero &": {
+                    width: "290px",
+                    flexBasis: "290px"
+                }
+            },
+            lg: {
+                width: "95px",
+                height: "95px",
+                marginTop: "6px",
+                ".item.is-hero &": {
+                    right: "0"
+                }
+            },
+            xl: {
+                right: "0"
             }
         },
         ".item-container": {
