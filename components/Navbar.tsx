@@ -19,7 +19,7 @@ import {
 
 export default function Navbar() {
     return (
-        <Box as="header" width="100%" color="white">
+        <Box as="header" width="100%" color="white" overflow="auto">
             <Flex 
                 className="headerWrap" 
                 marginTop="30px" 

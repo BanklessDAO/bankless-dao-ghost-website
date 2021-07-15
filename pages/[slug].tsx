@@ -6,6 +6,7 @@ import { PostOrPage } from '../lib/types/ghost-types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 // PostPage page component
 const PostPage = ({ post }: { post: PostOrPage}) => {
@@ -17,109 +18,107 @@ const PostPage = ({ post }: { post: PostOrPage}) => {
         <meta name="description" content={ post.excerpt } />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container color="white" maxW="100%" px="6%" className="test">
-        <Navbar />
+      <Container maxW="100%" px="6%" className="test" overflow="auto">
+        <Navbar/>
         <chakra.article maxW="1200px" mx="auto">
           <Box 
-            className="post-header" 
+            className="post-header item is-hero is-image" 
             flexBasis="100%" 
             maxWidth="100%" 
             padding="50px 0"
             minHeight="45vh" 
-            marginTop="3vh" 
+            marginTop="10vh" 
             marginBottom="8vh"
             position="relative">
               <Flex sx={{
                   _before: {
-                      content: '" "',
-                      backgroundSize: "28px 28px",
-                      maxW: "375px",
-                      width: "100%",
-                      position:"absolute",
-                      zIndex: "-2",
-                      right: "0",
-                      top: "7vh",
-                      bottom: "-4vh",
-                      backgroundImage: "radial-gradient(white 6%, transparent 0)",
+                    base: {
+                      ".item.is-hero.is-image &": {
+                        maxW: "491px"
+                      },
+                      ".item.is-hero &": {
+                        position: "absolute",
+                        width: "100%",
+                        content: "''",
+                        zIndex: "-2",
+                        top: "-6vh",
+                        right: "0",
+                        bottom: "-4vh",
+                        maxW: "59.7%",
+                        background: "radial-gradient(white 6%, transparent 0)",
+                        backgroundSize: "28px 28px"
+                      }
+                    }
                   },
                   _after: {
-                      content: '" "',
-                      width: "314px",
-                      position:"absolute",
-                      bg: "#ff4a97",
-                      top: {
-                        base: "7vh",
-                        lg: "-4vh"
+                    base: {
+                      content: '""',
+                      background: "#ff4a97",
+                      width: "100%",
+                      position: "absolute",
+                      ".item.is-hero &": {
+                        zIndex: "-3",
+                        top: "-7vh",
+                        right: "70px",
+                        bottom: "4vh",
+                        maxW: "calc(59.7% - 65px)"
                       },
-                      right: "67px",
-                      bottom: "3vh",
-                      maxW: "calc(59.7% - 65px)",
-                      zIndex: "-3"
-                  }
+                      ".item.is-hero.is-image &": {
+                        maxW: "427px"
+                      }
+                    }
+                }
               }} 
-              boxSizing="border-box"
-              className="postHeader" 
-              maxW="100%"
-              marginBottom="8vh"
-              marginTop="3vh"
-              mx="auto"
-              padding="50px 0"
-              flex="1 0 50%"
-              flex-basis="100%"
-              max-width="100%"
+              className="item-container global-color" 
               >
-                  <Box 
-                    className=".itemImage" 
-                    order={2} 
-                    height="100%" 
-                    alignSelf="flex-start"
-                    flex=" 0 0 350px">
-
-                      <Image 
-                        src={ post.feature_image } 
-                        alt="image of publishing options" 
-                        width="100%"
-                        height="100%"
-                        objectFit="cover"/>
-
+                  <Box className="item-image global-image global-color">
+                      <Image src={ post.feature_image } alt="image of publishing options"/>
                   </Box>
-                  <Box className=".itemContent" transform="translateY(-4vh)" paddingRight="5%" width="100%">
+                  <Box 
+                    className=".item-content" 
+                    transform={{
+                      base: "translateY(0)",
+                      sm: "translateY(-4vh)" 
+                    }}
+                    padding={{
+                      base: "0",
+                    }}
+                    paddingRight="5%"
+                    width="100%"
+                  >
                       <Text 
                         marginBottom="2vh"
                         width="100%"
                         position="relative"
                         fontSize="13px" 
-                        className="itemMeta">A year ago by Authors - { post.reading_time} minutes</Text>
+                        className="item-meta">A year ago by Authors - { post.reading_time} minutes</Text>
                       <Heading 
-                        as="h2" 
-                        fontSize="55px" 
+                        as="h1" 
+                        fontSize={{
+                          base: "30px",
+                          lg: "65px",
+                          xl: "23px"
+                        }}
                         lineHeight="1.3" 
                         maxW="1000px" 
-                        margin="0 0 2vh -2vh"
-                        letterSpacing="-.5px"
-                        marginBlockStart="0.83em"
-                        marginBlockEnd="0.83em"
-                        marginInlineStart="0px"
-                        marginInlineEnd="0px">{ post.title }</Heading>
-                      <Text 
-                        maxW="380px"
-                        paddingTop="15px"
-                        paddingBottom="5px" 
-                        lineHeight="1.7" 
-                        fontSize="14px">{ post.excerpt }</Text>
-                      { post.tags.map((tag: any) => (
-                          <Text key={tag.id} textTransform="lowercase">#{tag.name}</Text>
-                      ))}
+                        margin={{
+                          base: "0 0 2vh -2px"
+                        }}
+                        marginTop="0px"
+                        marginLeft="-4px"
+                        letterSpacing="-.5px">{ post.title }</Heading>
+                      <Text className="item-excerpt">{ post.excerpt }</Text>
+                      <Box className="item-tags global-tags">
+                        { post.tags.map((tag: any) => (
+                            <Link key={tag.id} textTransform="lowercase">#{tag.name}</Link>
+                        ))}
+                      </Box>
                   </Box>
               </Flex>
           </Box>
           <Box className="postContent" dangerouslySetInnerHTML={{ __html: post.html}} maxW="700px" margin="0 auto 15vh"></Box>
-          <Box height="300px" width="100%"></Box>
-          <Box height="300px" width="100%"></Box>
-          <Box height="300px" width="100%"></Box>
-          <Box height="300px" width="100%"></Box>
-          <Box height="300px" width="100%"></Box>
         </chakra.article>
+        <Footer />
       </Container>
     </>
   )
