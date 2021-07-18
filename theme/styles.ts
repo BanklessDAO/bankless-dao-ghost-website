@@ -26,6 +26,17 @@ export default {
                 margin: "10px 1.5% 0 0"
             }
         },
+        ".global-members-label": {
+            fontFamily: "four",
+            fontSize: "13px",
+            lineHeight: "1.4",
+            position: "absolute",
+            top: "-30px",
+            left: "-1px",
+            color: "black",
+            background: "var(--color-details)",
+            textTransform: "capitalize"
+        },
         ".global-image": {
             lineHeight: 0,
             position: "relative",
@@ -50,7 +61,7 @@ export default {
         },
         ".is-hero": {
             ".item&": {
-                maxW:"100%",
+                maxW: "100%",
                 marginTop: "10vh",
                 padding: "50px 0",
                 flexBasis: "100%"
@@ -69,7 +80,7 @@ export default {
                 fontSize: "13px",
                 lineHeight: "1.6",
                 width: "95%",
-                maxW:"400px",
+                maxW: "400px",
                 marginTop: "0",
                 marginBottom: "0",
                 padding: "5px 0 10px"
@@ -213,7 +224,7 @@ export default {
         },
         blockquote: {
             fontSize: "30px",
-            position:"relative",
+            position: "relative",
             width: "100%",
             paddingLeft: "55px",
             lineHeight: "1.5",
