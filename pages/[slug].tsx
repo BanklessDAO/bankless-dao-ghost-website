@@ -164,8 +164,6 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
   let tagNames = post.tags.map((tag: Tag) => tag.name);
   const relatedPosts = await getPostsWithTag(tagNames);
 
-  console.log(relatedPosts);
-
   if (!post) {
     return {
       notFound: true,
