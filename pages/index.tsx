@@ -165,7 +165,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
                     >
                       <Link
                         className="item-image global-image"
-                        href={`${post.slug}`}
+                        href={`/${post.slug}`}
                         _after={{
                           position: "absolute",
                           content: "''",
@@ -191,7 +191,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
                       >
                         <Link
                           className="global-underline"
-                          href={`${post.slug}`}
+                          href={`/${post.slug}`}
                           textDecoration="none"
                         >
                           {post.title}
@@ -210,6 +210,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
                             key={tag.id}
                             textTransform="lowercase"
                             textDecoration="none"
+                            href={`/${tag.slug}`}
                           >#{tag.name}</Link>
                         ))}
                       </Box>
