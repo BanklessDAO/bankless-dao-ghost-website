@@ -40,3 +40,15 @@ export async function getPostsWithTag(parentTags: string[]): Promise<any> {
       console.error(err);
     });
 }
+
+export async function getFeaturedPosts(): Promise<any> {
+  return await api.posts
+    .browse({
+      limit: "3",
+      filter: "featured:true",
+      include: ['authors']
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}

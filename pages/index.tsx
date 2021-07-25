@@ -1,21 +1,23 @@
 import Head from 'next/head';
 import { Container, Button, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { getPosts } from '../lib/posts';
-import { getPages } from '../lib/pages';
+import { getFeaturedPosts, getPosts } from '../lib/posts';
+import { getFeaturedPages, getPages } from '../lib/pages';
 import { PostOrPage, Tag, Author } from '../lib/types/ghost-types';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SubscribeSection from '../components/SubscribeSection';
+import PinnedSection from '../components/PinnedSection';
 
 type HomeProps = {
   featuredPages: PostOrPage[],
-  featured: PostOrPage,
+  featuredPosts: PostOrPage[],
+  pages: PostOrPage[],
   posts: PostOrPage[]
 };
 
-export default function Home({ featuredPages, featured, posts }: HomeProps) {
+export default function Home({ featuredPosts, featuredPages, posts, pages }: HomeProps) {
   return (
     <div>
       <Head>
@@ -25,6 +27,7 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
       </Head>
       <Navbar />
       <Container maxW="container.xl" px="6%">
+        <PinnedSection featuredPages={featuredPages} featuredPosts={featuredPosts} />
         <SimpleGrid columns={2} rows={2} className="loop-wrap">
           {posts.map((post: PostOrPage, index: number) => {
             if (index == 0) {
@@ -239,20 +242,23 @@ export default function Home({ featuredPages, featured, posts }: HomeProps) {
 export async function getStaticProps(context: GetStaticProps) {
   const posts = await getPosts();
   const pages = await getPages();
+  const featuredPages = await getFeaturedPages();
+  const featuredPosts = await getFeaturedPosts();
 
   if (!posts) {
     return { props: { notFound: true } }
   }
 
-  posts.forEach((post: any) => {
-
-  });
+  console.log("featured pages: ", featuredPages);
+  console.log("featured posts: ", featuredPosts);
 
 
   return {
     props: {
       posts,
       pages,
+      featuredPages,
+      featuredPosts
     }
   }
 
