@@ -249,10 +249,6 @@ export async function getStaticProps(context: GetStaticProps) {
     return { props: { notFound: true } }
   }
 
-  console.log("featured pages: ", featuredPages);
-  console.log("featured posts: ", featuredPosts);
-
-
   return {
     props: {
       posts,

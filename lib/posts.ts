@@ -52,3 +52,24 @@ export async function getFeaturedPosts(): Promise<any> {
       console.error(err);
     });
 }
+
+// I am so violating DRY here.
+export async function getOlderPost(date: string): Promise<any> {
+  return await api.posts
+    .browse({
+      limit: "1",
+      filter: `published_at:<'${date}'`,
+      fields: ['id', 'title', 'feature_image', 'feature_image_alt', 'slug']
+    })
+    .catch(err => console.error(err));
+}
+
+export async function getNewerPost(date: string): Promise<any> {
+  return await api.posts
+    .browse({
+      limit: "1",
+      filter: `published_at:>'${date}'`,
+      fields: ['id', 'title', 'feature_image', 'feature_image_alt', 'slug']
+    })
+    .catch(err => console.error(err));
+}

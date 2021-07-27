@@ -1,4 +1,5 @@
 import { Heading, Text, Box, Flex, Link } from "@chakra-ui/layout";
+import { chakra } from "@chakra-ui/react";
 import { PostOrPage, Author, Tag } from '../lib/types/ghost-types';
 
 
@@ -14,24 +15,10 @@ export default function PinnedPosts({
     title
 }: PinnedPostsProps) {
     return (
-        <Flex
-            className={className}
-            margin="10vh auto 25px"
-            paddingTop="20px"
-            borderTop="4px solid var(--color-details)"
-            flexGrow={1}
-            position="relative">
-            <Heading
-                as="h2"
-                fontSize="13px"
-                lineHeight={1.4}
-                position="absolute"
-                zIndex={1}
-                top="0"
-                left="0"
-                margin="0"
-                background="var(--color-details)"
-                transform="translateY(-100%)">{title}</Heading>
+        <Flex className={className} position='relative' borderTop="4px solid var(--color-details)">
+            <Heading as="h2">
+                <chakra.span>{title}</chakra.span>
+            </Heading>
             {postsOrPages.map(postOrPage => (
                 <Box
                     key={postOrPage.id}

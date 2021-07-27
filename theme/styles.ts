@@ -3,7 +3,11 @@ export default {
         ":root": {
             "--accent-color": "#00e6cb",
             "--color-body": "#182029",
-            "--color-details": "#b690ff"
+            "--color-details": "#b690ff",
+            "--color-three": "#485b73",
+            "--border": "1px dashed",
+            "--font-weight-four-medium": "500",
+            "--color-font-two": "#182029"
         },
         ".global-underline": {
             paddingBottom: ".2%",
@@ -12,6 +16,55 @@ export default {
         },
         ".global-underline:hover": {
             backgroundSize: "97% 40%"
+        },
+        ".global-special": {
+            base: {
+                margin: "10vh auto 25px",
+                paddingTop: "20px",
+                borderTop: "4px solid var(--color-details)",
+                flexGrow: 1,
+            },
+            md: {
+                marginTop: "5vh"
+            },
+            lg: {
+                maxW: "100%"
+            },
+            "& h2": {
+                fontFamily: "four",
+                fontSize: "13px",
+                lineHeight: "1.4",
+                position: "absolute",
+                zIndex: 1,
+                top: 0,
+                left: 0,
+                display: "inline-block",
+                margin: 0,
+                transform: "translateY(-100%)",
+                letterSpacing: "0",
+                fontWeight: "var(--font-weight-four-medium)",
+                color: "var(--color-font-two)"
+            },
+            "& h2 span": {
+                background: "var(--color-details)"
+            },
+            "& h3": {
+                fontSize: "20px",
+                marginTop: 0,
+                marginBottom: "1vh"
+            },
+            "& article": {
+                boxSizing: "border-box",
+                padding: "10px 25px",
+                flex: "1 0 25%",
+                position: "relative"
+            },
+            "& article:first-of-type:last-of-type": {
+                borderLeft: "none"
+            },
+            "& article:not(:first-of-type):not(:last-of-type), & article:last-of-type": {
+                borderLeft: 'var(--border) var(--color-three)'
+            }
         },
         ".global-meta, .global-tags": {
             fontFamily: "four",
@@ -183,6 +236,25 @@ export default {
             "& .is-image img": {
                 maxW: "150px",
                 maxH: "45px"
+            }
+        },
+        ".post-share-section": {
+            "& a": {
+                display: "flex",
+                width: "85px",
+                height: "64px",
+                pointerEvents: "none",
+                border: 0,
+                justifyContent: "center",
+                alignItems: "center"
+            },
+            "& a:first-of-type": {
+                paddingLeft: "10px",
+                borderLeft: "var(--border) var(--color-three)"
+            },
+            "& a:last-of-type": {
+                paddingRight: "10px",
+                borderRight: "var(--border) var(--color-three)"
             }
         },
         ".footer-description": {

@@ -1,14 +1,21 @@
-import { Heading, Text, Box, Flex, Link } from "@chakra-ui/layout";
+import { Heading, Text, Box, Flex, Link, chakra } from "@chakra-ui/react";
 import { PostOrPage, Author, Tag } from '../lib/types/ghost-types';
 
 type PinnedPagesProps = {
-    relatedPages: PostOrPage[]
+    relatedPages?: {
+        id?: string,
+        title?: string,
+        slug?: string,
+        authors?: Author[]
+    }
 }
 
 export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
     return (
-        <Flex className="global-special">
-            <Heading as="h2">You might also like</Heading>
+        <Flex className="post-related global-special" position="relative" borderTop="4px solid var(--color-details)">
+            <Heading as="h2">
+                <chakra.span>You might also like</chakra.span>
+            </Heading>
             {relatedPages.map((page: PostOrPage, i: number) => {
                 if (i == 0) {
                     return (<Box key={page.id} as="article" className="is-first">

@@ -1,5 +1,5 @@
 // pages/posts/[slug].js
-import { getSinglePost, getPosts, getPostsWithTag } from '../lib/posts';
+import { getSinglePost, getPosts, getPostsWithTag, getNewerPost, getOlderPost } from '../lib/posts';
 // import Header from '../../components/Header';
 import { Link, Flex, Box, Heading, Container, Text, Image, chakra } from '@chakra-ui/react';
 import { Author, PostOrPage } from '../lib/types/ghost-types';
@@ -10,17 +10,29 @@ import Footer from '../components/Footer';
 import SubscribeSection from '../components/SubscribeSection';
 import RelatedPosts from '../components/RelatedPosts';
 import { Tag } from '../lib/types/ghost-types';
+import ShareLinks from '../components/ShareLinks';
+import NextPrevSection from '../components/NextPrevPost';
 
 type PostPageProps = {
   post: PostOrPage,
-  relatedPosts?: {
+  relatedPosts?: PostOrPage[],
+  newerPost?: {
     title: string,
-    authors: string[]
+    feature_image: string,
+    feature_image_alt: string,
+    slug: string
+  },
+  olderPost?: {
+    title: string,
+    feature_image: string,
+    feature_image_alt: string,
+    slug: string
   }
 };
 
 // PostPage page component
-const PostPage = ({ post, relatedPosts }: { post: PostOrPage, relatedPosts?: { id: string, title: string, slug: string, authors: Author[] } }) => {
+const PostPage = ({ post, relatedPosts, newerPost, olderPost }: PostPageProps) => {
+
   // Render post title and content in the page from props
   return (
     <>
@@ -127,16 +139,16 @@ const PostPage = ({ post, relatedPosts }: { post: PostOrPage, relatedPosts?: { i
               </Box>
             </Flex>
           </Box>
-          <Box className="postContent" dangerouslySetInnerHTML={{ __html: post.html }} maxW="700px" margin="0 auto 15vh"></Box>
-          <Box className="post-share-section">
-            <Flex>
-              <Link></Link>
-              <Link></Link>
-              <Link></Link>
-            </Flex>
-          </Box>
+          <Box
+            className="postContent"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+            maxW="700px"
+            margin="0 auto"
+          />
+          <ShareLinks />
         </chakra.article>
         <RelatedPosts relatedPages={relatedPosts} />
+        <NextPrevSection newerPost={newerPost[0] ? newerPost[0] : null} olderPost={olderPost[0] ? olderPost[0] : null} />
         <SubscribeSection />
         <Footer />
       </Container>
@@ -164,6 +176,11 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
   let tagNames = post.tags.map((tag: Tag) => tag.name);
   const relatedPosts = await getPostsWithTag(tagNames);
 
+  let { published_at } = post;
+
+  let newerPost = await getNewerPost(published_at);
+  let olderPost = await getOlderPost(published_at);
+
   if (!post) {
     return {
       notFound: true,
@@ -173,7 +190,9 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
   return {
     props: {
       post,
-      relatedPosts
+      relatedPosts,
+      newerPost,
+      olderPost
     }
   }
 
