@@ -15,8 +15,8 @@ Read about the workflow of this repo at [WORKFLOW](../docs/WORKFLOW.md)
 
 Step 2:
 
-Read about the workflow of this repo at [INSTALL](../docs/INSTALL.md)
+Read about installing this repo locally at [INSTALL](../docs/INSTALL.md)
 
 Step 3:
 
-Read about the workflow of this repo at [CONTRIBUTE](../docs/CONTRIBUTE.md)
+Read about how to contribute at [CONTRIBUTE](../docs/CONTRIBUTE.md)
