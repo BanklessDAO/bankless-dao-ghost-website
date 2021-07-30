@@ -5,7 +5,7 @@ type PinnedPagesProps = {
     featuredPages: PostOrPage[]
 }
 
-export default function PinnedPages({ featuredPages }: PinnedPagesProps) {
+export default function PinnedSection({ featuredPages }: PinnedPagesProps) {
     return (
         <Flex>
             <Heading as="h2" >
@@ -15,8 +15,8 @@ export default function PinnedPages({ featuredPages }: PinnedPagesProps) {
 
                 <Box as="article">
                     <Heading as="h3" className="global-underline">
-                        <Link textDecoration="none" href={ page.slug }>
-                            { page.title }
+                        <Link textDecoration="none" href={page.slug}>
+                            {page.title}
                         </Link>
                     </Heading>
                 </Box>
