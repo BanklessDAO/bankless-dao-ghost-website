@@ -14,7 +14,7 @@ If you're interested in contributing to the project, follow the steps outlined i
 
 Useful Links
 ------------
-
+* [Project Page on Notion](https://www.notion.so/bankless/Website-Refresh-1320df854ac54cb3a65018173b9e5445)
 * [Guild Sign Up Form](https://docs.google.com/forms/d/e/1FAIpQLScpV0-OTbcRj-fH8zv7y9EYom-J-PtKxJSgGjBTUmKQ1pHv1g/viewform)
 
 
