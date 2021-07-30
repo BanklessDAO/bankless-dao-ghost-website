@@ -2,6 +2,8 @@
 import { Link, Flex, chakra, Icon } from '@chakra-ui/react';
 import { FaTwitter, FaFacebook, FaCopy } from 'react-icons/fa';
 
+import { PostOrPage } from '../lib/types/ghost-types';
+
 type PostPageProps = {
     post: PostOrPage,
     relatedPosts?: {

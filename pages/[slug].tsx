@@ -15,19 +15,19 @@ import NextPrevSection from '../components/NextPrevPost';
 
 type PostPageProps = {
   post: PostOrPage,
-  relatedPosts?: PostOrPage[],
-  newerPost?: {
+  relatedPosts: PostOrPage[],
+  newerPost: {
     title: string,
     feature_image: string,
     feature_image_alt: string,
     slug: string
-  },
-  olderPost?: {
+  }[],
+  olderPost: {
     title: string,
     feature_image: string,
     feature_image_alt: string,
     slug: string
-  }
+  }[]
 };
 
 // PostPage page component
@@ -178,8 +178,8 @@ export const getStaticProps: GetStaticProps = async (context: any) => {
 
   let { published_at } = post;
 
-  let newerPost = await getNewerPost(published_at);
-  let olderPost = await getOlderPost(published_at);
+  let newerPost: PostOrPage = await getNewerPost(published_at);
+  let olderPost: PostOrPage = await getOlderPost(published_at);
 
   if (!post) {
     return {

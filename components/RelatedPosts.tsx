@@ -2,12 +2,7 @@ import { Heading, Text, Box, Flex, Link, chakra } from "@chakra-ui/react";
 import { PostOrPage, Author, Tag } from '../lib/types/ghost-types';
 
 type PinnedPagesProps = {
-    relatedPages?: {
-        id?: string,
-        title?: string,
-        slug?: string,
-        authors?: Author[]
-    }
+    relatedPages: PostOrPage[]
 }
 
 export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
