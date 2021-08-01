@@ -26,6 +26,7 @@ export default function Navbar() {
                 marginBottom="30px"
                 position="relative"
                 alignItems="center"
+                width="100"
             >
                 <Box
                     className="headerLogo"

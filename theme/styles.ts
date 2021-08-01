@@ -1,3 +1,5 @@
+import { Wrap } from "@chakra-ui/react";
+
 export default {
     global: {
         ":root": {
@@ -114,10 +116,18 @@ export default {
         },
         ".is-hero": {
             ".item&": {
-                maxW: "100%",
-                marginTop: "10vh",
-                padding: "50px 0",
-                flexBasis: "100%"
+                base: {
+                    maxW: "100%",
+                    marginTop: "10vh",
+                    padding: "50px 0",
+                    flexBasis: "100%"
+                },
+                sm: {
+                    marginBottom: "20px"
+                }
+            },
+            ".item&.is-first": {
+                marginTop: 0
             }
         },
         ".item": {
@@ -163,13 +173,24 @@ export default {
                 marginBottom: "15px",
                 marginLeft: "7%",
                 ".item.is-hero &": {
-                    top: "0",
-                    float: "none",
-                    width: "350px",
-                    height: "100%",
-                    margin: "0",
-                    order: "2",
-                    flex: "0 0 350px"
+                    base: {
+                        top: "0",
+                        float: "none",
+                        width: "350px",
+                        height: "100%",
+                        margin: "0",
+                        order: "2",
+                        flex: "0 0 350px"
+                    },
+                    sm: {
+                        maxW: "100%",
+                        marginBottom: "20px",
+                        flexBasis: "100%",
+                        order: 0
+                    },
+                    xl: {
+                        right: 0
+                    }
                 }
             },
             md: {
@@ -207,6 +228,42 @@ export default {
                 }
             }
         },
+        ".subscribe-wrap": {
+            base: {
+                marginTop: "8vh",
+                margin: "0 auto",
+                padding: "0 0 50px",
+                alignItems: "center",
+                flexWrap: "wrap"
+            },
+            md: {
+                flexWrap: "nowrap"
+            },
+        },
+        ".subscribe-wrap h3": {
+            base: {
+                fontSize: "28px",
+                lineHeight: "1.1",
+                boxSizing: "border-box",
+                minWidth: "280px",
+                margin: 0,
+                padding: "25px 5% 25px 0",
+                flex: "1 1 50%"
+            },
+            md: {
+                fontSize: "35px"
+            }
+        },
+        ".subscribe-form": {
+            base: {
+                height: "50px",
+                width: "100%",
+                flex: "0 0 auto"
+            },
+            md: {
+                height: "60px",
+            }
+        },
         ".global-footer": {
             width: "100%",
             maxW: "1200px",
@@ -220,15 +277,26 @@ export default {
             borderTop: "1px dashed #485b73"
         },
         ".footer-wrap": {
-            width: "100%",
-            margin: "0 auto",
-            alignItems: "flex-start",
-            boxSizing: "border-box"
+            base: {
+                width: "100%",
+                margin: "0 auto",
+                alignItems: "flex-start",
+                boxSizing: "border-box",
+                flexWrap: "wrap"
+            },
+            lg: {
+                flexWrap: "nowrap"
+            }
         },
         ".footer-data": {
-            boxSizing: "border-box",
-            paddingRight: "5%",
-            flex: "999 0 30%"
+            base: {
+                boxSizing: "border-box",
+                paddingRight: "5%",
+                flex: "999 0 30%"
+            },
+            md: {
+                flexBasis: "100%"
+            }
         },
         ".footer-logo": {
             marginBottom: "15px",
@@ -237,6 +305,76 @@ export default {
                 maxW: "150px",
                 maxH: "45px"
             }
+        },
+        ".footer-icons": {
+            base: {
+                marginTop: "30px",
+                marginBottom: "30px",
+                maxW: "340px"
+            }
+        },
+        ".footer-nav": {
+            base: {
+                flex: "1 0 auto",
+                flexWrap: "nowrap"
+            },
+            sm: {
+                flexWrap: "wrap"
+            },
+            md: {
+                maxW: "100%",
+                flexWrap: "wrap"
+            }
+        },
+        ".footer-nav-column": {
+            base: {
+                width: "150px",
+                marginBottom: "30px"
+            },
+            sm: {
+                flex: "1 0 50%"
+            },
+            md: {
+                width: "100%"
+            },
+            "& ul": {
+                base: {
+                    margin: 0,
+                    paddingLeft: "15%"
+                },
+                md: {
+                    paddingRight: "20px",
+                    paddingLeft: 0
+                }
+            },
+            "& li": {
+                base: {
+                    fontFamily: "two",
+                    fontSize: "13px",
+                    lineHeight: "2",
+                    marginBottom: "16px",
+                    listStyle: "none"
+                },
+                lg: {
+                    fontSize: "12px"
+                }
+            }
+        },
+        ".footer-copyright": {
+            base: {
+                display: "block",
+                height: "25px",
+                marginTop: "30px",
+                padding: 0,
+                fontFamily: "four",
+                fontSize: "13px",
+            }
+        },
+        ".footer-description": {
+            margin: "0",
+            maxW: "350px",
+            fontFamily: "four",
+            fontSize: "13px"
         },
         ".post-share-section": {
             "& a": {
@@ -256,12 +394,6 @@ export default {
                 paddingRight: "10px",
                 borderRight: "var(--border) var(--color-three)"
             }
-        },
-        ".footer-description": {
-            margin: "0",
-            maxW: "350px",
-            fontFamily: "four",
-            fontSize: "13px"
         },
         body: {
             bg: "#182029",
