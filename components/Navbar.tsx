@@ -8,9 +8,15 @@ import {
     ListItem,
     ListIcon,
     List,
-    Button
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Button,
+    chakra,
+    IconButton
 } from "@chakra-ui/react";
-import { Search2Icon } from '@chakra-ui/icons';
+import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import {
     PostOrPage,
     Author,
@@ -19,17 +25,10 @@ import {
 
 export default function Navbar() {
     return (
-        <Box as="header" width="100%" color="white" overflow="auto" px="6%">
-            <Flex
-                className="headerWrap"
-                marginTop="30px"
-                marginBottom="30px"
-                position="relative"
-                alignItems="center"
-                width="100"
-            >
+        <Box as="header" width="100%" color="white" px="6%" overflowY="visible">
+            <Flex className="header-wrap">
                 <Box
-                    className="headerLogo"
+                    className="header-logo"
                     flexBasis="50%"
                     lineHeight="0"
                     display="inline-block"
@@ -65,18 +64,27 @@ export default function Navbar() {
                         </Link>
                     </Heading>
                 </Box>
-                <Box
-                    className="headerNav"
-                    position="relative"
-                    zIndex="99"
-                    flex="0 1 100%"
-                >
-                    <Flex
-                        as="nav"
-                        width="100%"
-                        padding="0"
-                    >
+                <Box className="header-nav">
+                    <Flex as="nav" justifyContent="flex-end" display={{ base: "flex", lg: "none" }}>
+                        <Menu>
+                            <MenuButton as={IconButton} aria-label="site navigation menu" icon={<HamburgerIcon />} fontSize="32px" backgroundColor="transparent" sx={{ _hover: { background: "transparent" }, _active: { background: "transparent" } }} />
+                            <MenuList zIndex={1} borderRadius={0} background="var(--bg-nav)" border="none" fontSize="14px" width="200px">
+                                <MenuItem justifyContent="flex-end">Home</MenuItem>
+                                <MenuItem justifyContent="flex-end">Authors</MenuItem>
+                                <MenuItem justifyContent="flex-end">Register for Free!</MenuItem>
+                                <MenuItem justifyContent="flex-end">Sign In</MenuItem>
+                                <MenuItem justifyContent="flex-end" color="var(--bg-nav)" background="var(--color-details)">
+                                    Search<ListIcon as={Search2Icon} color="var(--bg-nav)" marginLeft="10px" />
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
+                    </Flex>
+                    <Flex as="nav" width="100%" padding="0">
                         <List
+                            display={{
+                                base: "none",
+                                lg: "block"
+                            }}
                             flexGrow={1}
                             zIndex={1}
                             margin="0"
@@ -95,7 +103,10 @@ export default function Navbar() {
                             </ListItem>
                         </List>
                         <List
-                            display="flex"
+                            display={{
+                                base: "none",
+                                lg: "block"
+                            }}
                             flex="0 0 auto"
                             alignItems="center">
                             <ListItem marginRight="18px">Register for Free!</ListItem>

@@ -16,7 +16,7 @@ export default function PinnedSection({ featuredPages, featuredPosts }: PinnedSe
                 base: "wrap"
             }}>
             <PinnedPostOrPage postsOrPages={featuredPages} className="pinned-pages global-special" title="Announcements" />
-            <PinnedPostOrPage postsOrPages={featuredPosts} className="pinned-pots global-special" title="Don't miss it" />
+            <PinnedPostOrPage postsOrPages={featuredPosts} className="pinned-posts global-special" title="Don't miss it" />
         </Flex>
     );
 }

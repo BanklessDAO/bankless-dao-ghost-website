@@ -1,11 +1,11 @@
-import { Wrap } from "@chakra-ui/react";
-
 export default {
     global: {
         ":root": {
+            "--bg-nav": "#242d39",
             "--accent-color": "#00e6cb",
             "--color-body": "#182029",
             "--color-details": "#b690ff",
+            "--color-two": "#f7f9f9",
             "--color-three": "#485b73",
             "--border": "1px dashed",
             "--font-weight-four-medium": "500",
@@ -22,51 +22,23 @@ export default {
         ".global-special": {
             base: {
                 margin: "10vh auto 25px",
-                paddingTop: "20px",
+                marginTop: 0,
+                paddingTop: "10px",
                 borderTop: "4px solid var(--color-details)",
                 flexGrow: 1,
+                position: "relative",
+                flexWrap: "wrap",
+                marginBottom: "10px"
+            },
+            sm: {
+                marginTop: 0
             },
             md: {
-                marginTop: "5vh"
+                marginTop: 0
             },
             lg: {
                 maxW: "100%"
             },
-            "& h2": {
-                fontFamily: "four",
-                fontSize: "13px",
-                lineHeight: "1.4",
-                position: "absolute",
-                zIndex: 1,
-                top: 0,
-                left: 0,
-                display: "inline-block",
-                margin: 0,
-                transform: "translateY(-100%)",
-                letterSpacing: "0",
-                fontWeight: "var(--font-weight-four-medium)",
-                color: "var(--color-font-two)"
-            },
-            "& h2 span": {
-                background: "var(--color-details)"
-            },
-            "& h3": {
-                fontSize: "20px",
-                marginTop: 0,
-                marginBottom: "1vh"
-            },
-            "& article": {
-                boxSizing: "border-box",
-                padding: "10px 25px",
-                flex: "1 0 25%",
-                position: "relative"
-            },
-            "& article:first-of-type:last-of-type": {
-                borderLeft: "none"
-            },
-            "& article:not(:first-of-type):not(:last-of-type), & article:last-of-type": {
-                borderLeft: 'var(--border) var(--color-three)'
-            }
         },
         ".global-meta, .global-tags": {
             fontFamily: "four",
@@ -114,6 +86,81 @@ export default {
                 margin: 0
             }
         },
+        ".header-wrap": {
+            minH: "60px",
+            marginTop: "20px",
+            marginBottom: "20px",
+            alignItems: "center",
+            position: "relative"
+        },
+        ".header-logo": {
+            base: {
+                flexBasis: "75%"
+            },
+            md: {
+                flexBasis: "50%"
+            }
+        },
+        ".header-nav": {
+            base: {
+                fontFamily: "two",
+                position: "relative",
+                zIndex: 99,
+                flex: "0 1 100%",
+                textAlign: "right"
+            },
+            sm: {
+                flexBasis: "25%"
+            },
+            md: {
+                flexBasis: "50%"
+            },
+            lg: {
+            }
+        },
+        ".header-checkbox": {
+            display: "none",
+            "&:checked~nav ul": {
+                position: "relative"
+            }
+        },
+        ".header-toggle": {
+            display: "block",
+            position: "relative",
+            zIndex: "99",
+            overflow: "visible",
+            width: "25px",
+            height: "25px",
+            margin: "0",
+            padding: "5px",
+            cursor: "pointer",
+            opacity: "1",
+            border: "0",
+            outline: "0",
+            background: "transparent",
+            "&>span": {
+                top: "50%"
+            },
+            "& span": {
+                display: "block",
+                width: "100%"
+            },
+            "& .bar": {
+                position: "absolute",
+                display: "block",
+                width: "100%",
+                height: "3px",
+                content: "''",
+                transition: "transform .3s cubic-bezier(.645, .045, .355, 1), top .3s cubic-bezier(.645, .045, .355, 1) .2s",
+                background: "var(--color-two)"
+            },
+            "& .bar:nth-of-type(1)": {
+                top: "-10px"
+            },
+            "& .bar:nth-of-type(3)": {
+                top: "10px"
+            }
+        },
         ".is-hero": {
             ".item&": {
                 base: {
@@ -128,6 +175,27 @@ export default {
             },
             ".item&.is-first": {
                 marginTop: 0
+            }
+        },
+        ".pinned-section": {
+            base: {
+                marginBottom: "4vh",
+                padding: "35px 5% 0",
+                border: "var(--border) var(--color-three)",
+                flexWrap: "wrap",
+                boxSizing: "content-box"
+            }
+        },
+        ".pinned-pages": {
+            base: {
+                boxSizing: "content-box"
+            }
+        },
+        ".pinned-posts": {
+            base: {
+                marginLeft: 0,
+                marginTop: "15px",
+                boxSizing: "content-box"
             }
         },
         ".item": {
@@ -215,6 +283,7 @@ export default {
             base: {
                 boxSizing: "border-box",
                 maxW: "100%",
+                flexWrap: "wrap",
                 position: "relative"
             },
             md: {
@@ -413,6 +482,17 @@ export default {
             border: "0",
             borderTop: "1px solid #f0f0f0"
         },
+        article: {
+            base: {
+                ".global-special &": {
+                    boxSizing: "border-box",
+                    padding: "10px 25px",
+                    flex: "1 0 25%",
+                    flexBasis: "100%",
+                    paddingLeft: 0
+                }
+            }
+        },
         p: {
             fontSize: "19px",
             fontWeight: "400",
@@ -464,11 +544,40 @@ export default {
             marginTop: "55px",
             lineHeight: "1.4",
             marginBottom: "20px",
-            marginLeft: "-1px"
+            marginLeft: "-1px",
+            ".global-special &": {
+                fontFamily: "four",
+                fontSize: "13px",
+                lineHeight: "1.4",
+                position: "absolute",
+                zIndex: 1,
+                top: 0,
+                left: 0,
+                display: "inline-block",
+                margin: 0,
+                transform: "translateY(-100%)",
+                letterSpacing: 0,
+                color: "var(--color-font-two)"
+            },
+            ".global-special & span": {
+                background: "var(--color-details)"
+            }
         },
         h3: {
-            fontSize: "31px",
-            marginTop: "45px"
+            base: {
+                fontSize: "31px",
+                marginTop: "45px",
+                ".global-special &": {
+                    fontSize: "20px",
+                    marginTop: 0,
+                    marginBottom: "1vh"
+                }
+            },
+            sm: {
+                ".global-special &": {
+                    fontSize: "15px"
+                }
+            }
         },
         h4: {
             fontSize: "24px",
