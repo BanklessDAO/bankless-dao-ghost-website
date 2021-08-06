@@ -1,3 +1,5 @@
+import { flexbox } from "@chakra-ui/react";
+
 export default {
     global: {
         ":root": {
@@ -6,10 +8,25 @@ export default {
             "--color-body": "#182029",
             "--color-details": "#b690ff",
             "--color-two": "#f7f9f9",
+            "--color-dots": "#485b73",
             "--color-three": "#485b73",
             "--border": "1px dashed",
             "--font-weight-four-medium": "500",
             "--color-font-two": "#182029"
+        },
+        ".global-wrap": {
+            height: "100%"
+        },
+        ".global-content": {
+            base: {
+                display: "flex",
+                position: "relative",
+                flexDirection: "column",
+                padding: "0 55px",
+                paddingRight: "6%",
+                paddingLeft: "6%",
+                height: "100%"
+            }
         },
         ".global-underline": {
             paddingBottom: ".2%",
@@ -39,6 +56,10 @@ export default {
             lg: {
                 maxW: "100%"
             },
+        },
+        ".global-meta": {
+            marginBottom: "2vh",
+            fontSize: "12px"
         },
         ".global-meta, .global-tags": {
             fontFamily: "four",
@@ -161,22 +182,6 @@ export default {
                 top: "10px"
             }
         },
-        ".is-hero": {
-            ".item&": {
-                base: {
-                    maxW: "100%",
-                    marginTop: "10vh",
-                    padding: "50px 0",
-                    flexBasis: "100%"
-                },
-                sm: {
-                    marginBottom: "20px"
-                }
-            },
-            ".item&.is-first": {
-                marginTop: 0
-            }
-        },
         ".pinned-section": {
             base: {
                 marginBottom: "4vh",
@@ -198,12 +203,68 @@ export default {
                 boxSizing: "content-box"
             }
         },
+        ".loop-wrap": {
+            flexWrap: "wrap",
+            marginBottom: 0
+        },
+        ".item, .item.is-hero": {
+            marginTop: 0,
+            marginBottom: "20px"
+        },
         ".item": {
-            maxW: "50%",
-            marginTop: "12vh",
-            paddingTop: "0",
-            paddingBottom: "0",
-            flexBasis: "100%"
+            base: {
+                maxW: "100%",
+                flexBasis: "100%",
+                marginTop: 0,
+                paddingTop: "0",
+                paddingBottom: "0",
+                "&.is-hero": {
+                    maxW: "100%",
+                    marginTop: "10vh",
+                    padding: "50px 0",
+                    flexBasis: "100%"
+                },
+                "&.is-hero.is-first": {
+                    marginTop: 0
+                }
+            },
+            sm: {
+                marginTop: 0,
+                marginBottom: "20px"
+            }
+        },
+        ".item-container": {
+            base: {
+                boxSizing: "border-box",
+                maxW: "100%",
+                flexWrap: "wrap",
+                position: "relative",
+            },
+            md: {
+                ".post-header.is-hero.is-image": {
+                    minHeight: "45vh"
+                }
+            },
+            sm: {
+                ".post-header.is-hero &": {
+                    alignItems: "center"
+                }
+            }
+        },
+        ".item-title": {
+            base: {
+                fontSize: "24px",
+                width: "100%",
+                margin: "0 0 2vh -2px",
+                ".item.is-hero &": {
+                    fontSize: "32px",
+                    marginBottom: "0",
+                    marginLeft: "-1px",
+                }
+            },
+            xl: {
+                fontSize: "30px"
+            }
         },
         ".item-excerpt": {
             base: {
@@ -214,7 +275,13 @@ export default {
                 maxW: "400px",
                 marginTop: "0",
                 marginBottom: "0",
-                padding: "5px 0 10px"
+                padding: "5px 0 10px",
+                ".item.is-hero &": {
+                    lineHeight: 1.7,
+                    columnCount: 1,
+                    paddingTop: "15px",
+                    paddingBottom: "5px"
+                }
             },
             lg: {
                 maxW: "500px",
@@ -226,38 +293,62 @@ export default {
                 columnCount: "1"
             }
         },
-        ".loop-wrap": {
-            marginBottom: "5vh",
-            flexWrap: "wrap"
+        ".item-content": {
+            base: {
+                width: "100%",
+                padding: "10px 0 10px 5%",
+                paddingLeft: 0
+            }
         },
         ".item-image": {
             base: {
                 lineHeight: "0",
                 position: "relative",
-                zIndex: "1",
+                zIndex: 1,
                 float: "right",
-                width: "125px",
-                height: "125px",
+                width: "95px",
+                height: "95px",
+                marginTop: "6px",
                 marginBottom: "15px",
                 marginLeft: "7%",
                 ".item.is-hero &": {
-                    base: {
-                        top: "0",
-                        float: "none",
-                        width: "350px",
-                        height: "100%",
-                        margin: "0",
-                        order: "2",
-                        flex: "0 0 350px"
+                    order: 0,
+                    maxW: "100%",
+                    width: "350px",
+                    height: "100%",
+                    margin: 0,
+                    marginBottom: "20px",
+                    flex: "0 0 350px",
+                    right: 0
+                },
+                ".item.is-hero & img": {
+                    maxW: "240px"
+                },
+                ".item.is-hero.is-image &": {
+                    _before: {
+                        zIndex: -2,
+                        right: 0,
+                        bottom: "10px",
+                        background: "radial-gradient(var(--color-dots) 6%, transparent 0)",
+                        position: "absolute",
+                        top: "-35px",
+                        left: "35px",
+                        display: "block",
+                        content: "''",
+                        backgroundSize: "17px 17px"
                     },
-                    sm: {
-                        maxW: "100%",
-                        marginBottom: "20px",
-                        flexBasis: "100%",
-                        order: 0
-                    },
-                    xl: {
-                        right: 0
+                    _after: {
+                        zIndex: -3,
+                        maxWidth: "240px",
+                        background: "#ff4a97",
+                        position: "absolute",
+                        top: "-35px",
+                        bottom: "40px",
+                        left: "35px",
+                        right: "6px",
+                        display: "block",
+                        content: "''",
+                        backgroundSize: "17px 17px"
                     }
                 }
             },
@@ -279,21 +370,11 @@ export default {
                 right: "0"
             }
         },
-        ".item-container": {
+        ".is-odd": {
             base: {
-                boxSizing: "border-box",
-                maxW: "100%",
-                flexWrap: "wrap",
-                position: "relative"
-            },
-            md: {
-                ".post-header.is-hero.is-image": {
-                    minHeight: "45vh"
-                }
-            },
-            sm: {
-                ".post-header.is-hero &": {
-                    alignItems: "center"
+                ".item& .item-container": {
+                    display: "block",
+                    borderLeft: "none"
                 }
             }
         },
@@ -561,6 +642,10 @@ export default {
             },
             ".global-special & span": {
                 background: "var(--color-details)"
+            },
+            "&.item-title": {
+                fontSize: "24px",
+                marginLeft: 0,
             }
         },
         h3: {
