@@ -66,10 +66,22 @@ export default function Navbar() {
                                 <Link href="/" marginRight="18px">Home</Link>
                             </ListItem>
                             <ListItem display="inline-block">
-                                <Link href="/features" marginRight="18px">Features</Link>
+                                <Link href="/guilds" marginRight="18px">Guilds</Link>
                             </ListItem>
                             <ListItem display="inline-block">
-                                <Link href="/authors" marginRight="18px">Authors</Link>
+                                <Link href="https://discord.gg/bjPz2w9Zts" marginRight="18px">Discord</Link>
+                            </ListItem>
+                            <ListItem display="inline-block">
+                                <Link href="/mission" marginRight="18px">Mission</Link>
+                            </ListItem>
+                            <ListItem display="inline-block">
+                                <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f" marginRight="18px">Wiki</Link>
+                            </ListItem>
+                            <ListItem display="inline-block">
+                                <Link href="https://forum.bankless.community/" marginRight="18px">Forum</Link>
+                            </ListItem>
+                            <ListItem display="inline-block">
+                                <Link href="https://snapshot.org/#/banklessvault.eth" marginRight="18px">Vote</Link>
                             </ListItem>
                         </List>
                         <List

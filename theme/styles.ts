@@ -31,6 +31,12 @@ export default {
                 padding: "0 55px"
             }
         },
+        ".global-main": {
+            width: "100%",
+            maxW: "1200px",
+            marginLeft: "auto",
+            marginRight: "auto"
+        },
         ".global-underline": {
             paddingBottom: ".2%",
             transition: "background-size .6s ease-out",
@@ -231,49 +237,98 @@ export default {
             flexWrap: "wrap",
             marginBottom: 0
         },
-        ".item, .item.is-hero": {
-            marginTop: 0,
-            marginBottom: "20px"
-        },
         ".item": {
             base: {
                 maxW: "100%",
-                flexBasis: "100%",
-                marginTop: 0,
-                paddingTop: "0",
-                paddingBottom: "0",
                 "&.is-hero": {
                     maxW: "100%",
                     marginTop: "10vh",
                     padding: "50px 0",
                     flexBasis: "100%"
                 },
+            },
+            sm: {
+                flexBasis: "100%",
+                marginTop: 0,
+                paddingTop: "0",
+                paddingBottom: "0",
+                marginBottom: "20px",
                 "&.is-hero.is-first": {
                     marginTop: 0
                 }
             },
-            sm: {
-                marginTop: 0,
-                marginBottom: "20px"
+            md: {
+                marginTop: "10vh",
+                maxW: "50%",
+                paddingTop: 0,
+                paddingBottom: 0,
+                flex: "1 0 50%",
+                marginBottom: 0,
+                "&.is-even": {
+                    paddingRight: "2%",
+                    paddingLeft: 0
+                },
+                "&.is-odd": {
+                    paddingRight: 0,
+                    paddingLeft: "2%"
+                }
+            },
+            lg: {
+                "&.is-hero.is-first": {
+                    marginTop: "3vh"
+                }
             }
         },
         ".item-container": {
             base: {
                 boxSizing: "border-box",
                 maxW: "100%",
-                flexWrap: "wrap",
                 position: "relative",
             },
-            md: {
-                ".post-header.is-hero.is-image": {
-                    minHeight: "45vh"
-                }
-            },
             sm: {
+                flexWrap: "wrap",
                 ".post-header.is-hero &": {
                     alignItems: "center"
+                },
+            },
+            md: {
+                flexWrap: "nowrap",
+                ".post-header.is-hero.is-image": {
+                    minHeight: "45vh"
+                },
+                ".item.is-hero.is-image &": {
+                    _before: {
+                        zIndex: -2,
+                        maxW: "275px",
+                        width: "100%",
+                        top: "-3.1vh",
+                        right: 0,
+                        bottom: "-4vh",
+                        background: "radial-gradient(var(--color-dots) 6%, transparent 0)",
+                        position: "absolute",
+                        content: "''",
+                        backgroundSize: "28px 28px"
+                    },
+                    _after: {
+                        zIndex: -3,
+                        position: "absolute",
+                        width: "100%",
+                        maxW: "245px",
+                        background: "#ff4a97",
+                        top: "-4vh",
+                        bottom: "3vh",
+                        right: "26px",
+                        content: "''",
+
+                    }
+                },
+                ".item.is-odd &": {
+                    borderLeft: "var(--border) var(--color-three)"
+                },
+                ".item.is-even &": {
+                    borderLeft: "var(--border) var(--color-three)"
                 }
-            }
+            },
         },
         ".item-title": {
             base: {
@@ -320,8 +375,13 @@ export default {
         ".item-content": {
             base: {
                 width: "100%",
+            },
+            sm: {
                 padding: "10px 0 10px 5%",
                 paddingLeft: 0
+            },
+            md: {
+                paddingLeft: "5%"
             }
         },
         ".item-image": {
@@ -345,15 +405,23 @@ export default {
                     bottom: "6px",
                     left: "-6px"
                 },
+                "a&": {
+                    display: "block"
+                },
                 ".item.is-hero &": {
-                    order: 0,
-                    maxW: "100%",
-                    width: "350px",
                     height: "100%",
                     margin: 0,
                     marginBottom: "20px",
                     flex: "0 0 350px",
-                    right: 0
+                    right: 0,
+                    _after: {
+                        display: "none"
+                    }
+                },
+            },
+            sm: {
+                ".item.is-hero &": {
+                    order: 0
                 },
                 ".item.is-hero & img": {
                     maxW: "240px"
@@ -385,11 +453,21 @@ export default {
                         backgroundSize: "17px 17px"
                     }
                 }
+
             },
             md: {
                 ".item.is-hero &": {
+                    order: 2,
                     width: "290px",
                     flexBasis: "290px"
+                },
+                ".item.is-hero.is-image &": {
+                    _before: {
+                        display: "none"
+                    },
+                    _after: {
+                        display: "none"
+                    }
                 }
             },
             lg: {
@@ -397,7 +475,7 @@ export default {
                 height: "95px",
                 marginTop: "6px",
                 ".item.is-hero &": {
-                    right: "0"
+                    right: "0",
                 }
             },
             xl: {
@@ -405,7 +483,7 @@ export default {
             }
         },
         ".is-odd": {
-            base: {
+            sm: {
                 ".item& .item-container": {
                     display: "block",
                     borderLeft: "none"
@@ -423,6 +501,8 @@ export default {
                 margin: "0 auto",
                 padding: "0 0 50px",
                 alignItems: "center",
+            },
+            sm: {
                 flexWrap: "wrap"
             },
             md: {
@@ -433,10 +513,12 @@ export default {
             base: {
                 display: "flex",
                 position: "relative",
-                width: "100%",
                 height: "50px",
                 flex: "0 0 auto",
                 boxSizing: "content-box",
+            },
+            sm: {
+                width: "70%",
                 "& input": {
                     width: "20%",
                     paddingRight: "10px",
@@ -468,15 +550,23 @@ export default {
             },
             md: {
                 height: "60px",
+                "& input": {
+                    width: "180px"
+                }
             }
         },
         ".pagination-section": {
             base: {
-                marginTop: "5vh",
-                marginBottom: "9vh",
                 paddingBottom: "1px",
                 textAlign: "center",
                 boxSizing: "content-box"
+            },
+            sm: {
+                marginTop: "5vh",
+                marginBottom: "9vh"
+            },
+            md: {
+                margin: "10vh auto 15vh"
             }
         },
         ".global-footer": {
@@ -633,19 +723,26 @@ export default {
                 ".global-special &": {
                     boxSizing: "border-box",
                     padding: "10px 25px",
+                },
+            },
+            sm: {
+                ".global-special  &": {
+                    flexBasis: "100%"
+                }
+            },
+            md: {
+                ".global-special &": {
                     flex: "1 0 25%",
-                    paddingLeft: 0
                 },
                 ".global-special &:not(:first-of-type):not(:last-of-type), .global-special &:last-of-type": {
                     borderLeft: "var(--border) var(--color-three)"
                 },
                 ".global-special &:first-of-type:last-of-type": {
-                    borderLeft: "none"
-                }
-            },
-            sm: {
-                ".global-special  &": {
-                    flexBasis: "100%"
+                    borderLeft: "none",
+
+                },
+                ".global-special &:first-of-type": {
+                    paddingLeft: 0
                 }
             },
             lg: {
@@ -743,6 +840,9 @@ export default {
                     margin: 0,
                     padding: "25px 5% 25px 0",
                     flex: "1 1 50%"
+                },
+                ".global-special &+.global-meta": {
+                    marginBottom: 0
                 }
             },
             sm: {

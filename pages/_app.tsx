@@ -7,6 +7,7 @@ import "@fontsource/spartan/700.css";
 import type { AppProps } from 'next/app';
 import { chakra, ChakraProvider, Container } from '@chakra-ui/react';
 import theme from '../theme';
+import { getSettings } from "../lib/settings";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,4 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ChakraProvider>
   );
 }
+
+
 export default MyApp
