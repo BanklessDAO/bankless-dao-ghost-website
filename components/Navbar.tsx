@@ -25,47 +25,17 @@ import {
 
 export default function Navbar() {
     return (
-        <Box as="header" width="100%" color="white" px="6%" overflowY="visible">
+        <Box as="header" width="100%" color="white" overflowY="visible">
             <Flex className="header-wrap">
-                <Box
-                    className="header-logo"
-                    flexBasis="50%"
-                    lineHeight="0"
-                    display="inline-block"
-                    wordBreak="normal"
-                    flex="1 0 auto"
-                    textAlign={{
-                        base: "left",
-                        md: "center",
-                        lg: "center"
-                    }}
-                    position={{
-                        lg: "absolute",
-                    }}
-                    left={{
-                        lg: "calc(50% - 150px)"
-                    }}
-                    top={{
-                        lg: "0"
-                    }}
-                    width={{
-                        lg: "300px"
-                    }}
-                >
-                    <Heading
-                        as="h1"
-                        margin="0"
-                        lineHeight="0"
-                    >
-                        <Link
-                            display="inline-block"
-                        >
+                <Box className="header-logo">
+                    <Heading as="h1" margin="0" lineHeight="0">
+                        <Link href="/" display="inline-block">
                             <Image src="bankless-logo.png" alt="Bankless" maxW="300px" maxH="60px" />
                         </Link>
                     </Heading>
                 </Box>
                 <Box className="header-nav">
-                    <Flex as="nav" justifyContent="flex-end" display={{ base: "flex", lg: "none" }}>
+                    <Flex as="nav" justifyContent="flex-end" display={{ base: "flex", xl: "none" }}>
                         <Menu>
                             <MenuButton as={IconButton} aria-label="site navigation menu" icon={<HamburgerIcon />} fontSize="32px" backgroundColor="transparent" sx={{ _hover: { background: "transparent" }, _active: { background: "transparent" } }} />
                             <MenuList zIndex={1} borderRadius={0} background="var(--bg-nav)" border="none" fontSize="14px" width="200px">
@@ -83,7 +53,7 @@ export default function Navbar() {
                         <List
                             display={{
                                 base: "none",
-                                lg: "block"
+                                xl: "block"
                             }}
                             flexGrow={1}
                             zIndex={1}
@@ -105,7 +75,7 @@ export default function Navbar() {
                         <List
                             display={{
                                 base: "none",
-                                lg: "block"
+                                xl: "block"
                             }}
                             flex="0 0 auto"
                             alignItems="center">

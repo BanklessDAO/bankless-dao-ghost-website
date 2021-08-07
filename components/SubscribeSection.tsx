@@ -9,7 +9,8 @@ import {
     ListItem,
     ListIcon,
     List,
-    Button
+    Button,
+    chakra
 } from "@chakra-ui/react";
 import { Search2Icon } from '@chakra-ui/icons';
 import {
@@ -20,41 +21,27 @@ import {
 
 export default function SubscribeSection() {
     return (
-        <Flex className="subscribe-wrap">
-            <Heading as="h3">Subscribe to new posts.</Heading>
-            <Flex as="form" className="subscribe-form">
-                <Input width="250px"
-                    background="white"
-                    color="black"
-                    flex="1 1 auto"
-                    height="inherit"
-                    type="email"
-                    fontFamily="two"
-                    padding="0 20px"
-                    borderRadius="0"
-                    placeholder="Your email address"
-                    aria-label="Your email address"
-                    lineHeight="1"
-                    boxSizing="content-box"
-                    borderWidth="0"
-                    isRequired
-                    sx={{
-                        _placeholder: {
-                            color: "black"
-                        }
-                    }} />
-                <Button
-                    borderRadius="0px"
-                    height="inherit"
-                    color="black"
-                    lineHeight="1"
-                    fontFamily="two"
-                    padding="0 20px"
-                    background="var(--color-details)">Subscribe</Button>
+        <chakra.div className="subscribe-section">
+            <Flex className="subscribe-wrap">
+                <Heading as="h3">Subscribe to new posts.</Heading>
+                <Flex as="form" className="subscribe-form">
+                    <Input
+                        height="inherit"
+                        type="email"
+                        placeholder="Your email address"
+                        aria-label="Your email address"
+                        boxSizing="content-box"
+                        borderWidth="0"
+                        isRequired
+                    />
+                    <Button className="global-button" type="submit">Subscribe</Button>
+                    <Box className="subscribe-alert">
+                        <chakra.small className="alert-loading"></chakra.small>
+                        <chakra.small className="alert-success"></chakra.small>
+                        <chakra.small className="alert-error"></chakra.small>
+                    </Box>
+                </Flex>
             </Flex>
-            <Box className="subscribe-alert">
-
-            </Box>
-        </Flex>
+        </chakra.div>
     );
 }

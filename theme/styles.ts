@@ -1,4 +1,4 @@
-import { flexbox } from "@chakra-ui/react";
+import { background, flexbox } from "@chakra-ui/react";
 
 export default {
     global: {
@@ -22,10 +22,13 @@ export default {
                 display: "flex",
                 position: "relative",
                 flexDirection: "column",
-                padding: "0 55px",
                 paddingRight: "6%",
                 paddingLeft: "6%",
-                height: "100%"
+                height: "100%",
+                maxW: "unset"
+            },
+            md: {
+                padding: "0 55px"
             }
         },
         ".global-underline": {
@@ -94,7 +97,7 @@ export default {
             height: "125px",
             marginLeft: "7%",
             marginBottom: "15px",
-            "&::after": {
+            _after: {
                 background: "orange"
             },
             ".is-hero &": {
@@ -105,6 +108,11 @@ export default {
                 width: "350px",
                 height: "100%",
                 margin: 0
+            },
+            "& img": {
+                width: "100%",
+                height: "100%",
+                objectFit: "cover"
             }
         },
         ".header-wrap": {
@@ -184,16 +192,32 @@ export default {
         },
         ".pinned-section": {
             base: {
-                marginBottom: "4vh",
-                padding: "35px 5% 0",
-                border: "var(--border) var(--color-three)",
+                boxSizing: "content-box",
                 flexWrap: "wrap",
-                boxSizing: "content-box"
+                marginBottom: "4vh",
+            },
+            sm: {
+                border: "var(--border) var(--color-three)",
+                padding: "35px 5% 0",
+            },
+            md: {
+                padding: 0,
+                border: "none"
+            },
+            lg: {
+                border: "none"
             }
+
         },
         ".pinned-pages": {
             base: {
                 boxSizing: "content-box"
+            },
+            sm: {
+                maxW: "100%"
+            },
+            lg: {
+                marginTop: "5vh"
             }
         },
         ".pinned-posts": {
@@ -311,6 +335,16 @@ export default {
                 marginTop: "6px",
                 marginBottom: "15px",
                 marginLeft: "7%",
+                _after: {
+                    position: "absolute",
+                    zIndex: -1,
+                    content: "''",
+                    pointerEvents: 'none',
+                    top: "-6px",
+                    right: "6px",
+                    bottom: "6px",
+                    left: "-6px"
+                },
                 ".item.is-hero &": {
                     order: 0,
                     maxW: "100%",
@@ -378,6 +412,11 @@ export default {
                 }
             }
         },
+        ".subscribe-section": {
+            base: {
+                marginTop: "8vh"
+            }
+        },
         ".subscribe-wrap": {
             base: {
                 marginTop: "8vh",
@@ -390,28 +429,54 @@ export default {
                 flexWrap: "nowrap"
             },
         },
-        ".subscribe-wrap h3": {
-            base: {
-                fontSize: "28px",
-                lineHeight: "1.1",
-                boxSizing: "border-box",
-                minWidth: "280px",
-                margin: 0,
-                padding: "25px 5% 25px 0",
-                flex: "1 1 50%"
-            },
-            md: {
-                fontSize: "35px"
-            }
-        },
         ".subscribe-form": {
             base: {
-                height: "50px",
+                display: "flex",
+                position: "relative",
                 width: "100%",
-                flex: "0 0 auto"
+                height: "50px",
+                flex: "0 0 auto",
+                boxSizing: "content-box",
+                "& input": {
+                    width: "20%",
+                    paddingRight: "10px",
+                    paddingLeft: "10px",
+                    wordBreak: "normal",
+                    color: "var(--color-body)",
+                    background: "var(--color-two)",
+                    flex: "1 1 auto",
+                    fontSize: "16px",
+                    padding: "0 20px",
+                    borderRadius: 0,
+                    _focus: {
+                        width: "20%",
+                    }
+                },
+                "& button": {
+                    height: "unset",
+                    paddingRight: "10px",
+                    paddingLeft: "10px",
+                    borderRadius: 0,
+                    background: "var(--color-details)",
+                    fontSize: "16px",
+                    padding: "0 20px",
+                    cursor: "pointer",
+                    color: "var(--color-font-two)",
+                    boxShadow: "none",
+                    flex: "0 0 auto"
+                }
             },
             md: {
                 height: "60px",
+            }
+        },
+        ".pagination-section": {
+            base: {
+                marginTop: "5vh",
+                marginBottom: "9vh",
+                paddingBottom: "1px",
+                textAlign: "center",
+                boxSizing: "content-box"
             }
         },
         ".global-footer": {
@@ -569,9 +634,22 @@ export default {
                     boxSizing: "border-box",
                     padding: "10px 25px",
                     flex: "1 0 25%",
-                    flexBasis: "100%",
                     paddingLeft: 0
+                },
+                ".global-special &:not(:first-of-type):not(:last-of-type), .global-special &:last-of-type": {
+                    borderLeft: "var(--border) var(--color-three)"
+                },
+                ".global-special &:first-of-type:last-of-type": {
+                    borderLeft: "none"
                 }
+            },
+            sm: {
+                ".global-special  &": {
+                    flexBasis: "100%"
+                }
+            },
+            lg: {
+
             }
         },
         p: {
@@ -656,11 +734,23 @@ export default {
                     fontSize: "20px",
                     marginTop: 0,
                     marginBottom: "1vh"
+                },
+                ".subscribe-wrap &": {
+                    fontSize: "28px",
+                    lineHeight: 1.1,
+                    boxSizing: "border-box",
+                    minW: "280px",
+                    margin: 0,
+                    padding: "25px 5% 25px 0",
+                    flex: "1 1 50%"
                 }
             },
             sm: {
                 ".global-special &": {
                     fontSize: "15px"
+                },
+                ".subscribe-wrap &": {
+                    fontSize: "35px"
                 }
             }
         },

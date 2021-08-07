@@ -31,17 +31,7 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
         {posts.map((post: PostOrPage, index: number) => {
           if (index == 0) {
             return (
-              <Box
-                className="item is-hero is-first is-image"
-                as="article"
-                key={post.id}
-                color="white"
-                width="100%"
-                marginTop="12vh"
-                paddingTop="0"
-                paddingBottom="0"
-                gridColumn="span 2"
-              >
+              <Box className="item is-hero is-first is-image" as="article" key={post.id}>
                 <Flex className="item-container global-color">
                   <Link
                     className="item-image global-image global-color"
@@ -50,7 +40,7 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                     <Image
                       loading="lazy"
                       objectFit="cover"
-                      src="https://via.placeholder.com/500"
+                      src={post.feature_image}
                       alt="placeholder image" />
                   </Link>
                   <Box
@@ -96,12 +86,11 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                 className={["item is-image post", index % 2 == 0 ? 'is-even' : 'is-odd',].join(' ')}
               >
                 <Flex className="item-container">
-                  {post.visibility !== 'public' && (<chakra.span className="global-members-label" display="block">{post.visibility}</chakra.span>)}
                   <Box className="item-content">
                     <Link className="item-image global-image" href={`/${post.slug}`}>
                       <Image
                         loading="lazy"
-                        src="https://via.placeholder.com/260"
+                        src={post.feature_image}
                         alt="placeholder image" />
                     </Link>
                     <Heading as="h2" className="item-title">
@@ -110,7 +99,7 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                     <Text className="global-meta">
                       {post.primary_author.name}
                     </Text>
-                    {post.excerpt && <Text fontFamily="one" fontWeight="500" fontSize="13px">
+                    {post.excerpt && <Text className="item-excerpt" fontFamily="one" fontWeight="500" fontSize="13px">
                       {post.excerpt}
                     </Text>
                     }
@@ -133,10 +122,11 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
         )}
 
       </Flex>
-      <Box className="pagination-section"
-        margin="10vh auto 15vh" textAlign="center">
-        <Link href="/page/2/" id="next-page" display="none" />
-        <Button variant="loadMore" aria-label="Load more" display="inline-block"></Button>
+      <Box className="pagination-section">
+        <Box className="pagination-wrap">
+          <Link href="/page/2/" id="next-page" display="none" />
+          <Button variant="loadMore" aria-label="Load more" display="inline-block"></Button>
+        </Box>
       </Box>
       <SubscribeSection />
       <Footer />

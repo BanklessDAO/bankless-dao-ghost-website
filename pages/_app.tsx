@@ -12,9 +12,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <chakra.div className="global-wrap">
-        <Container className="global-content">
+        <chakra.div className="global-content" maxW="100%">
           <Component {...pageProps} />
-        </Container>
+        </chakra.div>
       </chakra.div>
     </ChakraProvider>
   );
