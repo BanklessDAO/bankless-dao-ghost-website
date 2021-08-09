@@ -10,6 +10,7 @@ import fonts from './fonts';
 import Button from './components/button';
 import List from "./components/list";
 import Link from "./components/link";
+import Input from './components/input';
 
 // Custom app theme overrides.
 
@@ -21,7 +22,8 @@ const overrides : any = {
     components: {
         Button,
         List,
-        Link
+        Link,
+        Input
     }
 };
 
