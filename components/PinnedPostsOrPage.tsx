@@ -23,7 +23,7 @@ export default function PinnedPosts({
                 <Box
                     key={postOrPage.id}
                     as="article">
-                    <Heading as="h3" fontSize="20px" marginTop="0" marginBottom="1vh">
+                    <Heading as="h3">
                         <Link href={postOrPage.slug} className="global-underline">{postOrPage.title}</Link>
                     </Heading>
                     <Box className="global-meta">

@@ -26,12 +26,9 @@ export default function SubscribeSection() {
                 <Heading as="h3">Subscribe to new posts.</Heading>
                 <Flex as="form" className="subscribe-form">
                     <Input
-                        height="inherit"
                         type="email"
                         placeholder="Your email address"
                         aria-label="Your email address"
-                        boxSizing="content-box"
-                        borderWidth="0"
                         isRequired
                     />
                     <Button className="global-button" type="submit">Subscribe</Button>

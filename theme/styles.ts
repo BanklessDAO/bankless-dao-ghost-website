@@ -6,16 +6,46 @@ export default {
             "--bg-nav": "#242d39",
             "--accent-color": "#00e6cb",
             "--color-body": "#182029",
-            "--color-details": "#b690ff",
+            "--color-details": "#ff1a1a",
             "--color-two": "#f7f9f9",
             "--color-dots": "#485b73",
             "--color-three": "#485b73",
             "--border": "1px dashed",
             "--font-weight-four-medium": "500",
-            "--color-font-two": "#182029"
+            "--color-font-two": "#182029",
+            "--color-announcements": "#fed672"
         },
         ".global-wrap": {
             height: "100%"
+        },
+        ".global-button": {
+            fontFamily: "two",
+            lineHeight: 1,
+            position: "relative",
+            zIndex: 0,
+            cursor: "pointer",
+            letterSpacing: "1px",
+            color: "var(--color-font-two)",
+            border: 0,
+            outline: 0,
+            _before: {
+                zIndex: -1,
+                background: "var(--color-details)",
+                position: "absolute",
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0,
+                content: "''"
+            },
+            _after: {
+                position: "absolute",
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0,
+                content: "''"
+            }
         },
         ".global-content": {
             base: {
@@ -47,24 +77,26 @@ export default {
         },
         ".global-special": {
             base: {
-                margin: "10vh auto 25px",
-                marginTop: 0,
                 paddingTop: "10px",
                 borderTop: "4px solid var(--color-details)",
                 flexGrow: 1,
                 position: "relative",
                 flexWrap: "wrap",
-                marginBottom: "10px"
             },
             sm: {
-                marginTop: 0
+                margin: "10vh auto 25px",
+                marginTop: 0,
             },
             md: {
                 marginTop: 0
             },
             lg: {
+                marginTop: "5vh",
                 maxW: "100%"
             },
+            xl: {
+                margin: "10vh auto 25px"
+            }
         },
         ".global-meta": {
             marginBottom: "2vh",
@@ -121,6 +153,9 @@ export default {
                 objectFit: "cover"
             }
         },
+        ".header-section": {
+            width: "100%"
+        },
         ".header-wrap": {
             minH: "60px",
             marginTop: "20px",
@@ -134,6 +169,23 @@ export default {
             },
             md: {
                 flexBasis: "50%"
+            },
+            xl: {
+                zIndex: 98,
+                top: 0,
+                width: "300px",
+                textAlign: "center",
+                position: "absolute",
+                left: "calc(50% - 150px)"
+            }
+        },
+        "#mobile-nav": {
+            sm: {
+                display: "flex",
+                justifyContent: "flex-end",
+            },
+            xl: {
+                display: "none"
             }
         },
         ".header-nav": {
@@ -142,15 +194,37 @@ export default {
                 position: "relative",
                 zIndex: 99,
                 flex: "0 1 100%",
-                textAlign: "right"
             },
             sm: {
-                flexBasis: "25%"
+                flexBasis: "25%",
+                "& nav": {
+                    display: "none"
+                }
             },
             md: {
                 flexBasis: "50%"
             },
-            lg: {
+            xl: {
+                "& nav, & nav>ul+ul": {
+                    display: "flex",
+                    alignItems: "center",
+                    flex: "0 0 auto"
+                },
+                "& li, & a": {
+                    fontSize: "14px",
+                    display: "inline-block"
+                },
+                "& a, & .signin a, & .signout a, & .signup": {
+                    marginRight: "18px",
+                },
+                "& .signup a": {
+                    fontFamily: "two",
+                    fontSize: "12px",
+                    marginRight: 0,
+                    padding: "10px 12px 8px",
+                    letterSpacing: ".5px",
+                    lineHeight: "18px"
+                }
             }
         },
         ".header-checkbox": {
@@ -199,38 +273,58 @@ export default {
         ".pinned-section": {
             base: {
                 boxSizing: "content-box",
-                flexWrap: "wrap",
-                marginBottom: "4vh",
             },
             sm: {
+                flexWrap: "wrap",
+                marginBottom: "4vh",
                 border: "var(--border) var(--color-three)",
                 padding: "35px 5% 0",
             },
-            md: {
+            lg: {
                 padding: 0,
                 border: "none"
             },
-            lg: {
-                border: "none"
+            xl: {
+                marginBottom: 0,
+                flexWrap: "nowrap"
             }
 
         },
         ".pinned-pages": {
             base: {
-                boxSizing: "content-box"
+                boxSizing: "content-box",
+                borderColor: "var(--color-announcements)"
             },
             sm: {
                 maxW: "100%"
             },
-            lg: {
-                marginTop: "5vh"
+            md: {
+                // marginTop: "5vh",
+            },
+            xl: {
+                flexBasis: "25%",
+            }
+        },
+        ".pinned-pages+.pinned-posts": {
+            xl: {
+                marginLeft: "35px"
             }
         },
         ".pinned-posts": {
             base: {
                 marginLeft: 0,
-                marginTop: "15px",
                 boxSizing: "content-box"
+            },
+            sm: {
+                ".pinned-pages+&": {
+                    marginTop: "15px"
+                }
+            },
+            xl: {
+                ".pinned-pages+&": {
+                    marginTop: "10vh"
+                },
+                flexBasis: "75%"
             }
         },
         ".loop-wrap": {
@@ -505,22 +599,24 @@ export default {
             sm: {
                 flexWrap: "wrap"
             },
-            md: {
-                flexWrap: "nowrap"
-            },
+            lg: {
+                flexWrap: "nowrap",
+            }
+
         },
         ".subscribe-form": {
             base: {
                 display: "flex",
                 position: "relative",
                 height: "50px",
-                flex: "0 0 auto",
                 boxSizing: "content-box",
             },
             sm: {
-                width: "70%",
+                flex: "0 0 auto",
+                width: "100%",
                 "& input": {
                     width: "20%",
+                    height: "unset",
                     paddingRight: "10px",
                     paddingLeft: "10px",
                     wordBreak: "normal",
@@ -550,8 +646,15 @@ export default {
             },
             md: {
                 height: "60px",
+                width: "70%",
                 "& input": {
-                    width: "180px"
+                    width: "250px"
+                }
+            },
+            lg: {
+                width: "unset",
+                "& input": {
+                    width: "250px"
                 }
             }
         },
@@ -722,17 +825,24 @@ export default {
             base: {
                 ".global-special &": {
                     boxSizing: "border-box",
-                    padding: "10px 25px",
                 },
             },
             sm: {
-                ".global-special  &": {
-                    flexBasis: "100%"
+                ".global-special &": {
+                    padding: "10px 25px 10px",
+                    paddingLeft: 0
                 }
             },
             md: {
                 ".global-special &": {
-                    flex: "1 0 25%",
+                    padding: "10px 25px 10px",
+                    paddingLeft: 0
+                }
+            },
+            lg: {
+                ".global-special  &": {
+                    flexBasis: "100%",
+                    padding: "10px 25px 10px"
                 },
                 ".global-special &:not(:first-of-type):not(:last-of-type), .global-special &:last-of-type": {
                     borderLeft: "var(--border) var(--color-three)"
@@ -743,10 +853,16 @@ export default {
                 },
                 ".global-special &:first-of-type": {
                     paddingLeft: 0
-                }
-            },
-            lg: {
+                },
+                ".global-special &": {
+                    flex: "1 0 25%",
+                },
 
+            },
+            xl: {
+                ".global-special &": {
+                    padding: "10px 25px"
+                }
             }
         },
         p: {
@@ -783,10 +899,20 @@ export default {
             marginRight: "0",
             marginLeft: "15px",
             marginBottom: "40px",
-            marginTop: "0"
+            marginTop: "0",
+            ".header-nav nav &": {
+                zIndex: 1,
+                margin: 0,
+                padding: 0,
+                listStyle: "none",
+                wordBreak: "normal"
+            },
+            ".header-nav nav>&": {
+                flexGrow: 1
+            }
         },
         li: {
-            marginBottom: "10px"
+            textAlign: "-webkit-match-parent"
         },
         "h1,h2,h3,h4,h5,h6": {
             fontFamily: "one",
@@ -818,6 +944,9 @@ export default {
             ".global-special & span": {
                 background: "var(--color-details)"
             },
+            ".pinned-pages & span": {
+                background: "var(--color-announcements)",
+            },
             "&.item-title": {
                 fontSize: "24px",
                 marginLeft: 0,
@@ -826,14 +955,10 @@ export default {
         h3: {
             base: {
                 fontSize: "31px",
-                marginTop: "45px",
                 ".global-special &": {
                     fontSize: "20px",
-                    marginTop: 0,
-                    marginBottom: "1vh"
                 },
                 ".subscribe-wrap &": {
-                    fontSize: "28px",
                     lineHeight: 1.1,
                     boxSizing: "border-box",
                     minW: "280px",
@@ -848,6 +973,16 @@ export default {
             sm: {
                 ".global-special &": {
                     fontSize: "15px"
+                },
+                ".subscribe-wrap &": {
+                    fontSize: "35px"
+                }
+            },
+            lg: {
+                marginTop: "45px",
+                ".global-special &": {
+                    marginTop: 0,
+                    marginBottom: "1vh"
                 },
                 ".subscribe-wrap &": {
                     fontSize: "35px"
