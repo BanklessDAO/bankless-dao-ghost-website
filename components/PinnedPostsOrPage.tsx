@@ -15,18 +15,15 @@ export default function PinnedPosts({
     title
 }: PinnedPostsProps) {
     return (
-        <Flex className={className} position='relative' borderTop="4px solid var(--color-details)">
+        <Flex className={className}>
             <Heading as="h2">
                 <chakra.span>{title}</chakra.span>
             </Heading>
             {postsOrPages.map(postOrPage => (
                 <Box
                     key={postOrPage.id}
-                    as="article"
-                    boxSizing="border-box"
-                    padding="10px 25px"
-                    flex="1 0 25%">
-                    <Heading as="h3" fontSize="20px" marginTop="0" marginBottom="1vh">
+                    as="article">
+                    <Heading as="h3">
                         <Link href={postOrPage.slug} className="global-underline">{postOrPage.title}</Link>
                     </Heading>
                     <Box className="global-meta">

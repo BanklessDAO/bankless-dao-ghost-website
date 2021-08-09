@@ -10,13 +10,9 @@ type PinnedSectionProps = {
 
 export default function PinnedSection({ featuredPages, featuredPosts }: PinnedSectionProps) {
     return (
-        <Flex
-            className="pinned-section"
-            flexWrap={{
-                base: "wrap"
-            }}>
+        <Flex className="pinned-section">
             <PinnedPostOrPage postsOrPages={featuredPages} className="pinned-pages global-special" title="Announcements" />
-            <PinnedPostOrPage postsOrPages={featuredPosts} className="pinned-pots global-special" title="Don't miss it" />
+            <PinnedPostOrPage postsOrPages={featuredPosts} className="pinned-posts global-special" title="Don't miss it" />
         </Flex>
     );
 }
