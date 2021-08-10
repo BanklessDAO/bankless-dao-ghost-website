@@ -98,8 +98,8 @@ export default function Navbar() {
                                         _active: { background: "transparent" }
                                     }} />
                                 <MenuList zIndex={1} borderRadius={0} background="var(--bg-nav)" border="none" fontSize="14px" width="200px">
-                                    <MenuItem as={Link} display="inline-block">
-                                        <Link href="/mission" marginRight="18px">Mission</Link>
+                                    <MenuItem as={Link} display="inline-block" href="/mission">
+                                        Mission
                                     </MenuItem>
                                     <MenuItem as={Link} display="inline-block">
                                         <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f" marginRight="18px">Wiki</Link>

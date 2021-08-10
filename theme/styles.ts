@@ -4,7 +4,7 @@ export default {
     global: {
         ":root": {
             "--bg-nav": "#242d39",
-            "--accent-color": "#00e6cb",
+            "--accent-color": "#ff1a1a",
             "--color-body": "#182029",
             "--color-details": "#ff1a1a",
             "--color-two": "#f7f9f9",
