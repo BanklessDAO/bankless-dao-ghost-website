@@ -7,6 +7,7 @@ import {
     ListItem,
     ListIcon,
     List,
+    UnorderedList,
     Menu,
     MenuButton,
     MenuList,
@@ -14,7 +15,7 @@ import {
     IconButton
 } from "@chakra-ui/react";
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
-import { FaEllipsisH } from "react-icons/fa";
+import { AiOutlineEllipsis } from "react-icons/ai";
 
 export default function Navbar() {
     return (
@@ -29,7 +30,7 @@ export default function Navbar() {
                 </Box>
                 <Box className="header-nav">
                     <Flex as="nav" id="mobile-nav">
-                        <Menu>
+                        <Menu autoSelect={false}>
                             <MenuButton as={IconButton}
                                 aria-label="site navigation menu"
                                 icon={<HamburgerIcon />}
@@ -88,24 +89,28 @@ export default function Navbar() {
                             <ListItem >
                                 <Link href="https://discord.gg/bjPz2w9Zts" >Discord</Link>
                             </ListItem>
-                            <Menu>
-                                <MenuButton as={IconButton} icon={<FaEllipsisH />}
+                            <Menu autoSelect={false}>
+                                <MenuButton as={IconButton} icon={<AiOutlineEllipsis />}
                                     color="white"
-                                    fontSize="32px"
+                                    fontSize="36px"
                                     backgroundColor="transparent"
                                     sx={{
                                         _hover: { background: "transparent" },
                                         _active: { background: "transparent" }
                                     }} />
-                                <MenuList zIndex={1} borderRadius={0} background="var(--bg-nav)" border="none" fontSize="14px" width="200px">
-                                    <MenuItem as={Link} display="inline-block" href="/mission">
-                                        Mission
+                                <MenuList
+                                    zIndex={1} borderRadius={0}
+                                    background="var(--bg-nav)"
+                                    border="none" fontSize="14px"
+                                    maxW="160px" minW="160px">
+                                    <MenuItem display="inline-block" href="/mission">
+                                        <Link href="/mission">Mission</Link>
                                     </MenuItem>
-                                    <MenuItem as={Link} display="inline-block">
-                                        <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f" marginRight="18px">Wiki</Link>
+                                    <MenuItem display="inline-block" >
+                                        <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">Wiki</Link>
                                     </MenuItem>
-                                    <MenuItem as={Link} display="inline-block" href="https://forum.bankless.community/" >
-                                        Forum
+                                    <MenuItem display="inline-block">
+                                        <Link href="https://forum.bankless.community/">Forum</Link>
                                     </MenuItem>
                                     <MenuItem display="inline-block">
                                         <Link href="https://snapshot.org/#/banklessvault.eth" marginRight="18px">Vote</Link>
