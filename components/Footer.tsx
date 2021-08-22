@@ -41,48 +41,29 @@ export default function Footer() {
                     <Box className="footer-nav-column">
                         <UnorderedList>
                             <ListItem>
-                                <Link href="/contribute">Contribute</Link>
+                                <Link href="/contribute">Discord</Link>
                             </ListItem>
                             <ListItem>
-                                <Link href="/privacy">Privacy</Link>
+                                <Link href="/privacy">Wiki</Link>
                             </ListItem>
                             <ListItem>
-                                <Link href="/contact">Contact</Link>
+                                <Link href="/contact">Forum</Link>
                             </ListItem>
                             <ListItem>
-                                <Link href="/about">About this site.</Link>
-                            </ListItem>
-                        </UnorderedList>
-                    </Box>
-                    <Box className="footer-nav-column">
-                        <UnorderedList>
-                            <ListItem>
-                                <Link href="/contribute">Contribute</Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link href="/privacy">Privacy</Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link href="/contact">Contact</Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link href="/about">About this site.</Link>
+                                <Link href="/about">Vote</Link>
                             </ListItem>
                         </UnorderedList>
                     </Box>
                     <Box className="footer-nav-column">
                         <UnorderedList>
                             <ListItem>
+                                <Link href="/vote">Vote</Link>
+                            </ListItem>
+                            <ListItem>
                                 <Link href="/contribute">Contribute</Link>
                             </ListItem>
                             <ListItem>
-                                <Link href="/privacy">Privacy</Link>
-                            </ListItem>
-                            <ListItem>
                                 <Link href="/contact">Contact</Link>
-                            </ListItem>
-                            <ListItem>
-                                <Link href="/about">About this site.</Link>
                             </ListItem>
                         </UnorderedList>
                     </Box>

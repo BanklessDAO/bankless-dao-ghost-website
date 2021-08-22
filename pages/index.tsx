@@ -136,7 +136,6 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
   )
 }
 
-
 export async function getStaticProps(context: GetStaticProps) {
   const posts = await getPosts();
   const pages = await getPages();
