@@ -6,7 +6,20 @@ export async function getPosts(): Promise<any> {
     .browse({
       limit: 5,
       formats: ['plaintext'],
-      include: ['tags', 'authors']
+      include: ['tags', 'authors'],
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+
+export async function getPaginatedPosts(page: number = 1): Promise<any> {
+  return await api.posts
+    .browse({
+      limit: 5,
+      page,
+      formats: ['plaintext'],
+      include: ['tags', 'authors'],
     })
     .catch(err => {
       console.error(err);
