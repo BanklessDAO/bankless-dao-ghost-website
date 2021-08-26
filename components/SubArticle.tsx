@@ -2,7 +2,7 @@ import { Box, Flex, Link, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '../lib/types/ghost-types';
 
 type SubArticleProps = {
-  post: PortOrPage,
+  post: PostOrPage,
   index: Number
 }
 
