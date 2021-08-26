@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { InferGetStaticPropsType } from 'next';
+import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { Button, Box, Text, Flex, chakra } from '@chakra-ui/react';
-import { GetStaticProps, GetStaticPaths } from 'next';
 import { Pagination } from '@tryghost/content-api';
 import { getFeaturedPosts, getPaginatedPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
 import { PostOrPage } from '../lib/types/ghost-types';
+
+import debounce from '../util/debounce';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -43,7 +44,7 @@ export default function Home({ featuredPosts, featuredPages, posts: initialPosts
         {pagination.next && (
           <Box className="pagination-section">
             <Box className="pagination-wrap">
-              <Button disabled={!pagination.next} onClick={handleLoadMoreClick} variant="loadMore" aria-label="Load more" display="inline-block" />
+              <Button disabled={!pagination.next} onClick={debounce(handleLoadMoreClick, 400)} variant="loadMore" aria-label="Load more" display="inline-block" />
             </Box>
           </Box>
         )}
