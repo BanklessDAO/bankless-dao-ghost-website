@@ -16,14 +16,12 @@ import SubscribeSection from '../components/SubscribeSection';
 import PinnedSection from '../components/PinnedSection';
 
 export default function Home({ featuredPosts, featuredPages, posts: initialPosts, meta }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // console.log({ initialPosts, meta })
-  console.log({ meta })
+  const [pagination, setPagination] = useState<Pagination>(meta.pagination)
   const [posts, setPosts] = useState<PostOrPage[]>(initialPosts)
-  const handleLoadMoreClick = () => {
-    console.log({ next: meta.pagination.next })
-    // const data = getPaginatedPosts(meta.pagination.next)
-    // console.log({ data })
-    // setPosts((prevPosts) => [...prevPosts, ...newPosts])
+  const handleLoadMoreClick = async () => {
+    const newPosts = await getPaginatedPosts(pagination.next)
+    setPosts((prevPosts) => [...prevPosts, ...newPosts])
+    setPagination(newPosts.meta.pagination)
   }
   return (
     <>
@@ -42,11 +40,13 @@ export default function Home({ featuredPosts, featuredPages, posts: initialPosts
           }
           )}
         </Flex>
-        <Box className="pagination-section">
-          <Box className="pagination-wrap">
-            <Button disabled={!meta.pagination.next} onClick={handleLoadMoreClick} variant="loadMore" aria-label="Load more" display="inline-block" />
+        {pagination.next && (
+          <Box className="pagination-section">
+            <Box className="pagination-wrap">
+              <Button disabled={!pagination.next} onClick={handleLoadMoreClick} variant="loadMore" aria-label="Load more" display="inline-block" />
+            </Box>
           </Box>
-        </Box>
+        )}
         <SubscribeSection />
       </chakra.main>
       <Footer />
