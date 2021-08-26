@@ -3,7 +3,7 @@ import { PostOrPage, Tag } from '../lib/types/ghost-types';
 
 type SubArticleProps = {
   post: PostOrPage,
-  index: Number
+  index: number
 }
 
 const SubArticle = ({ post, index }: SubArticleProps) => {
