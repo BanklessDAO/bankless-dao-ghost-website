@@ -18,6 +18,7 @@ import {
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import { FaEllipsisH } from 'react-icons/fa';
 import SearchModal from './SearchModal';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 export default function Navbar() {
   return (
@@ -171,6 +172,10 @@ export default function Navbar() {
 
 function SearchButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  useHotkeys('/', (e) => {
+    e.preventDefault();
+    onOpen();
+  });
   return (
     <>
       <Button variant="unstyled" _focus={{ outline: 'none' }} onClick={onOpen}>

@@ -14,8 +14,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { PostOrPage } from '@tryghost/content-api';
+import { useRouter } from 'next/dist/client/router';
 import NextLink from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { getAllPosts } from '../lib/posts';
 
 export interface SearchModalProps {
@@ -25,33 +27,27 @@ export interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [inputValue, setInputValue] = useState('');
+  const [errorValue, setErrorValue] = useState<String | null>(null);
   const [results, setResults] = useState<PostOrPage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const router = useRouter();
 
   useEffect(() => {
     (async function fetchPosts() {
       setIsLoading(true);
-      const posts = await getAllPosts();
-      console.log(posts);
-      setResults(posts);
-      setIsLoading(false);
+      try {
+        const posts = await getAllPosts();
+        setResults(posts);
+      } catch (error) {
+        setErrorValue('There was an error fetching results');
+      } finally {
+        setIsLoading(false);
+        setErrorValue(null);
+      }
     })();
-    //   setIsLoading(true);
-    //   fetch('https://api.example.com/items')
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //       setIsLoaded(true);
-    //       setItems(result);
-    //     })
-    //     .catch((error) => {
-    //       setIsLoaded(true);
-    //       setError(error);
-    //     });
   }, []);
-
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    setInputValue(event.target.value);
-  }
 
   const inputValueIsSearchable = inputValue.length >= 3;
 
@@ -59,7 +55,42 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     post.title?.toLocaleLowerCase()?.includes(inputValue.toLocaleLowerCase()),
   );
 
+  useHotkeys('up', handleUpKey, {
+    enableOnTags: ['INPUT'],
+    enabled: isOpen,
+  });
+
+  useHotkeys('down', handleDownKey, {
+    enableOnTags: ['INPUT'],
+    enabled: isOpen,
+  });
+
+  useHotkeys('enter', handleEnterKey, {
+    enableOnTags: ['INPUT'],
+    enabled: isOpen,
+  });
+
+  function handleUpKey() {
+    setActiveIndex((prevActiveIndex) => Math.max(prevActiveIndex - 1, 0));
+  }
+
+  function handleDownKey() {
+    setActiveIndex((prevActiveIndex) => Math.min(prevActiveIndex + 1, filteredResults.length - 1));
+  }
+
+  function handleEnterKey() {
+    router.push(filteredResults[activeIndex].slug);
+  }
+
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setInputValue(event.target.value);
+    setActiveIndex(0);
+  }
+
   function getHelpMessage() {
+    if (errorValue) {
+      return errorValue;
+    }
     if (!inputValueIsSearchable) {
       return 'Please enter at least 3 characters';
     }
@@ -113,10 +144,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           {inputValueIsSearchable && Boolean(filteredResults.length) && (
             <VStack
               alignItems="stretch"
-              divider={<StackDivider borderColor="var(--color-three)" borderStyle="dashed" />}
+              divider={
+                <StackDivider
+                  marginTop={0}
+                  marginBottom={0}
+                  borderColor="var(--color-three)"
+                  borderStyle="dashed"
+                />
+              }
             >
-              {filteredResults.map((post) => (
-                <LinkBox key={post.id} padding="20px">
+              {filteredResults.map((post, index) => (
+                <LinkBox
+                  key={post.id}
+                  padding="20px"
+                  background={activeIndex === index ? 'rgba(0,0,0, 0.3)' : 'transparent'}
+                  onMouseEnter={() => setActiveIndex(index)}
+                >
                   <NextLink href={post.slug}>
                     <LinkOverlay href={post.slug} />
                   </NextLink>
