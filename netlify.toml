@@ -1,0 +1,3 @@
+[build.environment]
+   NEXT_PUBLIC_GHOST_URL="https://gobankless.ghost.io"
+   NEXT_PUBLIC_GHOST_CONTENT_KEY="d28367346c91a253a73b08c847"
