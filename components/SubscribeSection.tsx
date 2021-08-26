@@ -41,7 +41,6 @@ export default function SubscribeSection() {
 
         try {
 
-            console.log('submitting email');
             setMessage(`loading`);
             await fetch(url, {
                 method: `POST`,
