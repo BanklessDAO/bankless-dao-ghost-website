@@ -27,7 +27,6 @@ export default function SubscribeSection() {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
-        console.log(email);
     }
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
