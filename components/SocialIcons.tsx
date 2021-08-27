@@ -64,8 +64,8 @@ const SocialLink = chakra(Link, {
 export default function SocialIcons(): JSX.Element {
   return (
     <>
-      {SOCIAL.map((icon: socialLink) => (
-        <SocialLink href={icon.href} target="_blank">
+      {SOCIAL.map((icon: socialLink, index: number) => (
+        <SocialLink href={icon.href} target="_blank" key={index}>
           {icon.src}
         </SocialLink>
       ))}
