@@ -37,12 +37,13 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                     <Link
                       className="item-image global-image global-color"
                       href={`${post.slug}`}
+                      style={{boxShadow: "none"}}
                     >
                       <Image
                         loading="lazy"
                         objectFit="cover"
                         src={post.feature_image}
-                        alt="placeholder image" />
+                        alt={`${post.title}`} />
                     </Link>
                     <Box
                       className="item-content"
@@ -59,6 +60,7 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                           className="global-underline"
                           href={`${post.slug}`}
                           textDecoration="none"
+                          style={{boxShadow: "none"}}
                         >
                           {post.title}
                         </Link>
@@ -88,14 +90,14 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
                 >
                   <Flex className="item-container">
                     <Box className="item-content">
-                      <Link className="item-image global-image" href={`/${post.slug}`}>
+                      <Link style={{boxShadow: "none"}} className="item-image global-image" href={`/${post.slug}`}>
                         <Image
                           loading="lazy"
                           src={post.feature_image}
                           alt="placeholder image" />
                       </Link>
                       <Heading as="h2" className="item-title">
-                        <Link className="global-underline" href={`/${post.slug}`} textDecoration="none">{post.title}</Link>
+                        <Link style={{boxShadow: "none"}} className="global-underline" href={`/${post.slug}`} textDecoration="none">{post.title}</Link>
                       </Heading>
                       <Text className="global-meta">
                         {post.primary_author.name}
