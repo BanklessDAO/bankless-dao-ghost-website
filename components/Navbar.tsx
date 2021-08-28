@@ -15,8 +15,42 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import { FaEllipsisH } from "react-icons/fa";
+import Web3 from "web3";
+
+declare const window: Window &
+    typeof globalThis & {
+        ethereum: any
+    }
 
 export default function Navbar() {
+    let web3
+    async function initWeb3() {
+        console.log('Init new Web3 instance.')
+        // Connecto to Web3
+        web3 = await new Web3(window.ethereum)
+        // Read network to be sure we're in Ethereum network (id: 1)
+        let network = await web3.eth.net.getId();
+        console.log('Web3 network is:', network)
+        if (network !== 1) {
+            alert('Please switch network to Ethereum Mainnet!')
+        }
+    }
+    initWeb3()
+
+    async function connectWallet() {
+        console.log('Init new Web3 instance.')
+        // Connecto to Web3
+        web3 = await new Web3(window.ethereum)
+        console.log('Trying connecting wallet.')
+        // Request accounts
+        await window.ethereum.send("eth_requestAccounts");
+        // Read accounts
+        const accounts = await web3.eth.getAccounts();
+        // TODO: Do something with accounts
+        console.log(accounts)
+    }
+
+
     return (
         <Box as="header" width="100%" color="white" overflowY="visible">
             <Flex className="header-wrap">
@@ -114,11 +148,8 @@ export default function Navbar() {
                             </Menu>
                         </List>
                         <List>
-                            <ListItem className="signup global-button">
-                                <Link href="/signup">Register for Free!</Link>
-                            </ListItem>
-                            <ListItem className="signin">
-                                <Link href="/signin">Sign In</Link>
+                            <ListItem className="signup global-button" onClick={connectWallet}>
+                                <Link href="#">Connect Wallet</Link>
                             </ListItem>
                             <ListItem>
                                 <ListIcon as={Search2Icon} color="white" />
