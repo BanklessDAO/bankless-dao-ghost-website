@@ -2,10 +2,9 @@ import { useState } from 'react'
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { Button, Box, Text, Flex, chakra } from '@chakra-ui/react';
-import { Pagination } from '@tryghost/content-api';
+import { PostOrPage, Pagination } from '@tryghost/content-api';
 import { getFeaturedPosts, getPaginatedPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
-import { PostOrPage } from '../lib/types/ghost-types';
 
 import debounce from '../util/debounce';
 
@@ -16,8 +15,8 @@ import SubArticle from '../components/SubArticle';
 import SubscribeSection from '../components/SubscribeSection';
 import PinnedSection from '../components/PinnedSection';
 
-export default function Home({ featuredPosts, featuredPages, posts: initialPosts, meta }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [pagination, setPagination] = useState<Pagination>(meta.pagination)
+export default function Home({ featuredPosts, featuredPages, posts: initialPosts, pagination: initialPagination }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [pagination, setPagination] = useState<Pagination>(initialPagination)
   const [posts, setPosts] = useState<PostOrPage[]>(initialPosts)
   const handleLoadMoreClick = async () => {
     const newPosts = await getPaginatedPosts(pagination.next)
@@ -67,7 +66,7 @@ export async function getStaticProps(context: GetStaticProps) {
 
   return {
     props: {
-      meta: posts.meta,
+      pagination: posts.meta.pagination,
       posts,
       featuredPages,
       featuredPosts
