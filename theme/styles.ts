@@ -873,10 +873,7 @@ export default {
             fontFamily: "three",
             marginRight: "0",
             marginLeft: "0",
-            marginBottom: "40px",
-            "&::first-child": {
-                marginTop: "0"
-            }
+            marginBottom: "40px"
         },
         blockquote: {
             fontSize: "30px",

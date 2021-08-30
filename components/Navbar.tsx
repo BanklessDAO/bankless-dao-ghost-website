@@ -15,42 +15,47 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import { FaEllipsisH } from "react-icons/fa";
-import Web3 from "web3";
+import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3"
+import { useState } from "react"
 
-declare const window: Window &
-    typeof globalThis & {
-        ethereum: any
-    }
-
-export default function Navbar() {
-    let web3
-    async function initWeb3() {
-        console.log('Init new Web3 instance.')
-        // Connecto to Web3
-        web3 = await new Web3(window.ethereum)
-        // Read network to be sure we're in Ethereum network (id: 1)
-        let network = await web3.eth.net.getId();
-        console.log('Web3 network is:', network)
-        if (network !== 1) {
-            alert('Please switch network to Ethereum Mainnet!')
+function ConnectionButton() {
+    const [wallet, setWallet] = useState("");
+    // Defining button actions
+    async function connectionIntent() {
+        console.log('Connecting wallet...')
+        let connected = await connectWallet()
+        console.log(connected)
+        if (connected !== false && connected.indexOf('0x') === 0) {
+            setWallet(connected)
         }
     }
-    initWeb3()
-
-    async function connectWallet() {
-        console.log('Init new Web3 instance.')
-        // Connecto to Web3
-        web3 = await new Web3(window.ethereum)
-        console.log('Trying connecting wallet.')
-        // Request accounts
-        await window.ethereum.send("eth_requestAccounts");
-        // Read accounts
-        const accounts = await web3.eth.getAccounts();
-        // TODO: Do something with accounts
-        console.log(accounts)
+    async function signoutIntent() {
+        console.log('Disconnecting wallet...')
+        await disconnectWallet()
+        setWallet("")
     }
+    // Check if wallet is connected
+    checkWallet().then(check => {
+        if (check !== false) {
+            setWallet(check)
+        }
+    })
+    if (wallet.length === 0) {
+        return (
+            <ListItem className="signup global-button" onClick={connectionIntent}>
+                <Link href="#">Connect Wallet</Link>
+            </ListItem>
+        )
+    } else {
+        return (
+            <ListItem className="signup global-button" onClick={signoutIntent}>
+                <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
+            </ListItem>
+        )
+    }
+}
 
-
+export default function Navbar() {
     return (
         <Box as="header" width="100%" color="white" overflowY="visible">
             <Flex className="header-wrap">
@@ -148,9 +153,13 @@ export default function Navbar() {
                             </Menu>
                         </List>
                         <List>
-                            <ListItem className="signup global-button" onClick={connectWallet}>
-                                <Link href="#">Connect Wallet</Link>
+                            {/*<ListItem className="signup global-button">
+                                <Link href="/signup">Register for Free!</Link>
                             </ListItem>
+                            <ListItem className="signin">
+                                <Link href="/signin">Sign In</Link>
+                                </ListItem>*/}
+                            <ConnectionButton />
                             <ListItem>
                                 <ListIcon as={Search2Icon} color="white" />
                             </ListItem>
