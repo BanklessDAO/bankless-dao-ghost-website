@@ -19,6 +19,7 @@
     "@svgr/webpack": "^5.5.0",
     "@tryghost/content-api": "^1.5.9",
     "@tryghost/helpers": "^1.1.49",
+    "electron": "^14.0.0",
     "framer-motion": "^4",
     "next": "11.0.1",
     "react": "17.0.2",
