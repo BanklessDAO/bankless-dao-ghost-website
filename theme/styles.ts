@@ -4,7 +4,7 @@ export default {
     global: {
         ":root": {
             "--bg-nav": "#242d39",
-            "--accent-color": "#00e6cb",
+            "--accent-color": "#ff1a1a",
             "--color-body": "#182029",
             "--color-details": "#ff1a1a",
             "--color-two": "#f7f9f9",
@@ -152,6 +152,18 @@ export default {
                 height: "100%",
                 objectFit: "cover"
             }
+        },
+        ".custom-image": {
+            base: {
+                width: 450
+            },
+            sm: {
+                display: "none"
+            }
+        },
+        ".custom-container": {
+            flexDirection: "column",
+            flexGrow: 1
         },
         ".header-section": {
             width: "100%"
@@ -627,7 +639,7 @@ export default {
                     padding: "0 20px",
                     borderRadius: 0,
                     _focus: {
-                        width: "20%",
+                        width: "270px",
                     }
                 },
                 "& button": {
@@ -641,7 +653,7 @@ export default {
                     cursor: "pointer",
                     color: "var(--color-font-two)",
                     boxShadow: "none",
-                    flex: "0 0 auto"
+                    flex: "0 0 auto",
                 }
             },
             md: {
@@ -655,6 +667,33 @@ export default {
                 width: "unset",
                 "& input": {
                     width: "250px"
+                }
+            }
+        },
+        ".subscribe-message": {
+            base: {
+                "& small": {
+                    fontFamily: "four",
+                    fontSize: "12px",
+                    lineHeight: 1.1,
+                    position: "absolute",
+                    right: 0,
+                    bottom: "-38px",
+                    left: "20px",
+                    display: "none",
+                    width: "100%",
+                    margin: 0,
+                    padding: 0,
+                    color: "white"
+                },
+                "&.success .alert-success": {
+                    display: "block"
+                },
+                "&.loading .alert-loading": {
+                    display: "block"
+                },
+                "&.error .alert-error": {
+                    display: "block"
                 }
             }
         },
