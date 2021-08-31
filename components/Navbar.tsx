@@ -81,11 +81,7 @@ export default function Navbar() {
                   background="var(--color-details)"
                 >
                   Search
-                  <ListIcon
-                    as={Search2Icon}
-                    color="var(--bg-nav)"
-                    marginLeft="10px"
-                  />
+                  <SearchButton />
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -111,7 +107,7 @@ export default function Navbar() {
                     </ListItem>*/}
                 <ConnectionButton />
                 <ListItem>
-                    <ListIcon as={Search2Icon} color="white" />
+                    <SearchButton />
                 </ListItem>
             </List>
           </Flex>
