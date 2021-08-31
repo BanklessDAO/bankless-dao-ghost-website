@@ -39,33 +39,50 @@ export async function getAllPosts() {
 }
 
 export async function getSinglePost(postSlug: string): Promise<any> {
-  return await api.posts
-    .read(
-      {
-        slug: postSlug,
-      },
-      {
-        include: ['tags', 'authors'],
-      },
-    )
-    .catch((err) => {
-      console.error(err);
+  let result: PostOrPage;
+  try {
+    result = await api.posts.read({
+      slug: postSlug
+    },{
+      include: ['tags', 'authors'],
     });
+
+    if (!result) return null;
+
+  } catch(error: any) {
+    if(error.response?.status !== 404) throw new Error(error);
+    return null;
+  }
+
+  return result;
 }
 
 export async function getPostsWithTag(parentTags: string[]): Promise<any> {
   let fixed = parentTags.map((tag: string) => tag.replace(/ /g, '-'));
+  let result: PostOrPage[];
 
-  return await api.posts
-    .browse({
+  try {
+
+    result = await api.posts.browse({
       limit: 4,
       include: ['authors'],
       fields: ['id', 'title', 'slug'],
       filter: `tags:[${fixed}]`,
     })
-    .catch((err) => {
-      console.error(err);
-    });
+
+    console.log("result of posts with tag");
+
+    if(!result) return null;
+
+  } catch(error: any) {
+
+    if(error.response?.status !== 404) throw new Error(error);
+
+    return null;
+
+  }
+
+  return result;
 }
 
 export async function getFeaturedPosts(): Promise<any> {

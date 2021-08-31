@@ -1,5 +1,6 @@
 import api from './ghost-api';
-import { PostOrPage } from './types/ghost-types';
+import { PostOrPage, Pagination, Tag, Author } from '@tryghost/content-api';
+
 
 export async function getFeaturedPages() {
   return await api.pages
@@ -12,8 +13,8 @@ export async function getFeaturedPages() {
     });
 }
 
-export async function getPages(): Promise<PostOrPage> {
-  let posts: any = await api.posts
+export async function getPages(): Promise<PostsOrPages> {
+  return await api.pages
     .browse({
       limit: "all",
       formats: ['plaintext'],
@@ -22,16 +23,23 @@ export async function getPages(): Promise<PostOrPage> {
     .catch(err => {
       console.error(err);
     });
-
-  return posts;
 }
 
-export async function getSinglePage(postSlug: string): Promise<any> {
-  return await api.posts
-    .read({
-      slug: postSlug
+export async function getSinglePage(pageSlug: string): Promise<PostOrPage> {
+
+  let result: PostOrPage;
+  try {
+
+    result = await api.pages.read({
+      slug: pageSlug
     })
-    .catch(err => {
-      console.error(err);
-    });
+
+    if (!result) return null;
+
+  } catch (error: any) {
+    if(error.response?.status !== 404) throw new Error(error);
+    return null;
+  }
+  return result;
+
 }
