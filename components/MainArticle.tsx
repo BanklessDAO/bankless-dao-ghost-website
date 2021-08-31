@@ -1,5 +1,6 @@
-import { Box, Flex, Link, Image, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '../lib/types/ghost-types';
+import Link from './Link';
 
 type MainArticleProps = {
   post: PostOrPage,
@@ -8,11 +9,11 @@ type MainArticleProps = {
 
 const MainArticle = ({ post, index }: MainArticleProps) => {
   return (
-    <Box className="item is-hero is-first is-image" as="article">
+    <Box as="article" className="item is-hero is-first is-image">
       <Flex className="item-container global-color">
         <Link
           className="item-image global-image global-color"
-          href={`${post.slug}`}
+          href={`/${post.slug}`}
         >
           <Image
             loading="lazy"
@@ -33,7 +34,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
           <Heading as="h2" className="item-title">
             <Link
               className="global-underline"
-              href={`${post.slug}`}
+              href={`/${post.slug}`}
               textDecoration="none"
             >
               {post.title}
@@ -48,6 +49,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
+                href={`/${tag.slug}`}
               >#{tag.name}</Link>
             ))}
           </Box>

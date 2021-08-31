@@ -1,5 +1,6 @@
-import { Box, Flex, Link, Image, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '../lib/types/ghost-types';
+import Link from './Link';
 
 type SubArticleProps = {
   post: PostOrPage,
@@ -8,10 +9,7 @@ type SubArticleProps = {
 
 const SubArticle = ({ post, index }: SubArticleProps) => {
   return (
-    <Box
-      as="article"
-      key={post.id}
-      className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
+    <Box as="article" className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
     >
       <Flex className="item-container">
         <Box className="item-content">
