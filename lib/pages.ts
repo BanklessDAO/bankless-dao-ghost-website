@@ -26,12 +26,12 @@ export async function getPages(): Promise<PostOrPage> {
   return posts;
 }
 
-// export async function getSinglePost(postSlug: string) {
-//   return await api.posts
-//     .read({
-//       slug: postSlug
-//     })
-//     .catch(err => {
-//       console.error(err);
-//     });
-// }
+export async function getSinglePage(postSlug: string): Promise<any> {
+  return await api.posts
+    .read({
+      slug: postSlug
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}

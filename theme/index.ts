@@ -11,11 +11,12 @@ import Button from './components/button';
 import List from "./components/list";
 import Link from "./components/link";
 import Input from './components/input';
+import Menu from './components/menu';
 
 // Custom app theme overrides.
 
 // TODO: figure out correct typing for override. If any is not added causes VSCode to yell at me.
-const overrides : any = {
+const overrides: any = {
     styles,
     breakpoints,
     fonts,
@@ -23,7 +24,8 @@ const overrides : any = {
         Button,
         List,
         Link,
-        Input
+        Input,
+        Menu
     }
 };
 
