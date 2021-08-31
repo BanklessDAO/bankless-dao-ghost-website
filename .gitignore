@@ -38,8 +38,12 @@ yarn-error.log*
 
 /theme/renge/
 
-### IntelliJ Idea ###
+
 .idea
 *.iws
 *.iml
 *.ipr
+
+# local env
+.env
+
