@@ -1,44 +1,89 @@
-import {
-    Heading,
-    Text,
-    Box,
-    Flex,
-    Input,
-    Link,
-    Image,
-    ListItem,
-    ListIcon,
-    List,
-    Button,
-    chakra
-} from "@chakra-ui/react";
-import { Search2Icon } from '@chakra-ui/icons';
-import {
-    PostOrPage,
-    Author,
-    Tag
-} from '../lib/types/ghost-types';
+import { Heading, Box, Flex, Input, Button, chakra } from '@chakra-ui/react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+
+export interface AlertMessages {
+  [loading: string]: string;
+  success: string;
+  error: string;
+}
+
+export const ALERT_MESSAGES: AlertMessages = {
+  loading: 'Processing your application',
+  success: 'Great! Check your inbox and confirm your subscription',
+  error: 'There was an error sending the email',
+} as const;
+
+const AlertBox = chakra(Box, {
+  baseStyle: {
+    fontFamily: 'four',
+    fontSize: '12px',
+    lineHeight: 1.1,
+    position: 'absolute',
+    right: 0,
+    bottom: '-38px',
+    left: '20px',
+    width: '100%',
+    margin: 0,
+    padding: 0,
+    color: 'white',
+  },
+});
 
 export default function SubscribeSection() {
-    return (
-        <chakra.div className="subscribe-section">
-            <Flex className="subscribe-wrap">
-                <Heading as="h3">Subscribe to new posts.</Heading>
-                <Flex as="form" className="subscribe-form">
-                    <Input
-                        type="email"
-                        placeholder="Your email address"
-                        aria-label="Your email address"
-                        isRequired
-                    />
-                    <Button className="global-button" type="submit">Subscribe</Button>
-                    <Box className="subscribe-alert">
-                        <chakra.small className="alert-loading"></chakra.small>
-                        <chakra.small className="alert-success"></chakra.small>
-                        <chakra.small className="alert-error"></chakra.small>
-                    </Box>
-                </Flex>
-            </Flex>
-        </chakra.div>
-    );
+  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const url = 'https://gobankless.ghost.io/members/api/send-magic-link';
+
+    const values = {
+      email,
+      emailType: `subscribe`,
+      labels: [],
+    };
+
+    try {
+      setMessage(`loading`);
+      await fetch(url, {
+        method: `POST`,
+        mode: `cors`,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+    } catch (e) {
+      setMessage(`error`);
+    }
+
+    setMessage(`success`);
+  };
+
+  return (
+    <chakra.div className="subscribe-section">
+      <Flex className="subscribe-wrap">
+        <Heading as="h3">Subscribe to new posts.</Heading>
+        <chakra.form
+          as="form"
+          className="subscribe-form"
+          onSubmit={(ev) => handleSubmit(ev)}>
+          <Input
+            type="email"
+            placeholder="Your email address"
+            aria-label="Your email address"
+            value={email}
+            onChange={handleChange}
+            isRequired
+          />
+          <Button className="global-button" type="submit">
+            Subscribe
+          </Button>
+          <AlertBox>{ALERT_MESSAGES[message]}</AlertBox>
+        </chakra.form>
+      </Flex>
+    </chakra.div>
+  );
 }

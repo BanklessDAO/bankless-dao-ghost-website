@@ -19,6 +19,8 @@ import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
+import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3";
+import { useState } from "react"
 
 export default function Navbar() {
   return (
@@ -79,11 +81,7 @@ export default function Navbar() {
                   background="var(--color-details)"
                 >
                   Search
-                  <ListIcon
-                    as={Search2Icon}
-                    color="var(--bg-nav)"
-                    marginLeft="10px"
-                  />
+                  <SearchButton />
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -101,15 +99,16 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
-              <ListItem className="signup global-button">
-                <Link href="/signup">Register for Free!</Link>
-              </ListItem>
-              <ListItem className="signin">
-                <Link href="/signin">Sign In</Link>
-              </ListItem>
-              <ListItem>
-                <SearchButton />
-              </ListItem>
+                {/*<ListItem className="signup global-button">
+                    <Link href="/signup">Register for Free!</Link>
+                </ListItem>
+                <ListItem className="signin">
+                    <Link href="/signin">Sign In</Link>
+                    </ListItem>*/}
+                <ConnectionButton />
+                <ListItem>
+                    <SearchButton />
+                </ListItem>
             </List>
           </Flex>
         </Box>
@@ -132,4 +131,41 @@ function SearchButton() {
       <SearchModal isOpen={isOpen} onClose={onClose} />
     </>
   );
+}
+
+function ConnectionButton() {
+    const [wallet, setWallet] = useState("");
+    // Defining button actions
+    async function connectionIntent() {
+        console.log('Connecting wallet...')
+        let connected = await connectWallet()
+        console.log(connected)
+        if (connected !== false && connected.indexOf('0x') === 0) {
+            setWallet(connected)
+        }
+    }
+    async function signoutIntent() {
+        console.log('Disconnecting wallet...')
+        await disconnectWallet()
+        setWallet("")
+    }
+    // Check if wallet is connected
+    checkWallet().then(check => {
+        if (check !== false) {
+            setWallet(check)
+        }
+    })
+    if (wallet.length === 0) {
+        return (
+            <ListItem className="signup global-button" onClick={connectionIntent}>
+                <Link href="#">Connect Wallet</Link>
+            </ListItem>
+        )
+    } else {
+        return (
+            <ListItem className="signup global-button" onClick={signoutIntent}>
+                <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
+            </ListItem>
+        )
+    }
 }

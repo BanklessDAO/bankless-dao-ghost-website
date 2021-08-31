@@ -13,13 +13,14 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
       <Flex className="item-container global-color">
         <Link
           className="item-image global-image global-color"
+          style={{ boxShadow: "none" }}
           href={`/${post.slug}`}
         >
           <Image
             loading="lazy"
             objectFit="cover"
             src={post.feature_image}
-            alt="placeholder image" />
+            alt={post.title} />
         </Link>
         <Box
           className="item-content"
@@ -34,8 +35,9 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
           <Heading as="h2" className="item-title">
             <Link
               className="global-underline"
-              href={`/${post.slug}`}
+              style={{ boxShadow: "none" }}
               textDecoration="none"
+              href={`/${post.slug}`}
             >
               {post.title}
             </Link>
