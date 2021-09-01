@@ -36,10 +36,9 @@ export default function Home({ featuredPosts, featuredPages, posts: initialPosts
         <PinnedSection featuredPages={featuredPages} featuredPosts={featuredPosts} />
         <Flex className="loop-wrap">
           {posts.map((post: PostOrPage, index: number) => {
-            const Article = index === 0 ? MainArticle : SubArticle
+            const Article = index % 5 === 0 ? MainArticle : SubArticle;
             return <Article key={post.id} post={post} index={index} />
-          }
-          )}
+          })}
         </Flex>
         {pagination.next && (
           <Box className="pagination-section">
