@@ -32,7 +32,7 @@ export async function getSinglePage(pageSlug: string): Promise<PostOrPage> {
 
     result = await api.pages.read({
       slug: pageSlug
-    })
+    });
 
     if (!result) return null;
 

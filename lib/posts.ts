@@ -58,7 +58,8 @@ export async function getSinglePost(postSlug: string): Promise<any> {
 }
 
 export async function getPostsWithTag(parentTags: string[]): Promise<any> {
-  let fixed = parentTags.map((tag: string) => tag.replace(/ /g, '-'));
+
+  let fixed = parentTags.map(({ name }) => name.replace(/ /g, '-'));
   let result: PostOrPage[];
 
   try {
@@ -69,8 +70,6 @@ export async function getPostsWithTag(parentTags: string[]): Promise<any> {
       fields: ['id', 'title', 'slug'],
       filter: `tags:[${fixed}]`,
     })
-
-    console.log("result of posts with tag");
 
     if(!result) return null;
 

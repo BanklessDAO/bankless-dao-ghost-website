@@ -32,7 +32,7 @@ export default function Page({ cmsData }: any): JSX.Element {
 			</Head>
 			<Container maxW="100%" px="6%" className="test" overflow="auto">
   			    <Navbar />
-				<chakra.article maxW="1200px" mx="auto">
+						<chakra.article maxW="1200px" mx="auto">
 		          <Box
 		            className="post-header item is-hero is-image"
 		            flexBasis="100%"
@@ -41,7 +41,8 @@ export default function Page({ cmsData }: any): JSX.Element {
 		            minHeight="45vh"
 		            marginTop="10vh"
 		            marginBottom="8vh"
-		            position="relative">
+		            position="relative"
+		           >
 		            <Flex sx={{
 		              _before: {
 		                base: {
@@ -64,7 +65,7 @@ export default function Page({ cmsData }: any): JSX.Element {
 		              },
 		              _after: {
 		                base: {
-		                  content: '""',
+		                  content: "''",
 		                  background: "#ff4a97",
 		                  width: "100%",
 		                  position: "absolute",
@@ -87,16 +88,11 @@ export default function Page({ cmsData }: any): JSX.Element {
 		                <Image src={page.feature_image} alt="image of publishing options" />
 		              </Box>
 		              <Box
-		                className=".item-content"
-		                transform={{
-		                  base: "translateY(0)",
-		                  sm: "translateY(-4vh)"
-		                }}
-		                padding={{
-		                  base: "0",
-		                }}
-		                paddingRight="5%"
-		                width="100%"
+		              	className="item-content"
+		              	transform={{ base: "translateY(0)", sm: "translateY(-4vh)" }}
+		              	padding={{ base: "0", }}
+		              	paddingRight="5%"
+		              	width="100%"
 		              >
 		                <Heading
 		                  as="h1"

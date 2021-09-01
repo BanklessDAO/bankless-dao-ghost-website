@@ -1,137 +1,51 @@
+// next imports
 import Head from 'next/head';
-import { Container, Button, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { getFeaturedPosts, getPosts } from '../lib/posts';
-import { getFeaturedPages, getPages } from '../lib/pages';
-import { PostOrPage, Tag, Author } from '../lib/types/ghost-types';
 
+// ghost imports
+import { Tags } from '@tryghost/content-api';
+
+// chakra imports
+import { Container, Button, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
+
+// lib imports
+import { getAllTags } from '../lib/tags';
+
+// component imports
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SubscribeSection from '../components/SubscribeSection';
-import PinnedSection from '../components/PinnedSection';
+import GuildTag from '../components/GuildTag';
 
-type HomeProps = {
-  featuredPages: PostOrPage[],
-  featuredPosts: PostOrPage[],
-  pages: PostOrPage[],
-  posts: PostOrPage[]
-};
+// component definition.
+export interface GuildsProps {
+  tags: Tags[]
+}
 
-export default function Home({ featuredPosts, featuredPages, posts, pages }: HomeProps) {
+export default function Guilds({ tags }) {
+
+  const mostPosts = tags.slice(0,3);
+  const restGuilds = tags.slice(3);
+
   return (
     <>
       <Head>
-        <title>Bankless DAO</title>
+        <title>Guilds</title>
         <meta name="description" content="Bankless DAO community site" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <chakra.main className="global-main">
-        <PinnedSection featuredPages={featuredPages} featuredPosts={featuredPosts} />
-        <Flex className="loop-wrap">
-          {posts.map((post: PostOrPage, index: number) => {
-            if (index == 0) {
-              return (
-                <Box className="item is-hero is-first is-image" as="article" key={post.id}>
-                  <Flex className="item-container global-color">
-                    <Link
-                      className="item-image global-image global-color"
-                      href={`${post.slug}`}
-                      style={{boxShadow: "none"}}
-                    >
-                      <Image
-                        loading="lazy"
-                        objectFit="cover"
-                        src={post.feature_image}
-                        alt={`${post.title}`} />
-                    </Link>
-                    <Box
-                      className="item-content"
-                      width="100%"
-                      padding="0"
-                      paddingRight="5%"
-                      willChange="transfrom"
-                    >
-                      <Text className="global-meta">
-                        A long time ago by {post.primary_author.name} - {post.reading_time} minutes
-                      </Text>
-                      <Heading as="h2" className="item-title">
-                        <Link
-                          className="global-underline"
-                          href={`${post.slug}`}
-                          textDecoration="none"
-                          style={{boxShadow: "none"}}
-                        >
-                          {post.title}
-                        </Link>
-                      </Heading>
-                      <Text className="item-excerpt">
-                        {post.excerpt}
-                      </Text>
-                      <Box className="global-tags">
-                        {post.tags.map((tag: Tag) => (
-                          <Link
-                            key={tag.id}
-                            textTransform="lowercase"
-                            textDecoration="none"
-                          >#{tag.name}</Link>
-                        ))}
-                      </Box>
-                    </Box>
-                  </Flex>
-                </Box>
-              )
-            } else {
-              return (
-                <Box
-                  as="article"
-                  key={post.id}
-                  className={["item is-image post", index % 2 != 0 ? 'is-even' : 'is-odd',].join(' ')}
-                >
-                  <Flex className="item-container">
-                    <Box className="item-content">
-                      <Link style={{boxShadow: "none"}} className="item-image global-image" href={`/${post.slug}`}>
-                        <Image
-                          loading="lazy"
-                          src={post.feature_image}
-                          alt="placeholder image" />
-                      </Link>
-                      <Heading as="h2" className="item-title">
-                        <Link style={{boxShadow: "none"}} className="global-underline" href={`/${post.slug}`} textDecoration="none">{post.title}</Link>
-                      </Heading>
-                      <Text className="global-meta">
-                        {post.primary_author.name}
-                      </Text>
-                      {post.excerpt && <Text className="item-excerpt" fontFamily="one" fontWeight="500" fontSize="13px">
-                        {post.excerpt}
-                      </Text>
-                      }
-                      <Box className="global-tags">
-                        {post.tags.map((tag: Tag) => (
-                          <Link
-                            key={tag.id}
-                            textTransform="lowercase"
-                            textDecoration="none"
-                            href={`/${tag.slug}`}
-                          >#{tag.name}</Link>
-                        ))}
-                      </Box>
-                    </Box>
-                  </Flex>
-                </Box>
-              )
-            }
-          }
-          )}
-
+        <Flex flexWrap="wrap" justiyContent="center">
+          { mostPosts.map((guild,index) => <GuildTag key={index} guild={guild}/>)}
+          <Heading
+            as="h4"
+            display={{
+              sm: "none",
+              xl: "block"
+            }}
+          >See Also</Heading>
+          { restGuilds.map((guild, index) => (<GuildTag key={index} variant="secondary" guild={guild} />)) }
         </Flex>
-        <Box className="pagination-section">
-          <Box className="pagination-wrap">
-            <Link href="/page/2/" id="next-page" display="none" />
-            <Button variant="loadMore" aria-label="Load more" display="inline-block"></Button>
-          </Box>
-        </Box>
-        <SubscribeSection />
       </chakra.main>
       <Footer />
     </>
@@ -139,22 +53,22 @@ export default function Home({ featuredPosts, featuredPages, posts, pages }: Hom
 }
 
 export async function getStaticProps(context: GetStaticProps) {
-  const posts = await getPosts();
-  const pages = await getPages();
-  const featuredPages = await getFeaturedPages();
-  const featuredPosts = await getFeaturedPosts();
 
-  if (!posts) {
-    return { props: { notFound: true } }
+  let tags: Tags | null = null;
+
+  tags = await getAllTags()
+
+  tags = tags.filter(({name}) => name !== "#dark-version").reverse();
+
+  console.log(tags);
+
+  if (!tags) {
+    return  { props: { notFound: true } };
   }
 
   return {
     props: {
-      posts,
-      pages,
-      featuredPages,
-      featuredPosts
+      tags
     }
   }
-
 }
