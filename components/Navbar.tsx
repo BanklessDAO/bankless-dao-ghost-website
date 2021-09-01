@@ -28,8 +28,11 @@ export default function Navbar() {
       <Flex className="header-wrap">
         <Box className="header-logo">
           <Heading as="h1" margin="0" lineHeight="0">
-            <Link href="/" display="inline-block">
+            <Link href="/"
+              style={{ boxShadow: "none" }}
+              display="inline-block">
               <Image
+                style={{ boxShadow: "none" }}
                 src="bankless-logo.png"
                 alt="Bankless"
                 maxW="300px"
@@ -69,12 +72,13 @@ export default function Navbar() {
                 <MenuItem justifyContent="flex-end">
                   <Link href="/contribute">Contribute</Link>
                 </MenuItem>
-                <MenuItem justifyContent="flex-end">
+                {/*<MenuItem justifyContent="flex-end">
                   <Link href="/signup">Register for Free</Link>
                 </MenuItem>
                 <MenuItem justifyContent="flex-end">
                   <Link href="/signin">Sign In</Link>
-                </MenuItem>
+              </MenuItem>*/}
+                <ConnectionButton />
                 <MenuItem
                   justifyContent="flex-end"
                   color="var(--bg-nav)"
@@ -99,16 +103,16 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
-                {/*<ListItem className="signup global-button">
+              {/*<ListItem className="signup global-button">
                     <Link href="/signup">Register for Free!</Link>
                 </ListItem>
                 <ListItem className="signin">
                     <Link href="/signin">Sign In</Link>
                     </ListItem>*/}
-                <ConnectionButton />
-                <ListItem>
-                    <SearchButton />
-                </ListItem>
+              <ConnectionButton />
+              <ListItem>
+                <SearchButton />
+              </ListItem>
             </List>
           </Flex>
         </Box>
@@ -134,38 +138,38 @@ function SearchButton() {
 }
 
 function ConnectionButton() {
-    const [wallet, setWallet] = useState("");
-    // Defining button actions
-    async function connectionIntent() {
-        console.log('Connecting wallet...')
-        let connected = await connectWallet()
-        console.log(connected)
-        if (connected !== false && connected.indexOf('0x') === 0) {
-            setWallet(connected)
-        }
+  const [wallet, setWallet] = useState("");
+  // Defining button actions
+  async function connectionIntent() {
+    console.log('Connecting wallet...')
+    let connected = await connectWallet()
+    console.log(connected)
+    if (connected !== false && connected.indexOf('0x') === 0) {
+      setWallet(connected)
     }
-    async function signoutIntent() {
-        console.log('Disconnecting wallet...')
-        await disconnectWallet()
-        setWallet("")
+  }
+  async function signoutIntent() {
+    console.log('Disconnecting wallet...')
+    await disconnectWallet()
+    setWallet("")
+  }
+  // Check if wallet is connected
+  checkWallet().then(check => {
+    if (check !== false) {
+      setWallet(check)
     }
-    // Check if wallet is connected
-    checkWallet().then(check => {
-        if (check !== false) {
-            setWallet(check)
-        }
-    })
-    if (wallet.length === 0) {
-        return (
-            <ListItem className="signup global-button" onClick={connectionIntent}>
-                <Link href="#">Connect Wallet</Link>
-            </ListItem>
-        )
-    } else {
-        return (
-            <ListItem className="signup global-button" onClick={signoutIntent}>
-                <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
-            </ListItem>
-        )
-    }
+  })
+  if (wallet.length === 0) {
+    return (
+      <ListItem className="signup global-button" onClick={connectionIntent}>
+        <Link href="#">Connect Wallet</Link>
+      </ListItem>
+    )
+  } else {
+    return (
+      <ListItem className="signup global-button" onClick={signoutIntent}>
+        <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
+      </ListItem>
+    )
+  }
 }

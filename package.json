@@ -19,6 +19,7 @@
     "@svgr/webpack": "^5.5.0",
     "@tryghost/content-api": "^1.5.9",
     "@tryghost/helpers": "^1.1.49",
+    "@walletconnect/web3-provider": "^1.6.5",
     "electron": "^14.0.0",
     "framer-motion": "^4",
     "next": "11.0.1",
@@ -26,7 +27,8 @@
     "react-dom": "17.0.2",
     "react-hotkeys-hook": "^3.4.0",
     "react-icons": "^4.2.0",
-    "web3": "^1.5.2"
+    "web3": "^1.5.2",
+    "web3modal": "^1.9.4"
   },
   "devDependencies": {
     "@types/react": "17.0.13",
