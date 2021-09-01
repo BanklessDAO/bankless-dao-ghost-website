@@ -1,6 +1,6 @@
 export type PostOrPage = {
-    slug?: string
-    id?: string
+    slug?: string,
+    id?: string,
     uuid?: string,
     title?: string, 
     html: string,
@@ -31,9 +31,9 @@ export type PostOrPage = {
     twitter_description?: null,
     meta_title?: null,
     meta_description?: string | null,
-    email_subject?: string | null
+    email_subject?: string | null,
     authors?: Author[],
-    tags: Tag[]
+    tags: Tag[],
     primary_author: Author,
     primary_tag?: Tag
 };
