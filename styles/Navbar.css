@@ -1,0 +1,7 @@
+@media screen and (max-width: 1023px) {
+    .connection-button {
+        padding: 17px!important;
+        text-align: center!important;
+        list-style: none!important;
+    }
+}

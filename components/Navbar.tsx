@@ -19,7 +19,7 @@ import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
-import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3";
+import { checkWallet, connectWallet, disconnectWallet, checkWeb3 } from "../lib/web3";
 import { useState } from "react"
 
 export default function Navbar() {
@@ -142,10 +142,16 @@ function ConnectionButton() {
   // Defining button actions
   async function connectionIntent() {
     console.log('Connecting wallet...')
-    let connected = await connectWallet()
-    console.log(connected)
-    if (connected !== false && connected.indexOf('0x') === 0) {
-      setWallet(connected)
+    let web3Check = await checkWeb3()
+    console.log('Web3 exists?', web3Check)
+    if (web3Check) {
+      let connected = await connectWallet()
+      console.log(connected)
+      if (connected !== false && connected.indexOf('0x') === 0) {
+        setWallet(connected)
+      }
+    } else {
+      alert('Please browse website with Metamask Mobile!')
     }
   }
   async function signoutIntent() {
@@ -161,13 +167,13 @@ function ConnectionButton() {
   })
   if (wallet.length === 0) {
     return (
-      <ListItem className="signup global-button" onClick={connectionIntent}>
+      <ListItem className="signup global-button connection-button" onClick={connectionIntent}>
         <Link href="#">Connect Wallet</Link>
       </ListItem>
     )
   } else {
     return (
-      <ListItem className="signup global-button" onClick={signoutIntent}>
+      <ListItem className="signup global-button connection-button" onClick={signoutIntent}>
         <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
       </ListItem>
     )
