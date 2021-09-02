@@ -44,6 +44,7 @@ export default function Navbar() {
         <Box className="header-nav">
           <Flex as="nav" id="mobile-nav">
             <Menu>
+              <ConnectionButton />
               <MenuButton
                 as={IconButton}
                 aria-label="site navigation menu"
@@ -78,7 +79,6 @@ export default function Navbar() {
                 <MenuItem justifyContent="flex-end">
                   <Link href="/signin">Sign In</Link>
               </MenuItem>*/}
-                <ConnectionButton />
                 <MenuItem
                   justifyContent="flex-end"
                   color="var(--bg-nav)"
