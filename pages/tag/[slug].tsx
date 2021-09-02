@@ -16,9 +16,7 @@ import { PostsOrPages } from '../../lib/pages';
 import debounce from '../../util/debounce';
 
 // component imports
-import { Container, Flex, Box, Button } from '@chakra-ui/react';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import { Flex, Box, Button } from '@chakra-ui/react';
 import GuildTag from '../../components/GuildTag';
 import MainArticle from '../../components/MainArticle';
 import SubArticle from '../../components/SubArticle';
@@ -45,9 +43,7 @@ const PostsByTag = ({
       <Head>
         <title>Tags</title>
         <meta name="description" content="Posts by tag" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
       <Flex justifyContent="center">
         <GuildTag variant="secondary" guild={tag} />
       </Flex>
@@ -72,7 +68,6 @@ const PostsByTag = ({
         </Box>
       )}
       <SubscribeSection />
-      <Footer />
     </>
   );
 };
