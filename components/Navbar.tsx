@@ -79,14 +79,7 @@ export default function Navbar() {
                 <MenuItem justifyContent="flex-end">
                   <Link href="/signin">Sign In</Link>
               </MenuItem>*/}
-                <MenuItem
-                  justifyContent="flex-end"
-                  color="var(--bg-nav)"
-                  background="var(--color-details)"
-                >
-                  Search
-                  <SearchButton />
-                </MenuItem>
+                <SearchButtonMobile />
               </MenuList>
             </Menu>
           </Flex>
@@ -133,6 +126,31 @@ function SearchButton() {
         <ListIcon as={Search2Icon} color="white" />
       </Button>
       <SearchModal isOpen={isOpen} onClose={onClose} />
+    </>
+  );
+}
+
+function SearchButtonMobile() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useHotkeys("/", (e) => {
+    e.preventDefault();
+    onOpen();
+  });
+  return (
+    <>
+
+      <MenuItem
+        justifyContent="flex-end"
+        color="var(--bg-nav)"
+        background="var(--color-details)"
+        onClick={onOpen}
+      >
+        Search
+        <Button variant="unstyled" _focus={{ outline: "none" }} >
+          <ListIcon as={Search2Icon} color="white" />
+        </Button>
+        <SearchModal isOpen={isOpen} onClose={onClose} />
+      </MenuItem>
     </>
   );
 }
