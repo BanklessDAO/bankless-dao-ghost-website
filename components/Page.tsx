@@ -8,7 +8,6 @@ import {
 	Container,
 	Box,
 	Flex,
-	Link,
 	Image,
 	Heading,
 	Text
@@ -17,6 +16,7 @@ import {
 // component imports
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Link from './Link';
 
 // Component definition.
 export default function Page({ cmsData }: any): JSX.Element {

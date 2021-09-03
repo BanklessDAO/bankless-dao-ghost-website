@@ -7,7 +7,6 @@ import {
   Container,
   Box,
   Flex,
-  Link,
   Image,
   Heading,
   Text
@@ -16,6 +15,7 @@ import {
 // component imports
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Link from './Link';
 import ShareLinks from './ShareLinks';
 import RelatedPosts from './RelatedPosts';
 import NextPrevSection from './NextPrevPost';

@@ -2,7 +2,6 @@ import {
   Heading,
   Box,
   Flex,
-  Link,
   Image,
   ListItem,
   ListIcon,
@@ -20,7 +19,9 @@ import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
 import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3";
-import { useState } from "react"
+import { useState } from "react";
+
+import Link from './Link';
 
 export default function Navbar() {
   return (

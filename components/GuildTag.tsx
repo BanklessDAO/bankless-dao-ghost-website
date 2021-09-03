@@ -4,7 +4,8 @@ import {
   Link,
   Image,
   Heading,
-  useMultiStyleConfig
+  useMultiStyleConfig,
+  useTheme
 } from '@chakra-ui/react';
 
 // ghost types import
@@ -18,24 +19,27 @@ export interface GuildTagProps {
 }
 
 export default function GuildTag({
-  size,
   variant,
   guild,
 }): JSX.Element {
 
-  const styles = useMultiStyleConfig("GuildTag", { size, variant });
+  let { posts } = guild.count;
+
+  const styles = useMultiStyleConfig("GuildTag", variant );
 
   console.log(styles);
 
+  let showCount = posts < 0 ? false : true;
+
   return (
-    <Box __css={styles.container}>
-        <Link __css={styles.primarylink} href={`tag/${guild.slug}`}>
-          <Image __css={styles.linkimage} src={guild.feature_image} alt={guild.name} loading="lazy"/>
+    <Box sx={styles.container}>
+        <Link sx={styles.primarylink} href={`tag/${guild.slug}`}>
+          <Image sx={styles.linkimage} src={guild.feature_image} alt={guild.name} loading="lazy"/>
         </Link>
-        <Heading __css={styles.heading} as="h2">
+        <Heading sx={styles.heading} as="h2">
           <Link className="global-underline" href={`tag/${guild.slug}`}>#{guild.name}</Link>
         </Heading>
-        { (variant == "primary") && (<Box as="span">{ count, (count.posts > 1) ? "posts" : "post" }</Box>) }
+        { showCount && <Box sx={styles.postcount} as="span">{ posts } { (posts > 1) ? "posts" : "post" }</Box> }
     </Box>
   );
 }

@@ -35,14 +35,19 @@ export default function Guilds({ tags }) {
       </Head>
       <Navbar />
       <chakra.main className="global-main">
-        <Flex flexWrap="wrap" justiyContent="center">
-          { mostPosts.map((guild,index) => <GuildTag key={index} guild={guild}/>)}
+        <Flex flexWrap="wrap" justifyContent="center" marginTop="3vh" overflowWrap="break-word">
+          { mostPosts.map((guild,index) => <GuildTag key={index} guild={guild} variant="primary"/>)}
           <Heading
             as="h4"
             display={{
               sm: "none",
               xl: "block"
             }}
+            fontSize="20px"
+            margin="5vh 0"
+            width="100%"
+            lineHeight="1.2"
+            textAlign="center"
           >See Also</Heading>
           { restGuilds.map((guild, index) => (<GuildTag key={index} variant="secondary" guild={guild} />)) }
         </Flex>
@@ -59,8 +64,6 @@ export async function getStaticProps(context: GetStaticProps) {
   tags = await getAllTags()
 
   tags = tags.filter(({name}) => name !== "#dark-version").reverse();
-
-  console.log(tags);
 
   if (!tags) {
     return  { props: { notFound: true } };

@@ -4,59 +4,88 @@ export default {
         "primarylink",
         "linkimage",
         "heading",
+        "postcount"
     ],
     baseStyle: {
         container: {
-            base: {
-                textAlign: "center",
+            flex: "1 0 33.333%",
+            maxW: {
+                sm: "120px",
+                md: "200px",
+                "2xl": "400px"
             },
-            sm: {
-                paddingBottom: "25px",
-                paddingRight: "12px",
-                paddingLeft: "12px",
-                maxW: "120px"
+            padding: "0 30px 5vh",
+            paddingBottom: {
+                sm: "25px"
             },
-            md: {
-                maxW: "200px"
+            paddingRight: {
+                sm: "12px"
+            },
+            paddingLeft: {
+                sm: "12px"
             }
-
-        },
-        primarylink: {
-            display: "inline-flex"
         },
         linkimage: {
-            base: {
-                borderRadius: "100%",
-                border: "var(--border) var(--color-three)",
-                marginBottom: "2vh"
+            boxSizing: "content-box",
+            objectFit: "cover",
+            padding: {
+                sm: "6px",
+                md: "10px"
             },
-            sm: {
-                width: "78px",
-                height: "78px",
-                padding: "6px"
+            border: "var(--border) var(--color-three)",
+            borderRadius: "100%",
+            marginBottom: "2vh",
+            width: {
+                sm: "78px",
+                md: "130px",
+                lg: "170px"
+            },
+            height: {
+                sx: "78px",
+                md: "130px",
+                lg: "170px"
             }
+        },
+        primarylink: {
+            display: "inline-flex",
         },
         heading: {
-            base: {
-                margin: "0 0 1vh"
-            },
-            sm: {
-                fontSize: "small"
-            },
-            md: {
-                fontsize: "med"
+            margin: 0,
+            fontSize: {
+                sm: "16px",
+                md: "20px",
+                xl: "30px"
+
+            }
+        },
+        postcount: {
+            fontFamily: "four",
+            fontSize: "13px",
+            boxSizing: {
+                sm: "content-box",
+                xl: "border-box"
             }
         }
     },
-    sizes: {
-        small: {
-            fontSize: '16px'
-        },
-        med: {
-            fontSize: '20px'
-        }
-    },
+    sizes: {},
     variants: {
+        primary: {
+            container: {
+                textAlign: "center",
+            },
+        },
+        secondary: {
+            container: {
+                textAlign: "right",
+                flexBasis: {
+                    md: "20%",
+                },
+                maxW: {
+                    md: "210px"
+                },
+                paddingBottom: "4vh"
+            }
+        }
     },
     defaultProps: {
         variant: "primary"

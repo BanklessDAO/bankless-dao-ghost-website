@@ -2,11 +2,11 @@ import {
   Text,
   Box,
   Flex,
-  Link,
   Image,
   ListItem,
   UnorderedList,
 } from "@chakra-ui/react";
+import Link from './Link';
 import SocialIcons from "./SocialIcons";
 
 export default function Footer(): JSX.Element {
