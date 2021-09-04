@@ -13,7 +13,6 @@ import { Tags } from '@tryghost/content-api';
 
 // GuildTag Definition.
 export interface GuildTagProps {
-  size: string,
   variant: string,
   guild: Tags[],
 }
@@ -21,7 +20,7 @@ export interface GuildTagProps {
 export default function GuildTag({
   variant,
   guild,
-}): JSX.Element {
+}: GuildTagProps): JSX.Element {
 
   let { posts } = guild.count;
 

@@ -43,3 +43,24 @@ export async function getSinglePage(pageSlug: string): Promise<PostOrPage> {
   return result;
 
 }
+
+export async function getPagesByTag(slug: string): Promise<PostOrPage> {
+
+    console.log(slug);
+
+    let results: PostOrPage[] = null;
+    try {
+      results = await api.pages.browse({
+        filter: `tag.slug:${slug}`,
+        include: ['tags', 'authors']
+      });
+
+      if(!results) return null;
+    } catch (error: any) {
+      if(error.response?.status !== 404) throw new Error(error);
+      return null;
+    }
+
+    return results;
+
+}

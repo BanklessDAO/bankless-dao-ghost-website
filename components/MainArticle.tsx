@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
-import { PostOrPage, Tag } from '../lib/types/ghost-types';
+import { PostOrPage, Tag } from '@tryghost/';
 import Link from './Link';
 
 type MainArticleProps = {
@@ -51,7 +51,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`/${tag.slug}`}
+                href={`tag/${tag.slug}`}
               >#{tag.name}</Link>
             ))}
           </Box>

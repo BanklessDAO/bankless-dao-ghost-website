@@ -1,9 +1,10 @@
-import { Link, chakra } from "@chakra-ui/react";
+import { chakra } from "@chakra-ui/react";
 import Discord from "../public/images/discord.svg";
 import Substack from "../public/images/substack.svg";
 import Medium from "../public/images/medium.svg";
 import Twitter from "../public/images/twitter.svg";
 import Github from "../public/images/github.svg";
+import Link from './Link';
 
 // Should I lift this out to a common directory?
 export interface socialLink {

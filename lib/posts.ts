@@ -129,3 +129,32 @@ export async function getNewerPost(date: string): Promise<any> {
     })
     .catch((err) => console.error(err));
 }
+
+
+export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<PostOrPage> {
+
+  let results: PostOrPage[] = null;
+
+  try {
+
+    results = await api.posts.browse({
+      limit: 5,
+      page,
+      formats: ['plaintext'],
+      filter: `tag:${tag}`,
+      include: ['tags', 'authors']
+    });
+
+    if(!results) return null;
+
+  } catch(error: any) {
+
+    if(error.response?.status !== 404) throw new Error(error);
+
+    return null;
+
+  }
+
+  return results;
+
+}
