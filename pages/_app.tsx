@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app';
 import { chakra, ChakraProvider, Container } from '@chakra-ui/react';
 import theme from '../theme';
 import { getSettings } from "../lib/settings";
+import "../styles/Mobile.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
