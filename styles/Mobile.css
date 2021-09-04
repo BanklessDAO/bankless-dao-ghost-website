@@ -1,0 +1,15 @@
+@media screen and (max-width: 1023px) {
+    .connection-button {
+        padding: 8px!important;
+        height: 25px!important;
+        text-align: center!important;
+        list-style: none!important;
+        font-size: 10px!important;
+        margin-top: 8px;
+        margin-right: 10px;
+    }
+    body,
+    html {
+        overflow-x: hidden;
+    }
+}

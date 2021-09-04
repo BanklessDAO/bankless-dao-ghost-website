@@ -79,7 +79,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   }
 
   function handleEnterKey() {
-    router.push(filteredResults[activeIndex].slug);
+    // Be sure there's a result at activeIndex
+    if (filteredResults[activeIndex] !== undefined) {
+      router.push(filteredResults[activeIndex].slug);
+    }
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {

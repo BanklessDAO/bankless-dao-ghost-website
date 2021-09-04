@@ -5,10 +5,10 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID
 const providerOptions = {
     injected: {
-      package: null,
-      connector: async () => {
-        return 'injected'
-      },
+        package: null,
+        connector: async () => {
+            return 'injected'
+        },
     },
     walletconnect: {
         package: WalletConnectProvider,
@@ -16,7 +16,7 @@ const providerOptions = {
             infuraId: INFURA_ID
         },
         connector: async () => {
-          return 'walletconnect'
+            return 'walletconnect'
         },
     }
 };
@@ -27,6 +27,22 @@ declare const window: Window &
         ethereum: any,
         localStorage: any
     }
+
+export function checkWeb3(): Promise<any> {
+    return new Promise(async response => {
+        console.log('Checking Web3.')
+        if (window.ethereum) {
+            response(true)
+        } else {
+            // Checking if we're in a mobile browser, if not we can display just WalletConnect
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                response(false)
+            } else {
+                response(true)
+            }
+        }
+    })
+}
 
 export function initWeb3(provider: any): Promise<any> {
     return new Promise(async response => {
