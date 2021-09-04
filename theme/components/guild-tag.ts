@@ -9,24 +9,14 @@ export default {
     baseStyle: {
         container: {
             flex: "1 0 33.333%",
-            maxW: {
-                sm: "120px",
-                md: "200px",
-                "2xl": "400px"
-            },
             padding: "0 30px 5vh",
-            paddingBottom: {
-                sm: "25px"
-            },
-            paddingRight: {
-                sm: "12px"
-            },
-            paddingLeft: {
-                sm: "12px"
-            }
+            paddingBottom: "25px",
+            paddingRight: "12px",
+            paddingLeft: "12px",
+            textAlign: "center",
+            boxSizing: "content-box",
         },
         linkimage: {
-            boxSizing: "content-box",
             objectFit: "cover",
             padding: {
                 sm: "6px",
@@ -35,18 +25,9 @@ export default {
             border: "var(--border) var(--color-three)",
             borderRadius: "100%",
             marginBottom: "2vh",
-            width: {
-                sm: "78px",
-                md: "130px",
-                lg: "170px"
-            },
-            height: {
-                sx: "78px",
-                md: "130px",
-                lg: "170px"
-            }
         },
         primarylink: {
+            boxSizing: "content-box",
             display: "inline-flex",
         },
         heading: {
@@ -55,7 +36,6 @@ export default {
                 sm: "16px",
                 md: "20px",
                 xl: "30px"
-
             }
         },
         postcount: {
@@ -67,27 +47,61 @@ export default {
             }
         }
     },
-    sizes: {},
+    sizes: { },
     variants: {
         primary: {
             container: {
-                textAlign: "center",
+                maxW: {
+                    sm: "120px",
+                    md: "200px",
+                    lg: "300px",
+                    xl: "400px"
+                },
+                padding: {
+                    xl: "0"
+                }
             },
+            linkimage: {
+                 width: {
+                    sm: "78px",
+                    md: "130px",
+                    lg: "170px",
+                    xl: "200px",
+                },
+                height: {
+                    sm: "78px",
+                    md: "130px",
+                    lg: "170px",
+                    xl: "200px",
+                },
+            },
+            heading: {
+                boxSizing: "content-box"
+            }
         },
         secondary: {
             container: {
-                textAlign: "right",
-                flexBasis: {
-                    md: "20%",
-                },
                 maxW: {
+                    sm: "200px",
                     md: "210px"
                 },
                 paddingBottom: "4vh"
+            },
+            linkimage: {
+                width: {
+                    sm: "78px",
+                    md: "130px",
+                    lg: "170px",
+                    xl: "200px",
+                },
+                height: {
+                    sm: "78px",
+                    md: "130px",
+                    lg: "170px",
+                    xl: "200px",
+                },
             }
         }
     },
-    defaultProps: {
-        variant: "primary"
-    }
+    defaultProps: {}
 }

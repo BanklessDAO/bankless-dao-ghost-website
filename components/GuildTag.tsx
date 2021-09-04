@@ -25,13 +25,12 @@ export default function GuildTag({
 
   let { posts } = guild.count;
 
-  const styles = useMultiStyleConfig("GuildTag", variant );
-
-  console.log(styles);
+  const styles = useMultiStyleConfig("GuildTag", { variant });
 
   let showCount = posts < 0 ? false : true;
 
   return (
+
     <Box sx={styles.container}>
         <Link sx={styles.primarylink} href={`tag/${guild.slug}`}>
           <Image sx={styles.linkimage} src={guild.feature_image} alt={guild.name} loading="lazy"/>

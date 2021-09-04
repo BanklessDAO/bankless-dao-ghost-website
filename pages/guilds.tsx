@@ -35,7 +35,7 @@ export default function Guilds({ tags }) {
       </Head>
       <Navbar />
       <chakra.main className="global-main">
-        <Flex flexWrap="wrap" justifyContent="center" marginTop="3vh" overflowWrap="break-word">
+        <Flex flexWrap="wrap" justifyContent="center" marginTop="8vh" marginBottom="8vh" overflowWrap="break-word">
           { mostPosts.map((guild,index) => <GuildTag key={index} guild={guild} variant="primary"/>)}
           <Heading
             as="h4"

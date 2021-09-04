@@ -26,8 +26,8 @@ import Link from './Link';
 export default function Navbar() {
   return (
     <Box as="header" width="100%" color="white" overflowY="visible">
-      <Flex className="header-wrap">
-        <Box className="header-logo">
+      <Flex className="header-wrap" minH="unset" marginTop={{ sm: "30px" }} marginBottom={{ sm: "60px" }}>
+        <Box className="header-logo" position={{ sm: "static", lg: "absolute"}}>
           <Heading as="h1" margin="0" lineHeight="0">
             <Link href="/"
               style={{ boxShadow: "none" }}
