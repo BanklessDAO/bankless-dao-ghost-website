@@ -2,7 +2,6 @@ import {
   Heading,
   Box,
   Flex,
-  Link,
   Image,
   ListItem,
   ListIcon,
@@ -19,18 +18,23 @@ import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
-import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3";
-import { useState } from "react"
+import { checkWallet, connectWallet, disconnectWallet, checkWeb3 } from "../lib/web3";
+import { useState } from "react";
+
+import Link from './Link';
 
 export default function Navbar() {
   return (
     <Box as="header" width="100%" color="white" overflowY="visible">
-      <Flex className="header-wrap">
-        <Box className="header-logo">
+      <Flex className="header-wrap" minH="unset" marginTop={{ sm: "30px" }} marginBottom={{ sm: "60px" }}>
+        <Box className="header-logo" position={{ sm: "static", lg: "absolute"}}>
           <Heading as="h1" margin="0" lineHeight="0">
-            <Link href="/" display="inline-block">
+            <Link href="/"
+              style={{ boxShadow: "none" }}
+              display="inline-block">
               <Image
-                src="bankless-logo.png"
+                style={{ boxShadow: "none" }}
+                src="/images/bankless-logo.png"
                 alt="Bankless"
                 maxW="300px"
                 maxH="60px"
@@ -41,6 +45,7 @@ export default function Navbar() {
         <Box className="header-nav">
           <Flex as="nav" id="mobile-nav">
             <Menu>
+              <ConnectionButton />
               <MenuButton
                 as={IconButton}
                 aria-label="site navigation menu"
@@ -69,20 +74,13 @@ export default function Navbar() {
                 <MenuItem justifyContent="flex-end">
                   <Link href="/contribute">Contribute</Link>
                 </MenuItem>
-                <MenuItem justifyContent="flex-end">
+                {/*<MenuItem justifyContent="flex-end">
                   <Link href="/signup">Register for Free</Link>
                 </MenuItem>
                 <MenuItem justifyContent="flex-end">
                   <Link href="/signin">Sign In</Link>
-                </MenuItem>
-                <MenuItem
-                  justifyContent="flex-end"
-                  color="var(--bg-nav)"
-                  background="var(--color-details)"
-                >
-                  Search
-                  <SearchButton />
-                </MenuItem>
+              </MenuItem>*/}
+                <SearchButtonMobile />
               </MenuList>
             </Menu>
           </Flex>
@@ -99,16 +97,16 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
-                {/*<ListItem className="signup global-button">
+              {/*<ListItem className="signup global-button">
                     <Link href="/signup">Register for Free!</Link>
                 </ListItem>
                 <ListItem className="signin">
                     <Link href="/signin">Sign In</Link>
                     </ListItem>*/}
-                <ConnectionButton />
-                <ListItem>
-                    <SearchButton />
-                </ListItem>
+              <ConnectionButton />
+              <ListItem>
+                <SearchButton />
+              </ListItem>
             </List>
           </Flex>
         </Box>
@@ -133,39 +131,70 @@ function SearchButton() {
   );
 }
 
+function SearchButtonMobile() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useHotkeys("/", (e) => {
+    e.preventDefault();
+    onOpen();
+  });
+  return (
+    <>
+
+      <MenuItem
+        justifyContent="flex-end"
+        color="var(--bg-nav)"
+        background="var(--color-details)"
+        onClick={onOpen}
+      >
+        Search
+        <Button variant="unstyled" _focus={{ outline: "none" }} >
+          <ListIcon as={Search2Icon} color="white" />
+        </Button>
+        <SearchModal isOpen={isOpen} onClose={onClose} />
+      </MenuItem>
+    </>
+  );
+}
+
 function ConnectionButton() {
-    const [wallet, setWallet] = useState("");
-    // Defining button actions
-    async function connectionIntent() {
-        console.log('Connecting wallet...')
-        let connected = await connectWallet()
-        console.log(connected)
-        if (connected !== false && connected.indexOf('0x') === 0) {
-            setWallet(connected)
-        }
-    }
-    async function signoutIntent() {
-        console.log('Disconnecting wallet...')
-        await disconnectWallet()
-        setWallet("")
-    }
-    // Check if wallet is connected
-    checkWallet().then(check => {
-        if (check !== false) {
-            setWallet(check)
-        }
-    })
-    if (wallet.length === 0) {
-        return (
-            <ListItem className="signup global-button" onClick={connectionIntent}>
-                <Link href="#">Connect Wallet</Link>
-            </ListItem>
-        )
+  const [wallet, setWallet] = useState("");
+  // Defining button actions
+  async function connectionIntent() {
+    console.log('Connecting wallet...')
+    let web3Check = await checkWeb3()
+    console.log('Web3 exists?', web3Check)
+    if (web3Check) {
+      let connected = await connectWallet()
+      console.log(connected)
+      if (connected !== false && connected.indexOf('0x') === 0) {
+        setWallet(connected)
+      }
     } else {
-        return (
-            <ListItem className="signup global-button" onClick={signoutIntent}>
-                <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
-            </ListItem>
-        )
+      alert('Please browse website with Metamask Mobile!')
     }
+  }
+  async function signoutIntent() {
+    console.log('Disconnecting wallet...')
+    await disconnectWallet()
+    setWallet("")
+  }
+  // Check if wallet is connected
+  checkWallet().then(check => {
+    if (check !== false) {
+      setWallet(check)
+    }
+  })
+  if (wallet.length === 0) {
+    return (
+      <ListItem className="signup global-button connection-button" onClick={connectionIntent}>
+        <Link href="#">Connect Wallet</Link>
+      </ListItem>
+    )
+  } else {
+    return (
+      <ListItem className="signup global-button connection-button" onClick={signoutIntent}>
+        <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
+      </ListItem>
+    )
+  }
 }

@@ -1,11 +1,25 @@
 import { PostOrPage } from '@tryghost/content-api';
 import api from './ghost-api';
+import { PostsOrPages } from './pages';
 
 export async function getPosts(): Promise<any> {
   return await api.posts
     .browse({
       limit: 5,
-      formats: ['plaintext'],
+      formats: ['html'],
+      include: ['tags', 'authors'],
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+
+export async function getPaginatedPosts(page: number = 1): Promise<any> {
+  return await api.posts
+    .browse({
+      limit: 5,
+      page,
+      formats: ['html'],
       include: ['tags', 'authors'],
     })
     .catch((err) => {
@@ -23,7 +37,7 @@ export async function getAllPosts() {
     let nextResults = await api.posts.browse({
       limit: 2,
       page: nextPage,
-      formats: ['plaintext'],
+      formats: ['html'],
       include: ['tags', 'authors'],
     });
 
@@ -38,34 +52,50 @@ export async function getAllPosts() {
   return results;
 }
 
-export async function getSinglePost(postSlug: string): Promise<any> {
-  return await api.posts
-    .read(
-      {
-        slug: postSlug,
-      },
-      {
-        include: ['tags', 'authors'],
-      },
-    )
-    .catch((err) => {
-      console.error(err);
+export async function getSinglePost(postSlug: any): Promise<any> {
+  let result: PostOrPage;
+  try {
+    result = await api.posts.read({
+      slug: postSlug
+    },{
+      include: ['tags', 'authors'],
     });
+
+    if (!result) return null;
+
+  } catch(error: any) {
+    if(error.response?.status !== 404) throw new Error(error);
+    return null;
+  }
+
+  return result;
 }
 
 export async function getPostsWithTag(parentTags: string[]): Promise<any> {
-  let fixed = parentTags.map((tag: string) => tag.replace(/ /g, '-'));
 
-  return await api.posts
-    .browse({
+  let fixed = parentTags.map(({ name }: any) => name.replace(/ /g, '-'));
+  let result: PostOrPage[];
+
+  try {
+
+    result = await api.posts.browse({
       limit: 4,
       include: ['authors'],
       fields: ['id', 'title', 'slug'],
       filter: `tags:[${fixed}]`,
     })
-    .catch((err) => {
-      console.error(err);
-    });
+
+    if(!result) return null;
+
+  } catch(error: any) {
+
+    if(error.response?.status !== 404) throw new Error(error);
+
+    return null;
+
+  }
+
+  return result;
 }
 
 export async function getFeaturedPosts(): Promise<any> {
@@ -99,4 +129,33 @@ export async function getNewerPost(date: string): Promise<any> {
       fields: ['id', 'title', 'feature_image', 'feature_image_alt', 'slug'],
     })
     .catch((err) => console.error(err));
+}
+
+
+export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<any> {
+
+  let results;
+
+  try {
+
+    results = await api.posts.browse({
+      limit: 5,
+      page,
+      formats: ['html'],
+      filter: `tag:${tag}`,
+      include: ['tags', 'authors']
+    });
+
+    if(!results) return null;
+
+  } catch(error: any) {
+
+    if(error.response?.status !== 404) throw new Error(error);
+
+    return null;
+
+  }
+
+  return results;
+
 }
