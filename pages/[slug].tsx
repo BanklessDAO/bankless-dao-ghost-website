@@ -46,9 +46,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
 
   // Get the pages we want to create based on pages
-  const pageRoutes = (pages as PostsOrPages).map((page) => ({
-    params: { slug: page.slug }
-  }));
+  const pageRoutes = (pages as PostsOrPages)
+    .filter((page) => page.slug !== 'guilds')
+    .map((page) => ({ params: { slug: page.slug } }));
 
   const paths = [...postRoutes, ...pageRoutes];
 
