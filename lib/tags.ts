@@ -1,9 +1,13 @@
 import { Tag } from '@tryghost/content-api';
 import api from './ghost-api';
+import { BrowseResults } from './pages';
 
 
-export async function getAllTags(): Promise<Tag> {
-	let results: Tag[];
+export interface Tags extends BrowseResults<Tag> {};
+
+
+export async function getAllTags(): Promise<Tags | null> {
+	let results: Tags;
 	try {
 
 		results = await api.tags.browse({
@@ -23,9 +27,9 @@ export async function getAllTags(): Promise<Tag> {
 }
 
 
-export async function getTagBySlug(tagSlug: string): Promise<Tag> {
+export async function getTagBySlug(tagSlug: string): Promise<Tag | null> {
 
-	let result: Tag = null;
+	let result: Tag;
 
 	try {
 

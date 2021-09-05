@@ -18,7 +18,7 @@ import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
-import { checkWallet, connectWallet, disconnectWallet } from "../lib/web3";
+import { checkWallet, connectWallet, disconnectWallet, checkWeb3 } from "../lib/web3";
 import { useState } from "react";
 
 import Link from './Link';
@@ -34,7 +34,7 @@ export default function Navbar() {
               display="inline-block">
               <Image
                 style={{ boxShadow: "none" }}
-                src="bankless-logo.png"
+                src="/images/bankless-logo.png"
                 alt="Bankless"
                 maxW="300px"
                 maxH="60px"

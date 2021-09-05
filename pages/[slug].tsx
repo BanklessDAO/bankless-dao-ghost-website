@@ -2,7 +2,8 @@
 import { getSinglePost, getPosts, getPostsWithTag, getNewerPost, getOlderPost } from '../lib/posts';
 import {
   getSinglePage,
-  getPages
+  getPages,
+  PostsOrPages
 } from '../lib/pages';
 // import Header from '../../components/Header';
 import { Link, Flex, Box, Heading, Container, Text, Image, chakra } from '@chakra-ui/react';
@@ -19,23 +20,6 @@ import ShareLinks from '../components/ShareLinks';
 import NextPrevSection from '../components/NextPrevPost';
 import Page from '../components/Page';
 import Post from '../components/Post';
-
-type PostPageProps = {
-  post: PostOrPage,
-  relatedPosts: PostOrPage[],
-  newerPost: {
-    title: string,
-    feature_image: string,
-    feature_image_alt: string,
-    slug: string
-  }[],
-  olderPost: {
-    title: string,
-    feature_image: string,
-    feature_image_alt: string,
-    slug: string
-  }[]
-};
 
 // PostPage page component
 const PostPage = ({ cmsData }: any) => {
@@ -56,15 +40,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts: PostOrPage[] = await getPosts();
   const pages: PostOrPage[] = await getPages();
 
-  const contrib: PostOrPage[] = await getSinglePage('contribute');
-
   // Get the paths we want to create based on posts
   const postRoutes = posts.map((post: PostOrPage) => ({
     params: { slug: post.slug },
   }));
 
   // Get the pages we want to create based on pages
-  const pageRoutes = (pages as PostOrPage).map((page) => ({
+  const pageRoutes = (pages as PostsOrPages).map((page) => ({
     params: { slug: page.slug }
   }));
 
@@ -79,15 +61,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // In turn passing it to the posts.read() to query the Ghost Content API
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
-  let post: PostOrPage | null = null;
-  let page: PostOrPage | null = null;
+  const slug: any = params!.slug;
 
-  post = await getSinglePost(params.slug);
+  let post: any = null;
+  let page: any = null;
+
+  post = await getSinglePost(slug);
   const isPost = !!post;
   let relatedPosts: PostOrPage[] | never[] = [];
 
   if (!isPost) {
-    page = await getSinglePage(params.slug);
+    page = await getSinglePage(slug);
   } else if(post?.primary_tag) {
     relatedPosts = await getPostsWithTag(post?.tags);
   } else {

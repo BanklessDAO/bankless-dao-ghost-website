@@ -2,6 +2,14 @@ import api from './ghost-api';
 import { PostOrPage, Pagination, Tag, Author } from '@tryghost/content-api';
 
 
+export interface BrowseResults<T> extends Array<T> {
+  meta: {
+    pagination: Pagination
+  }
+}
+
+export interface PostsOrPages extends BrowseResults<PostOrPage> {};
+
 export async function getFeaturedPages() {
   return await api.pages
     .browse({
@@ -13,11 +21,11 @@ export async function getFeaturedPages() {
     });
 }
 
-export async function getPages(): Promise<PostsOrPages> {
+export async function getPages(): Promise<any> {
   return await api.pages
     .browse({
       limit: "all",
-      formats: ['plaintext'],
+      formats: ['html'],
       include: ['tags', 'authors'],
     })
     .catch(err => {
@@ -25,13 +33,13 @@ export async function getPages(): Promise<PostsOrPages> {
     });
 }
 
-export async function getSinglePage(pageSlug: string): Promise<PostOrPage> {
+export async function getSinglePage(slug: string): Promise<PostOrPage | null> {
 
   let result: PostOrPage;
   try {
 
     result = await api.pages.read({
-      slug: pageSlug
+      slug: slug
     });
 
     if (!result) return null;
@@ -44,11 +52,10 @@ export async function getSinglePage(pageSlug: string): Promise<PostOrPage> {
 
 }
 
-export async function getPagesByTag(slug: string): Promise<PostOrPage> {
+export async function getPagesByTag(slug: string): Promise<PostsOrPages | null> {
 
-    console.log(slug);
+    let results: PostsOrPages;
 
-    let results: PostOrPage[] = null;
     try {
       results = await api.pages.browse({
         filter: `tag.slug:${slug}`,
@@ -60,6 +67,8 @@ export async function getPagesByTag(slug: string): Promise<PostOrPage> {
       if(error.response?.status !== 404) throw new Error(error);
       return null;
     }
+
+    console.log(results);
 
     return results;
 

@@ -9,12 +9,12 @@ import {
 } from '@chakra-ui/react';
 
 // ghost types import
-import { Tags } from '@tryghost/content-api';
+import { Tag } from '@tryghost/content-api';
 
 // GuildTag Definition.
 export interface GuildTagProps {
   variant: string,
-  guild: Tags[],
+  guild: Tag,
 }
 
 export default function GuildTag({
@@ -22,7 +22,7 @@ export default function GuildTag({
   guild,
 }: GuildTagProps): JSX.Element {
 
-  let { posts } = guild.count;
+  let  posts = guild.count!.posts;
 
   const styles = useMultiStyleConfig("GuildTag", { variant });
 
@@ -32,7 +32,7 @@ export default function GuildTag({
 
     <Box sx={styles.container}>
         <Link sx={styles.primarylink} href={`tag/${guild.slug}`}>
-          <Image sx={styles.linkimage} src={guild.feature_image} alt={guild.name} loading="lazy"/>
+          <Image sx={styles.linkimage} src={  guild.feature_image! } alt={guild.name} loading="lazy"/>
         </Link>
         <Heading sx={styles.heading} as="h2">
           <Link className="global-underline" href={`tag/${guild.slug}`}>#{guild.name}</Link>

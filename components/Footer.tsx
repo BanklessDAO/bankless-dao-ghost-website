@@ -16,7 +16,7 @@ export default function Footer(): JSX.Element {
         <Box className="footer-data">
           <Box className="footer-logo">
             <Link className="is-image" href="/">
-              <Image src="bankless-logo.png" alt="Bankless DAO logo" />
+              <Image src="/images/bankless-logo.png" alt="Bankless DAO logo" />
             </Link>
           </Box>
           <Text className="footer-description">

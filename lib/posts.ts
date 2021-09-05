@@ -1,11 +1,12 @@
 import { PostOrPage } from '@tryghost/content-api';
 import api from './ghost-api';
+import { PostsOrPages } from './pages';
 
 export async function getPosts(): Promise<any> {
   return await api.posts
     .browse({
       limit: 5,
-      formats: ['plaintext'],
+      formats: ['html'],
       include: ['tags', 'authors'],
     })
     .catch(err => {
@@ -18,7 +19,7 @@ export async function getPaginatedPosts(page: number = 1): Promise<any> {
     .browse({
       limit: 5,
       page,
-      formats: ['plaintext'],
+      formats: ['html'],
       include: ['tags', 'authors'],
     })
     .catch((err) => {
@@ -36,7 +37,7 @@ export async function getAllPosts() {
     let nextResults = await api.posts.browse({
       limit: 2,
       page: nextPage,
-      formats: ['plaintext'],
+      formats: ['html'],
       include: ['tags', 'authors'],
     });
 
@@ -51,7 +52,7 @@ export async function getAllPosts() {
   return results;
 }
 
-export async function getSinglePost(postSlug: string): Promise<any> {
+export async function getSinglePost(postSlug: any): Promise<any> {
   let result: PostOrPage;
   try {
     result = await api.posts.read({
@@ -72,7 +73,7 @@ export async function getSinglePost(postSlug: string): Promise<any> {
 
 export async function getPostsWithTag(parentTags: string[]): Promise<any> {
 
-  let fixed = parentTags.map(({ name }) => name.replace(/ /g, '-'));
+  let fixed = parentTags.map(({ name }: any) => name.replace(/ /g, '-'));
   let result: PostOrPage[];
 
   try {
@@ -131,16 +132,16 @@ export async function getNewerPost(date: string): Promise<any> {
 }
 
 
-export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<PostOrPage> {
+export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<PostsOrPages | null> {
 
-  let results: PostOrPage[] = null;
+  let results;
 
   try {
 
     results = await api.posts.browse({
       limit: 5,
       page,
-      formats: ['plaintext'],
+      formats: ['html'],
       filter: `tag:${tag}`,
       include: ['tags', 'authors']
     });

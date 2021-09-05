@@ -2,26 +2,20 @@
 import Head from 'next/head';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
-// ghost imports
-import { Tags } from '@tryghost/content-api';
+import { Tag } from '@tryghost/content-api';
 
 // chakra imports
 import { Container, Button, Box, Text, Flex, Heading, Link, SimpleGrid, Image, chakra } from '@chakra-ui/react';
 
 // lib imports
-import { getAllTags } from '../lib/tags';
+import { getAllTags, Tags } from '../lib/tags';
 
 // component imports
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GuildTag from '../components/GuildTag';
 
-// component definition.
-export interface GuildsProps {
-  tags: Tags[]
-}
-
-export default function Guilds({ tags }) {
+export default function Guilds({ tags }: any) {
 
   const mostPosts = tags.slice(0,3);
   const restGuilds = tags.slice(3);
@@ -36,7 +30,7 @@ export default function Guilds({ tags }) {
       <Navbar />
       <chakra.main className="global-main">
         <Flex flexWrap="wrap" justifyContent="center" marginTop="8vh" marginBottom="8vh" overflowWrap="break-word">
-          { mostPosts.map((guild,index) => <GuildTag key={index} guild={guild} variant="primary"/>)}
+          { mostPosts.map((guild: Tag,index: number) => <GuildTag key={index} guild={guild} variant="primary"/>)}
           <Heading
             as="h4"
             display={{
@@ -49,7 +43,7 @@ export default function Guilds({ tags }) {
             lineHeight="1.2"
             textAlign="center"
           >See Also</Heading>
-          { restGuilds.map((guild, index) => (<GuildTag key={index} variant="secondary" guild={guild} />)) }
+          { restGuilds.map((guild: Tag, index: number) => (<GuildTag key={index} variant="secondary" guild={guild} />)) }
         </Flex>
       </chakra.main>
       <Footer />
@@ -59,11 +53,11 @@ export default function Guilds({ tags }) {
 
 export async function getStaticProps(context: GetStaticProps) {
 
-  let tags: Tags | null = null;
+  let tags: any;
 
-  tags = await getAllTags()
+  tags = await getAllTags();
 
-  tags = tags.filter(({name}) => name !== "#dark-version").reverse();
+  tags = tags.filter(({ name }: { name: string }) => name !== "#dark-version").reverse();
 
   if (!tags) {
     return  { props: { notFound: true } };

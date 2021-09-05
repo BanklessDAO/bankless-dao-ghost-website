@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
-import { PostOrPage, Tag } from '@tryghost/';
+import { PostOrPage, Tag } from '@tryghost/content-api';
 import Link from './Link';
 
 type MainArticleProps = {
@@ -19,7 +19,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
           <Image
             loading="lazy"
             objectFit="cover"
-            src={post.feature_image}
+            src={post.feature_image!}
             alt={post.title} />
         </Link>
         <Box
@@ -30,7 +30,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
           willChange="transfrom"
         >
           <Text className="global-meta">
-            A long time ago by {post.primary_author.name} - {post.reading_time} minutes
+            A long time ago by {post.primary_author!.name} - {post.reading_time} minutes
           </Text>
           <Heading as="h2" className="item-title">
             <Link
@@ -46,7 +46,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
             {post.excerpt}
           </Text>
           <Box className="global-tags">
-            {post.tags.map((tag: Tag) => (
+            {post.tags!.map((tag: Tag) => (
               <Link
                 key={tag.id}
                 textTransform="lowercase"

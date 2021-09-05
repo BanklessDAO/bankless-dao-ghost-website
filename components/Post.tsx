@@ -12,6 +12,11 @@ import {
   Text
 } from '@chakra-ui/react';
 
+// type imports
+import {
+  PostOrPage
+} from '@tryghost/content-api';
+
 // component imports
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -21,7 +26,20 @@ import RelatedPosts from './RelatedPosts';
 import NextPrevSection from './NextPrevPost';
 import SubscribeSection from './SubscribeSection';
 
-export default function Post({ cmsData }): JSX.Element {
+
+export interface PostOrPageProps {
+  cmsData: {
+    post: PostOrPage,
+    page: PostOrPage,
+    isPost: boolean,
+    relatedPosts: PostOrPage[],
+    newerPost: any,
+    olderPost: any
+  }
+};
+
+
+export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
 
   const {
     post,
@@ -91,7 +109,7 @@ export default function Post({ cmsData }): JSX.Element {
               className="item-container global-color"
             >
               <Box className="item-image global-image global-color">
-                <Image src={post.feature_image} alt="image of publishing options" />
+                <Image src={post.feature_image!} alt="image of publishing options" />
               </Box>
               <Box
                 className=".item-content"
@@ -128,8 +146,8 @@ export default function Post({ cmsData }): JSX.Element {
                   letterSpacing="-.5px">{post.title}</Heading>
                 <Text className="item-excerpt">{post.excerpt}</Text>
                 <Box className="item-tags global-tags">
-                  {post.tags.map((tag: any) => (
-                    <Link key={tag.id} textTransform="lowercase">#{tag.name}</Link>
+                  {post.tags!.map((tag: any) => (
+                    <Link key={tag.id} textTransform="lowercase" href={`tag/${tag.slug}`}>#{tag.name}</Link>
                   ))}
                 </Box>
               </Box>
@@ -137,7 +155,7 @@ export default function Post({ cmsData }): JSX.Element {
           </Box>
           <Box
             className="postContent"
-            dangerouslySetInnerHTML={{ __html: post.html }}
+            dangerouslySetInnerHTML={{ __html: post.html! }}
             maxW="700px"
             margin="0 auto"
           />
