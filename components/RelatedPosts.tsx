@@ -1,5 +1,5 @@
 import { Heading, Text, Box, Flex, Link, chakra } from "@chakra-ui/react";
-import { PostOrPage, Author, Tag } from '../lib/types/ghost-types';
+import { PostOrPage, Author, Tag } from '@tryghost/content-api';
 
 type PinnedPagesProps = {
     relatedPages: PostOrPage[]

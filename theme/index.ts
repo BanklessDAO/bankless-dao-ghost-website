@@ -12,6 +12,7 @@ import List from "./components/list";
 import Link from "./components/link";
 import Input from './components/input';
 import Menu from './components/menu';
+import GuildTag from './components/guild-tag';
 
 // Custom app theme overrides.
 
@@ -25,7 +26,8 @@ const overrides: any = {
         List,
         Link,
         Input,
-        Menu
+        Menu,
+        GuildTag
     }
 };
 

@@ -5,7 +5,7 @@ import { Button, Box, Text, Flex, chakra } from '@chakra-ui/react';
 import { Pagination } from '@tryghost/content-api';
 import { getFeaturedPosts, getPaginatedPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
-import { PostOrPage } from '../lib/types/ghost-types';
+import { PostOrPage } from '@tryghost/content-api';
 
 import debounce from '../util/debounce';
 
@@ -21,7 +21,7 @@ export default function Home({ featuredPosts, featuredPages, posts: initialPosts
   const [posts, setPosts] = useState<PostOrPage[]>(initialPosts)
   const handleLoadMoreClick = async () => {
     const newPosts = await getPaginatedPosts(pagination.next!)
-    setPosts((prevPosts) => [...prevPosts, ...newPosts])
+    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
     setPagination(newPosts.meta.pagination)
   }
   return (

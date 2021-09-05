@@ -7,3 +7,5 @@ const api = new GhostContentAPI({
 });
 
 export default api;
+
+

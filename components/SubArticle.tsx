@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
-import { PostOrPage, Tag } from '../lib/types/ghost-types';
+import { PostOrPage, Tag } from '@tryghost/content-api';
 import Link from './Link';
 
 type SubArticleProps = {
@@ -9,33 +9,36 @@ type SubArticleProps = {
 
 const SubArticle = ({ post, index }: SubArticleProps) => {
   return (
-    <Box as="article" className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
+    <Box
+      as="article"
+      className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
+      maxW="50%"
     >
       <Flex className="item-container">
         <Box className="item-content">
           <Link style={{ boxShadow: "none" }} className="item-image global-image" href={`/${post.slug}`}>
             <Image
               loading="lazy"
-              src={post.feature_image}
+              src={post.feature_image!}
               alt="placeholder image" />
           </Link>
           <Heading as="h2" className="item-title">
             <Link style={{ boxShadow: "none" }}  className="global-underline" href={`/${post.slug}`} textDecoration="none">{post.title}</Link>
           </Heading>
           <Text className="global-meta">
-            {post.primary_author.name}
+            {post.primary_author!.name}
           </Text>
           {post.excerpt && <Text className="item-excerpt" fontFamily="one" fontWeight="500" fontSize="13px">
             {post.excerpt}
           </Text>
           }
           <Box className="global-tags">
-            {post.tags.map((tag: Tag) => (
+            {post.tags!.map((tag: Tag) => (
               <Link
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`/${tag.slug}`}
+                href={`tag/${tag.slug}`}
               >#{tag.name}</Link>
             ))}
           </Box>

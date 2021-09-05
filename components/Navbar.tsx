@@ -2,7 +2,6 @@ import {
   Heading,
   Box,
   Flex,
-  Link,
   Image,
   ListItem,
   ListIcon,
@@ -20,20 +19,22 @@ import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
 import { checkWallet, connectWallet, disconnectWallet, checkWeb3 } from "../lib/web3";
-import { useState } from "react"
+import { useState } from "react";
+
+import Link from './Link';
 
 export default function Navbar() {
   return (
     <Box as="header" width="100%" color="white" overflowY="visible">
-      <Flex className="header-wrap">
-        <Box className="header-logo">
+      <Flex className="header-wrap" minH="unset" marginTop={{ sm: "30px" }} marginBottom={{ sm: "60px" }}>
+        <Box className="header-logo" position={{ sm: "static", lg: "absolute"}}>
           <Heading as="h1" margin="0" lineHeight="0">
             <Link href="/"
               style={{ boxShadow: "none" }}
               display="inline-block">
               <Image
                 style={{ boxShadow: "none" }}
-                src="bankless-logo.png"
+                src="/images/bankless-logo.png"
                 alt="Bankless"
                 maxW="300px"
                 maxH="60px"
