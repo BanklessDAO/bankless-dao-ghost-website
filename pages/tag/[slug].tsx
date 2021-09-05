@@ -4,10 +4,10 @@ import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 // type imports
-import { Tags, PostOrPage, Pagination } from '@tryghost/content-api';
+import { Tag, PostOrPage, Pagination } from '@tryghost/content-api';
 
 // lib imports
-import { getAllTags, getTagBySlug } from '../../lib/tags';
+import { getAllTags, getTagBySlug, Tags } from '../../lib/tags';
 
 import { getPaginatedPostsByTag } from '../../lib/posts';
 import { PostsOrPages } from '../../lib/pages';
@@ -33,10 +33,10 @@ const PostsByTag = ({
   // Render post title and content in the page from props
 
   const [pagination, setPagination] = useState<Pagination>(initialPagination);
-  const [posts, setPosts] = useState<any | null>(initialPosts);
+  const [posts, setPosts] = useState<PostOrPage[]>(initialPosts);
   const handleLoadMoreClick = async () => {
     const newPosts = await getPaginatedPostsByTag(tag.name, pagination.next!);
-    setPosts((prevPosts: any | null) => [...prevPosts, ...newPosts]);
+    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
     setPagination(newPosts.meta.pagination);
   };
 
@@ -80,7 +80,7 @@ const PostsByTag = ({
 export default PostsByTag;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const tags: Tags = await getAllTags();
+  const tags: Tags | null = await getAllTags();
 
   const tagRoutes = (tags as Tags).map((tag) => ({
     params: { slug: tag.slug },
@@ -92,11 +92,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  let posts: PostOrPage[] | null = null;
+  let posts: PostsOrPages | null = null;
   let tag: Tag | null = null;
 
-  tag = await getTagBySlug(params.slug);
-  posts = await getPaginatedPostsByTag(params.slug);
+  let slug: any = params!.slug;
+
+  tag = await getTagBySlug(slug);
+  posts = await getPaginatedPostsByTag(slug);
 
   if (!posts) posts = null;
 
@@ -109,7 +111,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       tag,
-      pagination: posts.meta.pagination,
+      pagination: posts!.meta.pagination,
       posts,
     },
   };

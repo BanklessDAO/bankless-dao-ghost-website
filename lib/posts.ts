@@ -132,7 +132,7 @@ export async function getNewerPost(date: string): Promise<any> {
 }
 
 
-export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<PostsOrPages | null> {
+export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<any> {
 
   let results;
 
