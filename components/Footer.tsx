@@ -5,9 +5,9 @@ import {
   Image,
   ListItem,
   UnorderedList,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import Link from './Link';
-import SocialIcons from "./SocialIcons";
+import SocialIcons from './SocialIcons';
 
 export default function Footer(): JSX.Element {
   return (
@@ -64,7 +64,7 @@ export default function Footer(): JSX.Element {
         </Flex>
       </Flex>
       <Box className="footer-copyright">
-        GoBankless &copy; 2021. All Rights Reserved. Published with{" "}
+        GoBankless &copy; 2021. All Rights Reserved. Published with{' '}
         <Link href="https://ghost.org" target="_blank">
           Ghost
         </Link>

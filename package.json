@@ -8,6 +8,12 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,.md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
     "@chakra-ui/react": "^1.6.4",
@@ -35,6 +41,9 @@
     "@types/tryghost__content-api": "^1.3.7",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
     "typescript": "4.3.5"
   }
 }
