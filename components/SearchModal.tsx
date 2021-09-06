@@ -75,7 +75,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   }
 
   function handleDownKey() {
-    setActiveIndex((prevActiveIndex) => Math.min(prevActiveIndex + 1, filteredResults.length - 1));
+    setActiveIndex((prevActiveIndex) =>
+      Math.min(prevActiveIndex + 1, filteredResults.length - 1),
+    );
   }
 
   function handleEnterKey() {
@@ -117,7 +119,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       return '';
     }
     const date = new Date(d);
-    return date.toLocaleString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleString('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
   }
 
   return (
@@ -128,8 +134,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <Input
             variant="unstyled"
             placeholder="Type your keywords"
-            fontFamily="two"
-            fontSize="30px"
+            fontFamily="spartan"
+            fontSize={{ sm: '15px', md: '30px' }}
             display="block"
             color="white"
             height="auto"
@@ -154,22 +160,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   borderColor="var(--color-three)"
                   borderStyle="dashed"
                 />
-              }
-            >
+              }>
               {filteredResults.map((post, index) => (
                 <LinkBox
                   key={post.id}
                   padding="20px"
-                  background={activeIndex === index ? 'rgba(0,0,0, 0.3)' : 'transparent'}
-                  onMouseEnter={() => setActiveIndex(index)}
-                >
+                  background={
+                    activeIndex === index ? 'rgba(0,0,0, 0.3)' : 'transparent'
+                  }
+                  onMouseEnter={() => setActiveIndex(index)}>
                   <NextLink href={post.slug}>
                     <LinkOverlay href={post.slug} />
                   </NextLink>
-                  <Box fontFamily="four" fontSize="small">
+                  <Box fontFamily="mono" fontSize="small">
                     Published - {formatDate(post.published_at || '')}
                   </Box>
-                  <Box fontFamily="two" marginTop="2">
+                  <Box fontFamily="spartan" marginTop="2">
                     {post.title}
                   </Box>
                 </LinkBox>
@@ -184,7 +190,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
 const HelpBox = chakra(Box, {
   baseStyle: {
-    fontFamily: 'four',
+    fontFamily: 'mono',
     background: 'red',
     color: 'var(--color-font-two)',
     padding: '8px 20px',
