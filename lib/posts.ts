@@ -9,7 +9,7 @@ export async function getPosts(): Promise<any> {
       formats: ['html'],
       include: ['tags', 'authors'],
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     });
 }
@@ -55,16 +55,18 @@ export async function getAllPosts() {
 export async function getSinglePost(postSlug: any): Promise<any> {
   let result: PostOrPage;
   try {
-    result = await api.posts.read({
-      slug: postSlug
-    },{
-      include: ['tags', 'authors'],
-    });
+    result = await api.posts.read(
+      {
+        slug: postSlug,
+      },
+      {
+        include: ['tags', 'authors'],
+      },
+    );
 
     if (!result) return null;
-
-  } catch(error: any) {
-    if(error.response?.status !== 404) throw new Error(error);
+  } catch (error: any) {
+    if (error.response?.status !== 404) throw new Error(error);
     return null;
   }
 
@@ -72,27 +74,22 @@ export async function getSinglePost(postSlug: any): Promise<any> {
 }
 
 export async function getPostsWithTag(parentTags: string[]): Promise<any> {
-
   let fixed = parentTags.map(({ name }: any) => name.replace(/ /g, '-'));
   let result: PostOrPage[];
 
   try {
-
     result = await api.posts.browse({
       limit: 4,
       include: ['authors'],
       fields: ['id', 'title', 'slug'],
       filter: `tags:[${fixed}]`,
-    })
+    });
 
-    if(!result) return null;
-
-  } catch(error: any) {
-
-    if(error.response?.status !== 404) throw new Error(error);
+    if (!result) return null;
+  } catch (error: any) {
+    if (error.response?.status !== 404) throw new Error(error);
 
     return null;
-
   }
 
   return result;
@@ -131,31 +128,27 @@ export async function getNewerPost(date: string): Promise<any> {
     .catch((err) => console.error(err));
 }
 
-
-export async function getPaginatedPostsByTag(tag: string, page: number = 1): Promise<any> {
-
+export async function getPaginatedPostsByTag(
+  tag: string,
+  page: number = 1,
+): Promise<any> {
   let results;
 
   try {
-
     results = await api.posts.browse({
       limit: 5,
       page,
       formats: ['html'],
       filter: `tag:${tag}`,
-      include: ['tags', 'authors']
+      include: ['tags', 'authors'],
     });
 
-    if(!results) return null;
-
-  } catch(error: any) {
-
-    if(error.response?.status !== 404) throw new Error(error);
+    if (!results) return null;
+  } catch (error: any) {
+    if (error.response?.status !== 404) throw new Error(error);
 
     return null;
-
   }
 
   return results;
-
 }
