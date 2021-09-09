@@ -1,6 +1,9 @@
 import { Colors } from '@chakra-ui/react';
 
 const colors: Colors = {
+  yellow: {
+    '500': '#fed672',
+  },
   red: {
     '500': '#ff1a1a',
   },

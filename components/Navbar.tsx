@@ -18,16 +18,17 @@ import {
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
 import { useHotkeys } from 'react-hotkeys-hook';
-import {
-  checkWallet,
-  checkWeb3,
-  connectWallet,
-  disconnectWallet,
-} from '../lib/web3';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from './Link';
+import BallanceModal from './BalanceModal';
+import { useWeb3 } from '../contexts/Web3Context';
 
 export default function Navbar() {
+  const {
+    isOpen: balanceModalIsOpen,
+    onOpen: onBalanceModalOpen,
+    onClose: onBalanceModalClose,
+  } = useDisclosure();
   const {
     isOpen: searchModalIsOpen,
     onOpen: onSearchModalOpen,
@@ -44,6 +45,10 @@ export default function Navbar() {
   });
   return (
     <Box as="header" width="100%" color="white" overflowY="visible">
+      <BallanceModal
+        isOpen={balanceModalIsOpen}
+        onClose={onBalanceModalClose}
+      />
       <SearchModal isOpen={searchModalIsOpen} onClose={onSearchModalClose} />
       <Flex
         className="header-wrap"
@@ -101,6 +106,12 @@ export default function Navbar() {
                       <ListIcon as={Search2Icon} color="white" />
                     </ListItem>
                     <ListItem>
+                      <BankBallanceButton
+                        onClick={onBalanceModalOpen}
+                        size="sm"
+                      />
+                    </ListItem>
+                    <ListItem>
                       <ConnectionButton size="sm" />
                     </ListItem>
                   </List>
@@ -121,6 +132,11 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
+              <BankBallanceButton
+                onClick={onBalanceModalOpen}
+                fontSize="12px"
+                marginRight="18px"
+              />
               <ConnectionButton fontSize="12px" marginRight="18px" />
               <ListItem>
                 <Button
@@ -138,46 +154,51 @@ export default function Navbar() {
   );
 }
 
-function ConnectionButton({ ...props }) {
-  const [wallet, setWallet] = useState('');
-  // Defining button actions
-  async function connectionIntent() {
-    console.log('Connecting wallet...');
-    let web3Check = await checkWeb3();
-    console.log('Web3 exists?', web3Check);
-    if (web3Check) {
-      let connected = await connectWallet();
-      console.log(connected);
-      if (connected !== false && connected.indexOf('0x') === 0) {
-        setWallet(connected);
-      }
-    } else {
-      alert('Please browse website with Metamask Mobile!');
-    }
-  }
-  async function signoutIntent() {
-    await disconnectWallet();
-    setWallet('');
-  }
-  // Check if wallet is connected
-  checkWallet().then((check) => {
-    if (check !== false) {
-      setWallet(check);
-    }
-  });
-  let text, onClick;
+function BankBallanceButton({ ...props }) {
+  const { bankBalance, loadBankBalance, isConnected } = useWeb3();
 
-  if (wallet.length === 0) {
-    text = 'Connect Wallet';
-    onClick = connectionIntent;
-  } else {
-    text = `Sign out from ${wallet.substr(0, 3)}..${wallet.substr(-3)}`;
-    onClick = signoutIntent;
+  useEffect(() => {
+    if (isConnected) {
+      loadBankBalance();
+    }
+  }, [isConnected]);
+
+  if (bankBalance === null) {
+    return null;
   }
+
+  const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
   return (
-    <Button onClick={onClick} {...props}>
-      {text}
+    <Button variant="outline" {...props}>
+      {compactFormatter.format(bankBalance)} BANK
+    </Button>
+  );
+}
+
+function ConnectionButton({ ...props }) {
+  const { hasWeb3, walletAddress, connectWallet, disconnectWallet } = useWeb3();
+
+  function handleClick() {
+    if (!hasWeb3) {
+      alert(
+        'Please use a Web3 compatible browser or extension, such as MetaMask',
+      );
+    }
+    if (walletAddress) {
+      disconnectWallet();
+    } else {
+      connectWallet();
+    }
+  }
+
+  const buttonText = walletAddress
+    ? `Sign out from ${walletAddress.substr(0, 3)}..${walletAddress.substr(-3)}`
+    : 'Connect Wallet';
+
+  return (
+    <Button onClick={handleClick} {...props}>
+      {buttonText}
     </Button>
   );
 }

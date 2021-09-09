@@ -9,15 +9,18 @@ import { chakra, ChakraProvider, Container } from '@chakra-ui/react';
 import theme from '../theme';
 import { getSettings } from '../lib/settings';
 import '../styles/Mobile.css';
+import { Web3Provider } from '../contexts/Web3Context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <chakra.div className="global-wrap">
-        <chakra.div className="global-content" maxW="100%">
-          <Component {...pageProps} />
+      <Web3Provider>
+        <chakra.div className="global-wrap">
+          <chakra.div className="global-content" maxW="100%">
+            <Component {...pageProps} />
+          </chakra.div>
         </chakra.div>
-      </chakra.div>
+      </Web3Provider>
     </ChakraProvider>
   );
 }
