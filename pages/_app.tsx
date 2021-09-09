@@ -9,6 +9,7 @@ import { chakra, ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 import '../styles/Mobile.css';
 import Head from 'next/head';
+import { Web3Provider } from '../contexts/Web3Context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,11 +17,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
-      <chakra.div className="global-wrap">
-        <chakra.div className="global-content" maxW="100%">
-          <Component {...pageProps} />
+      <Web3Provider>
+        <chakra.div className="global-wrap">
+          <chakra.div className="global-content" maxW="100%">
+            <Component {...pageProps} />
+          </chakra.div>
         </chakra.div>
-      </chakra.div>
+      </Web3Provider>
     </ChakraProvider>
   );
 }
