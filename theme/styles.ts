@@ -751,18 +751,17 @@ export default {
     '.footer-links': {
       base: {
         margin: 0,
+        padding: 0,
         display: 'grid',
         gap: '1rem',
       },
       md: {
         justifyItems: 'start',
-        gridTemplateColumns: '1fr',
-        gridTemplateRows: 'repeat(4, 1fr)',
+        gridAutoFlow: 'row',
       },
       lg: {
         justifyItems: 'center',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: '1fr',
+        gridAutoFlow: 'column',
       },
     },
     '.footer-link': {
