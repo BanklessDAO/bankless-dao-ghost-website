@@ -748,51 +748,29 @@ export default {
         maxW: '340px',
       },
     },
-    '.footer-nav': {
+    '.footer-links': {
       base: {
-        flex: '1 0 auto',
-        flexWrap: 'nowrap',
-      },
-      sm: {
-        flexWrap: 'wrap',
+        margin: 0,
+        display: 'grid',
+        gap: '1rem',
       },
       md: {
-        maxW: '100%',
-        flexWrap: 'wrap',
+        justifyItems: 'start',
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: 'repeat(4, 1fr)',
+      },
+      lg: {
+        justifyItems: 'center',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateRows: '1fr',
       },
     },
-    '.footer-nav-column': {
+    '.footer-link': {
       base: {
-        width: '150px',
-        marginBottom: '30px',
-      },
-      sm: {
-        flex: '1 0 50%',
-      },
-      md: {
-        width: '100%',
-      },
-      '& ul': {
-        base: {
-          margin: 0,
-          paddingLeft: '15%',
-        },
-        md: {
-          paddingRight: '20px',
-          paddingLeft: 0,
-        },
-      },
-      '& li': {
-        base: {
-          fontFamily: 'spartan',
-          fontSize: '13px',
-          lineHeight: '2',
-          marginBottom: '16px',
-          listStyle: 'none',
-        },
-        lg: {
-          fontSize: '12px',
-        },
+        fontFamily: 'spartan',
+        fontSize: '13px',
+        lineHeight: '2',
+        listStyle: 'none',
       },
     },
     '.footer-copyright': {
