@@ -14,6 +14,7 @@ import {
   DrawerContent,
   DrawerBody,
   DrawerCloseButton,
+  useMultiStyleConfig,
 } from '@chakra-ui/react';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
@@ -28,6 +29,8 @@ import React, { useState } from 'react';
 import Link from './Link';
 
 export default function Navbar() {
+  const styles = useMultiStyleConfig('Header', {});
+
   const {
     isOpen: searchModalIsOpen,
     onOpen: onSearchModalOpen,
@@ -43,16 +46,19 @@ export default function Navbar() {
     onSearchModalOpen();
   });
   return (
-    <Box as="header" width="100%" color="white" overflowY="visible">
+    <Box
+      as="header"
+      width="100%"
+      color="white"
+      overflowY="visible"
+      sx={styles.section}>
       <SearchModal isOpen={searchModalIsOpen} onClose={onSearchModalClose} />
       <Flex
-        className="header-wrap"
+        sx={styles.wrap}
         minH="unset"
         marginTop={{ sm: '30px' }}
         marginBottom={{ sm: '60px' }}>
-        <Box
-          className="header-logo"
-          position={{ sm: 'static', lg: 'absolute' }}>
+        <Box sx={styles.logo} position={{ sm: 'static', lg: 'absolute' }}>
           <Heading as="h1" margin="0" lineHeight="0">
             <Link href="/" style={{ boxShadow: 'none' }} display="inline-block">
               <Image
@@ -65,7 +71,41 @@ export default function Navbar() {
             </Link>
           </Heading>
         </Box>
-        <Box className="header-nav">
+        <Box
+          sx={{
+            ...styles.hNav,
+            '& nav': {
+              display: {
+                sm: 'none',
+              },
+            },
+            '& nav, & nav>ul+ul': {
+              display: {
+                xl: 'flex',
+              },
+              alignItems: {
+                xl: 'center',
+              },
+              flex: {
+                xl: '0 0 auto',
+              },
+            },
+            '& li, & a': {
+              fontSize: '14px',
+              display: 'inline-block',
+            },
+            '& a, & .signin a, & .signout a, & .signup': {
+              marginRight: '18px',
+            },
+            '& .signup a': {
+              fontFamily: 'spartan',
+              fontSize: '12px',
+              marginRight: 0,
+              padding: '10px 12px 8px',
+              letterSpacing: '.5px',
+              lineHeight: '18px',
+            },
+          }}>
           <Flex as="nav" id="mobile-nav">
             <IconButton
               aria-label="site navigation menu"
@@ -82,7 +122,9 @@ export default function Navbar() {
               placement="right"
               onClose={onMobileMenuClose}>
               <DrawerOverlay />
-              <DrawerContent paddingTop="4" background="var(--chakra-colors-bg-nav)">
+              <DrawerContent
+                paddingTop="4"
+                background="var(--chakra-colors-bg-nav)">
                 <DrawerCloseButton size="lg" />
 
                 <DrawerBody paddingTop="4">

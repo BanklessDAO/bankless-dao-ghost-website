@@ -26,16 +26,12 @@ export default function Footer(props): JSX.Element {
   ];
 
   return (
-    <Box as="footer" sx={footerStyles.section} className="global-footer">
+    <Box as="footer" sx={footerStyles.section}>
       <Flex sx={footerStyles.wrapper}>
         <Box sx={footerStyles.data}>
           <Box sx={footerStyles.logo}>
             <Link href="/">
-              <Image
-                src="/images/bankless-logo.png"
-                alt="Bankless DAO logo"
-                sx={footerStyles.isImg}
-              />
+              <Image src="/images/bankless-logo.png" alt="Bankless DAO logo" />
             </Link>
           </Box>
           <Text sx={footerStyles.description}>
@@ -47,11 +43,11 @@ export default function Footer(props): JSX.Element {
             <SocialIcons />
           </Box>
         </Box>
-        <Flex sx={footerStyles.nav}>
+        <Flex sx={footerStyles.fNav}>
           {footerLinks.map((footerLink, id) => (
             <Box key={id} sx={footerStyles.navColumn}>
-              <UnorderedList sx={footerStyles.navList}>
-                <ListItem sx={footerStyles.navItem}>
+              <UnorderedList>
+                <ListItem>
                   <Link href={footerLink.url}>{footerLink.text}</Link>
                 </ListItem>
               </UnorderedList>

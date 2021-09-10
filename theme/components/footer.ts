@@ -4,9 +4,8 @@ export default {
     'wrapper',
     'data',
     'logo',
-    'isImg',
     'icons',
-    'nav',
+    'fNav',
     'navColumn',
     'navList',
     'navItem',
@@ -29,44 +28,72 @@ export default {
       margin: '0 auto',
       alignItems: 'flex-start',
       boxSizing: 'border-box',
-      flexWrap: 'wrap',
+      flexWrap: {
+        base: 'wrap',
+        lg: 'nowrap',
+      },
     },
     data: {
       boxSizing: 'border-box',
       paddingRight: '5%',
       flex: '999 0 30%',
+      flexBasis: {
+        md: 'unset',
+        sm: '100%',
+      },
     },
     logo: {
       marginBottom: '15px',
       maxWidth: '350px',
-    },
-    isImg: {
-      maxW: '150px',
-      maxH: '45px',
+      img: {
+        maxW: '150px',
+        maxH: '45px',
+      },
     },
     icons: {
       marginTop: '30px',
       marginBottom: '30px',
       maxW: '340px',
     },
-    nav: {
+    fNav: {
       flex: '1 0 auto',
-      flexWrap: 'nowrap',
+      flexWrap: {
+        sm: 'wrap',
+        md: 'wrap',
+      },
+      maxW: {
+        md: '100%',
+      },
     },
     navColumn: {
-      width: '150px',
+      flex: {
+        sm: '1 0 50%',
+      },
+      width: {
+        base: '150px',
+        md: '100%',
+      },
       marginBottom: '30px',
-    },
-    navList: {
-      margin: 0,
-      paddingLeft: '15%',
-    },
-    navItem: {
-      fontFamily: 'spartan',
-      fontSize: '13px',
-      lineHeight: '2',
-      marginBottom: '16px',
-      listStyle: 'none',
+      '& ul': {
+        margin: 0,
+        paddingLeft: {
+          base: '15%',
+          md: 0,
+        },
+        paddingRight: {
+          md: '20px',
+        },
+      },
+      '& li': {
+        fontFamily: 'spartan',
+        fontSize: {
+          base: '13px',
+          lg: '12px',
+        },
+        lineHeight: '2',
+        marginBottom: '16px',
+        listStyle: 'none',
+      },
     },
     copyright: {
       display: 'block',
@@ -81,46 +108,6 @@ export default {
       maxW: '350px',
       fontFamily: 'mono',
       fontSize: '13px',
-    },
-  },
-  sizes: {
-    wrapper: {
-      lg: {
-        flexWrap: 'nowrap',
-      },
-    },
-    data: {
-      md: {
-        flexBasis: '100%',
-      },
-    },
-    nav: {
-      sm: {
-        flexWrap: 'wrap',
-      },
-      md: {
-        maxW: '100%',
-        flexWrap: 'wrap',
-      },
-    },
-    navColumn: {
-      sm: {
-        flex: '1 0 50%',
-      },
-      md: {
-        width: '100%',
-      },
-    },
-    navList: {
-      md: {
-        paddingRight: '20px',
-        paddingLeft: 0,
-      },
-    },
-    navItem: {
-      lg: {
-        fontSize: '12px',
-      },
     },
   },
 };

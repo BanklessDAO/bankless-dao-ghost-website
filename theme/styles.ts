@@ -141,32 +141,6 @@ export default {
       flexDirection: 'column',
       flexGrow: 1,
     },
-    '.header-section': {
-      width: '100%',
-    },
-    '.header-wrap': {
-      minH: '60px',
-      marginTop: '20px',
-      marginBottom: '20px',
-      alignItems: 'center',
-      position: 'relative',
-    },
-    '.header-logo': {
-      base: {
-        flexBasis: '75%',
-      },
-      md: {
-        flexBasis: '50%',
-      },
-      xl: {
-        zIndex: 98,
-        top: 0,
-        width: '300px',
-        textAlign: 'center',
-        position: 'absolute',
-        left: 'calc(50% - 150px)',
-      },
-    },
     '#mobile-nav': {
       sm: {
         display: 'flex',
@@ -174,89 +148,6 @@ export default {
       },
       xl: {
         display: 'none',
-      },
-    },
-    '.header-nav': {
-      base: {
-        fontFamily: 'spartan',
-        position: 'relative',
-        zIndex: 99,
-        flex: '0 1 100%',
-      },
-      sm: {
-        flexBasis: '25%',
-        '& nav': {
-          display: 'none',
-        },
-      },
-      md: {
-        flexBasis: '50%',
-      },
-      xl: {
-        '& nav, & nav>ul+ul': {
-          display: 'flex',
-          alignItems: 'center',
-          flex: '0 0 auto',
-        },
-        '& li, & a': {
-          fontSize: '14px',
-          display: 'inline-block',
-        },
-        '& a, & .signin a, & .signout a, & .signup': {
-          marginRight: '18px',
-        },
-        '& .signup a': {
-          fontFamily: 'spartan',
-          fontSize: '12px',
-          marginRight: 0,
-          padding: '10px 12px 8px',
-          letterSpacing: '.5px',
-          lineHeight: '18px',
-        },
-      },
-    },
-    '.header-checkbox': {
-      display: 'none',
-      '&:checked~nav ul': {
-        position: 'relative',
-      },
-    },
-    '.header-toggle': {
-      display: 'block',
-      position: 'relative',
-      zIndex: '99',
-      overflow: 'visible',
-      width: '25px',
-      height: '25px',
-      margin: '0',
-      padding: '5px',
-      cursor: 'pointer',
-      opacity: '1',
-      border: '0',
-      outline: '0',
-      background: 'transparent',
-      '&>span': {
-        top: '50%',
-      },
-      '& span': {
-        display: 'block',
-        width: '100%',
-      },
-      '& .bar': {
-        position: 'absolute',
-        display: 'block',
-        width: '100%',
-        height: '3px',
-        content: "''",
-        transition:
-          'transform .3s cubic-bezier(.645, .045, .355, 1), top .3s cubic-bezier(.645, .045, .355, 1) .2s',
-        background: 'var(--chakra-colors-steel-900)',
-      },
-      '& .bar:nth-of-type(1)': {
-        top: '-10px',
-      },
-      '& .bar:nth-of-type(3)': {
-        top: '10px',
       },
     },
     '.pinned-section': {
@@ -512,7 +403,8 @@ export default {
             zIndex: -2,
             right: 0,
             bottom: '10px',
-            background: 'radial-gradient(var(--chakra-colors-steel-400) 6%, transparent 0)',
+            background:
+              'radial-gradient(var(--chakra-colors-steel-400) 6%, transparent 0)',
             position: 'absolute',
             top: '-35px',
             left: '35px',

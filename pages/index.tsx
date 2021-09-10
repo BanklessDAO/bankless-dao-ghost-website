@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
-import { Button, Box, Text, Flex, chakra } from '@chakra-ui/react';
+import {
+  useMultiStyleConfig,
+  Button,
+  Box,
+  Text,
+  Flex,
+  chakra,
+} from '@chakra-ui/react';
 import { Pagination } from '@tryghost/content-api';
 import { getFeaturedPosts, getPaginatedPosts } from '../lib/posts';
 import { getFeaturedPages } from '../lib/pages';
@@ -29,6 +36,8 @@ export default function Home({
     setPosts((prevPosts) => [...prevPosts, ...newPosts]);
     setPagination(newPosts.meta.pagination);
   };
+  const styles = useMultiStyleConfig('App', {});
+
   return (
     <>
       <Head>
@@ -36,34 +45,38 @@ export default function Home({
         <meta name="description" content="Bankless DAO community site" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
-      <chakra.main className="global-main">
-        <PinnedSection
-          featuredPages={featuredPages}
-          featuredPosts={featuredPosts}
-        />
-        <Flex className="loop-wrap">
-          {posts.map((post: PostOrPage, index: number) => {
-            const Article = index % 5 === 0 ? MainArticle : SubArticle;
-            return <Article key={post.id} post={post} index={index} />;
-          })}
-        </Flex>
-        {pagination.next && (
-          <Box className="pagination-section">
-            <Box className="pagination-wrap">
-              <Button
-                disabled={!pagination.next}
-                onClick={debounce(handleLoadMoreClick, 400)}
-                variant="loadMore"
-                aria-label="Load more"
-                display="inline-block"
-              />
-            </Box>
-          </Box>
-        )}
-        <SubscribeSection />
-      </chakra.main>
-      <Footer />
+      <chakra.div sx={styles.wrapper}>
+        <chakra.div sx={styles.content}>
+          <Navbar />
+          <chakra.main className="global-main">
+            <PinnedSection
+              featuredPages={featuredPages}
+              featuredPosts={featuredPosts}
+            />
+            <Flex className="loop-wrap">
+              {posts.map((post: PostOrPage, index: number) => {
+                const Article = index % 5 === 0 ? MainArticle : SubArticle;
+                return <Article key={post.id} post={post} index={index} />;
+              })}
+            </Flex>
+            {pagination.next && (
+              <Box className="pagination-section">
+                <Box className="pagination-wrap">
+                  <Button
+                    disabled={!pagination.next}
+                    onClick={debounce(handleLoadMoreClick, 400)}
+                    variant="loadMore"
+                    aria-label="Load more"
+                    display="inline-block"
+                  />
+                </Box>
+              </Box>
+            )}
+            <SubscribeSection />
+          </chakra.main>
+          <Footer />
+        </chakra.div>
+      </chakra.div>
     </>
   );
 }
