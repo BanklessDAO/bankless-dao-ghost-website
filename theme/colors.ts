@@ -9,6 +9,8 @@ const colors: Colors = {
     '400': '#485b73',
     '900': '#f7f9f9',
   },
+  "bg-nav": "#242d39",
+  announcements: "#fed672"
 };
 
 export default colors;

@@ -5,65 +5,61 @@ import {
   Image,
   ListItem,
   UnorderedList,
+  useMultiStyleConfig,
 } from '@chakra-ui/react';
 import Link from './Link';
 import SocialIcons from './SocialIcons';
 
-export default function Footer(): JSX.Element {
+export default function Footer(props): JSX.Element {
+  const { size } = props;
+
+  const footerStyles = useMultiStyleConfig('Footer', { size });
+
+  const footerLinks = [
+    { url: 'https://discord.gg/bjPz2w9Zts', text: 'Discord' },
+    {
+      url: 'https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f',
+      text: 'Wiki',
+    },
+    { url: 'https://forum.bankless.community/', text: 'Forum' },
+    { url: 'https://snapshot.org/#/banklessvault.eth', text: 'Vote' },
+  ];
+
   return (
-    <Box as="footer" className="footer-section global-footer">
-      <Flex className="footer-wrap">
-        <Box className="footer-data">
-          <Box className="footer-logo">
-            <Link className="is-image" href="/">
-              <Image src="/images/bankless-logo.png" alt="Bankless DAO logo" />
+    <Box as="footer" sx={footerStyles.section} className="global-footer">
+      <Flex sx={footerStyles.wrapper}>
+        <Box sx={footerStyles.data}>
+          <Box sx={footerStyles.logo}>
+            <Link href="/">
+              <Image
+                src="/images/bankless-logo.png"
+                alt="Bankless DAO logo"
+                sx={footerStyles.isImg}
+              />
             </Link>
           </Box>
-          <Text className="footer-description">
+          <Text sx={footerStyles.description}>
             A decentralized autonomous organization that acts as a steward of
             the Bankless Movement progressing the world towards a future of
             greater freedom.
           </Text>
-          <Box className="footer-icons">
+          <Box sx={footerStyles.icons}>
             <SocialIcons />
           </Box>
         </Box>
-        <Flex className="footer-nav">
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">
-                  Wiki
-                </Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://forum.bankless.community/">Forum</Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://snapshot.org/#/banklessvault.eth">
-                  Vote
-                </Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
+        <Flex sx={footerStyles.nav}>
+          {footerLinks.map((footerLink, id) => (
+            <Box key={id} sx={footerStyles.navColumn}>
+              <UnorderedList sx={footerStyles.navList}>
+                <ListItem sx={footerStyles.navItem}>
+                  <Link href={footerLink.url}>{footerLink.text}</Link>
+                </ListItem>
+              </UnorderedList>
+            </Box>
+          ))}
         </Flex>
       </Flex>
-      <Box className="footer-copyright">
+      <Box sx={footerStyles.copyright}>
         GoBankless &copy; 2021. All Rights Reserved. Published with{' '}
         <Link href="https://ghost.org" target="_blank">
           Ghost

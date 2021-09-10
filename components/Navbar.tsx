@@ -82,7 +82,7 @@ export default function Navbar() {
               placement="right"
               onClose={onMobileMenuClose}>
               <DrawerOverlay />
-              <DrawerContent paddingTop="4" background="var(--bg-nav)">
+              <DrawerContent paddingTop="4" background="var(--chakra-colors-bg-nav)">
                 <DrawerCloseButton size="lg" />
 
                 <DrawerBody paddingTop="4">

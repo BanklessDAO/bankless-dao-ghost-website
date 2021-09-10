@@ -16,7 +16,7 @@ export default {
         sm: '6px',
         md: '10px',
       },
-      border: 'var(--border) var(--color-three)',
+      border: 'var(--border) var(--chakra-colors-steel-400)',
       borderRadius: '100%',
       marginBottom: '2vh',
     },
@@ -33,7 +33,7 @@ export default {
       },
     },
     postcount: {
-      fontFamily: 'four',
+      fontFamily: 'mono',
       fontSize: '13px',
       boxSizing: {
         sm: 'content-box',

@@ -56,7 +56,7 @@ const SocialLink = chakra(Link, {
       transition: 'fill .15s ease-in-out',
       fill: 'white',
       _hover: {
-        fill: 'var(--color-details)',
+        fill: 'var(--chakra-colors-red-500)',
       },
     },
   },
