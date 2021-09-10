@@ -19,7 +19,7 @@ import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import SearchModal from "./SearchModal";
 import { useHotkeys } from "react-hotkeys-hook";
-import { checkWallet, connectWallet, disconnectWallet, checkWeb3 } from "../lib/web3";
+import { checkWallet, connectWallet, disconnectWallet, checkWeb3, getBankBalance } from "../lib/web3";
 import { useState } from "react"
 
 export default function Navbar() {
@@ -157,6 +157,7 @@ function SearchButtonMobile() {
 
 function ConnectionButton() {
   const [wallet, setWallet] = useState("");
+  const [balance, setBalance] = useState(0);
   // Defining button actions
   async function connectionIntent() {
     console.log('Connecting wallet...')
@@ -165,8 +166,9 @@ function ConnectionButton() {
     if (web3Check) {
       let connected = await connectWallet()
       console.log(connected)
-      if (connected !== false && connected.indexOf('0x') === 0) {
-        setWallet(connected)
+      if (connected !== false && connected.account !== undefined && connected.account.indexOf('0x') === 0) {
+        setWallet(connected.account)
+        setBalance(connected.balance)
       }
     } else {
       alert('Please browse website with Metamask Mobile!')
@@ -178,9 +180,12 @@ function ConnectionButton() {
     setWallet("")
   }
   // Check if wallet is connected
-  checkWallet().then(check => {
+  checkWallet().then(async check => {
     if (check !== false) {
+      const balance = await getBankBalance()
+      console.log('ACCOUNT BALANCE:', balance)
       setWallet(check)
+      setBalance(balance)
     }
   })
   if (wallet.length === 0) {
@@ -191,9 +196,14 @@ function ConnectionButton() {
     )
   } else {
     return (
+      <>
+      <ListItem className="signup global-button modal-button">
+        <Link href="#">{balance} BANK</Link>
+      </ListItem>
       <ListItem className="signup global-button connection-button" onClick={signoutIntent}>
         <Link href="#">Sign out from {wallet.substr(0, 3)}..{wallet.substr(-3)}</Link>
       </ListItem>
+      </>
     )
   }
 }

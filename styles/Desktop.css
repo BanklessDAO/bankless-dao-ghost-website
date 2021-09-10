@@ -1,0 +1,13 @@
+.modal-button::before {
+    background: transparent!important;
+    border: 1px solid #fff;
+}
+
+.modal-button::before:hover {
+    background: #fff!important;
+    color: #ff1a1a;
+}
+
+.modal-button {
+    color: #fff!important;
+}

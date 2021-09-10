@@ -1,5 +1,6 @@
 @media screen and (max-width: 1023px) {
-    .connection-button {
+    .connection-button,
+    .modal-button {
         padding: 8px!important;
         height: 25px!important;
         text-align: center!important;

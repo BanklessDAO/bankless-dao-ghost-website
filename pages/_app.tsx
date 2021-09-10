@@ -9,6 +9,7 @@ import { chakra, ChakraProvider, Container } from '@chakra-ui/react';
 import theme from '../theme';
 import { getSettings } from "../lib/settings";
 import "../styles/Mobile.css"
+import "../styles/Desktop.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

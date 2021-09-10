@@ -2,7 +2,10 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
+const BANK_ABI = require('./bank.json')
+const BANK_CONTRACT = "0x2d94AA3e47d9D5024503Ca8491fcE9A2fB4DA198"
 const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID
+
 const providerOptions = {
     injected: {
         package: null,
@@ -106,9 +109,15 @@ export function connectWallet(): Promise<any> {
                 // Saving wallet to localstorage
                 localStorage.setItem('wallet', accounts[0])
                 console.log('Connected account is:', accounts[0])
-                response(accounts[0])
-            } catch (e) {
-                console.log('Web3 errored:', e.message)
+                const balance = await getBankBalance()
+                console.log('Balance is:', balance)
+                response({
+                    account: accounts[0],
+                    balance: balance,
+                    provider: provider
+                })
+            } catch (e: any) {
+                console.log('Web3 errored:', e['message'])
                 response(false)
             }
         }
@@ -119,5 +128,27 @@ export function disconnectWallet(): Promise<any> {
     return new Promise(async response => {
         localStorage.setItem("wallet", "")
         response(true)
+    })
+}
+
+export function getBankBalance(): Promise<any> {
+    return new Promise(async response => {
+        // Be sure we're on the client
+        if (typeof window !== 'undefined') {
+            // Check if wallet exists in localStorage
+            await window.web3.currentProvider.enable();
+            const connected = window.localStorage.getItem('wallet')
+            const web3 = await initWeb3(window.web3.currentProvider)
+            if (connected !== null && connected.indexOf('0x') === 0) {
+                const contract = new web3.eth.Contract(
+                    BANK_ABI,
+                    BANK_CONTRACT
+                )
+                const balance = await contract.methods.balanceOf(connected).call()
+                response(balance)
+            } else {
+                response(false)
+            }
+        }
     })
 }
