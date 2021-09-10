@@ -130,7 +130,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent width="calc(100% - 50px)" maxWidth="900px">
-        <Box bgColor="var(--color-body)">
+        <Box bgColor="var(--chakra-colors-steel-100)">
           <Input
             variant="unstyled"
             placeholder="Type your keywords"
@@ -157,7 +157,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 <StackDivider
                   marginTop={0}
                   marginBottom={0}
-                  borderColor="var(--color-three)"
+                  borderColor="var(--chakra-colors-steel-400)"
                   borderStyle="dashed"
                 />
               }>
@@ -192,7 +192,7 @@ const HelpBox = chakra(Box, {
   baseStyle: {
     fontFamily: 'mono',
     background: 'red',
-    color: 'var(--color-font-two)',
+    color: 'var(--chakra-colors-steel-900)',
     padding: '8px 20px',
     fontSize: 'small',
   },

@@ -10,7 +10,7 @@ export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
     <Flex
       className="post-related global-special"
       position="relative"
-      borderTop="4px solid var(--color-details)">
+      borderTop="4px solid var(--chakra-colors-red-500)">
       <Heading as="h2">
         <chakra.span>You might also like</chakra.span>
       </Heading>
