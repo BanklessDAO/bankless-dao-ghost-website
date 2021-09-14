@@ -5,14 +5,17 @@ import '@fontsource/spartan/700.css';
 
 // normal imports
 import type { AppProps } from 'next/app';
-import { chakra, ChakraProvider, Container } from '@chakra-ui/react';
+import { chakra, ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
-import { getSettings } from '../lib/settings';
 import '../styles/Mobile.css';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
+      <Head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </Head>
       <chakra.div className="global-wrap">
         <chakra.div className="global-content" maxW="100%">
           <Component {...pageProps} />
