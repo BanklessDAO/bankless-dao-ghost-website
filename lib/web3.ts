@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -7,6 +8,8 @@ const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;
 /* ERC-20 address for the BanklessDAO token */
 export const BANKLESS_DAO_TOKEN_ADDRESS =
   '0x2d94aa3e47d9d5024503ca8491fce9a2fb4da198';
+const BANKLESS_TOKEN_SYMBOL = 'BANK';
+const BANKLESS_TOKEN_DECIMALS = 18;
 
 const providerOptions = {
   injected: {
@@ -64,6 +67,17 @@ export function getWalletAddress(): string | null {
   return null;
 }
 
+export function getENSName(): string | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  const connected = window.localStorage.getItem('ensName');
+  if (connected !== null && connected.length) {
+    return connected;
+  }
+  return null;
+}
+
 export function initWeb3(provider: any): Promise<any> {
   return new Promise(async (response) => {
     console.log('Init new Web3 instance.');
@@ -112,9 +126,12 @@ export async function connectWallet(): Promise<false | string> {
       await window.ethereum.send('eth_requestAccounts');
       // Read accounts
       const accounts = await web3.eth.getAccounts();
+      const walletAddress = accounts[0];
+      const name = await loadENSName(walletAddress);
       // Saving wallet to localstorage
-      localStorage.setItem('wallet', accounts[0]);
-      console.log('Connected account is:', accounts[0]);
+      localStorage.setItem('wallet', walletAddress);
+      localStorage.setItem('ensName', name);
+      console.log('Connected account is:', walletAddress, name);
       return accounts[0];
     } catch (e) {
       console.log('Web3 errored:', e.message);
@@ -125,7 +142,8 @@ export async function connectWallet(): Promise<false | string> {
 
 export function disconnectWallet(): Promise<any> {
   return new Promise(async (response) => {
-    localStorage.setItem('wallet', '');
+    localStorage.removeItem('wallet');
+    localStorage.removeItem('ensName');
     response(true);
   });
 }
@@ -156,4 +174,51 @@ export async function getBankBalance(): Promise<number> {
   const result = await contract.methods.balanceOf(wallet).call(); // 29803630997051883414242659
 
   return Number(Web3.utils.fromWei(result)); // 29803630.997051883414242659
+}
+
+export async function loadENSName(address: string): Promise<string> {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const name = await provider.lookupAddress(address);
+  console.log('loadENSName', name);
+  if (name) {
+    localStorage.setItem('ensName', name);
+  }
+  return name;
+}
+
+export async function addBankToMetaMask(): Promise<boolean> {
+  if (!window.ethereum) {
+    return false;
+  }
+  console.log(
+    'Adding BANK TOKEN',
+    `${window.location.origin}/images/token-metamask.svg`,
+  );
+
+  try {
+    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+    const wasAdded = await window.ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20', // Initially only supports ERC20, but eventually more!
+        options: {
+          address: BANKLESS_DAO_TOKEN_ADDRESS,
+          symbol: 'BANK',
+          decimals: 18,
+          image: `${window.location.origin}/images/token-metamask.svg`,
+        },
+      },
+    });
+
+    if (wasAdded) {
+      console.log('Thanks for your interest!');
+    } else {
+      console.log('Your loss!');
+    }
+
+    return wasAdded;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }

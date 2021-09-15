@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import * as libWeb3 from '../lib/web3';
 
 type State = {
   hasWeb3: boolean;
   walletAddress: string | null;
+  ensName: string | null;
   bankBalance: number | null;
 };
 
@@ -19,6 +20,7 @@ const Web3Context = createContext<ContextValue | undefined>(undefined);
 function getInitialState(): State {
   return {
     walletAddress: libWeb3.getWalletAddress(),
+    ensName: libWeb3.getENSName(),
     hasWeb3: libWeb3.hasWeb3(),
     bankBalance: null,
   };
@@ -27,11 +29,25 @@ function getInitialState(): State {
 export function Web3Provider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<State>(getInitialState());
 
+  // run this once when the app first loads to check if someone has an already connected a wallet in
+  // local storage but hasn't yet loaded the ENS name because maybe it's newly registered.
+  useEffect(() => {
+    if (state.walletAddress && !state.ensName) {
+      libWeb3.loadENSName(state.walletAddress).then((ensName) => {
+        setState({ ...state, ensName });
+      });
+    }
+  }, []);
+
   async function connectWallet() {
     if (state.hasWeb3) {
       let connectResult = await libWeb3.connectWallet();
       if (connectResult !== false && connectResult.indexOf('0x') === 0) {
-        setState({ ...state, walletAddress: connectResult });
+        setState({
+          ...state,
+          walletAddress: connectResult,
+          ensName: libWeb3.getENSName(),
+        });
       }
     } else {
       throw new Error('Browser is not Web3 enabled');

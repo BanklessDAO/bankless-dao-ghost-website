@@ -14,6 +14,9 @@ import {
   DrawerContent,
   DrawerBody,
   DrawerCloseButton,
+  ButtonGroup,
+  ButtonProps,
+  DrawerFooter,
 } from '@chakra-ui/react';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
@@ -24,11 +27,6 @@ import BallanceModal from './BalanceModal';
 import { useWeb3 } from '../contexts/Web3Context';
 
 export default function Navbar() {
-  const {
-    isOpen: balanceModalIsOpen,
-    onOpen: onBalanceModalOpen,
-    onClose: onBalanceModalClose,
-  } = useDisclosure();
   const {
     isOpen: searchModalIsOpen,
     onOpen: onSearchModalOpen,
@@ -45,10 +43,6 @@ export default function Navbar() {
   });
   return (
     <Box as="header" width="100%" color="white" overflowY="visible">
-      <BallanceModal
-        isOpen={balanceModalIsOpen}
-        onClose={onBalanceModalClose}
-      />
       <SearchModal isOpen={searchModalIsOpen} onClose={onSearchModalClose} />
       <Flex
         className="header-wrap"
@@ -105,17 +99,11 @@ export default function Navbar() {
                       <Box marginRight="4">Search</Box>
                       <ListIcon as={Search2Icon} color="white" />
                     </ListItem>
-                    <ListItem>
-                      <BankBallanceButton
-                        onClick={onBalanceModalOpen}
-                        size="sm"
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ConnectionButton size="sm" />
-                    </ListItem>
                   </List>
                 </DrawerBody>
+                <DrawerFooter>
+                  <ConnectionButton size="sm" />
+                </DrawerFooter>
               </DrawerContent>
             </Drawer>
           </Flex>
@@ -132,12 +120,9 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
-              <BankBallanceButton
-                onClick={onBalanceModalOpen}
-                fontSize="12px"
-                marginRight="18px"
-              />
-              <ConnectionButton fontSize="12px" marginRight="18px" />
+              <ListItem marginRight="18px">
+                <ConnectionButton size="sm" />
+              </ListItem>
               <ListItem>
                 <Button
                   variant="unstyled"
@@ -154,8 +139,22 @@ export default function Navbar() {
   );
 }
 
-function BankBallanceButton({ ...props }) {
-  const { bankBalance, loadBankBalance, isConnected } = useWeb3();
+function ConnectionButton(props: ButtonProps) {
+  const {
+    hasWeb3,
+    walletAddress,
+    ensName,
+    connectWallet,
+    disconnectWallet,
+    isConnected,
+    bankBalance,
+    loadBankBalance,
+  } = useWeb3();
+  const {
+    isOpen: balanceModalIsOpen,
+    onOpen: onBalanceModalOpen,
+    onClose: onBalanceModalClose,
+  } = useDisclosure();
 
   useEffect(() => {
     if (isConnected) {
@@ -163,21 +162,7 @@ function BankBallanceButton({ ...props }) {
     }
   }, [isConnected]);
 
-  if (bankBalance === null) {
-    return null;
-  }
-
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
-
-  return (
-    <Button variant="outline" {...props}>
-      {compactFormatter.format(bankBalance)} BANK
-    </Button>
-  );
-}
-
-function ConnectionButton({ ...props }) {
-  const { hasWeb3, walletAddress, connectWallet, disconnectWallet } = useWeb3();
 
   function handleClick() {
     if (!hasWeb3) {
@@ -186,19 +171,36 @@ function ConnectionButton({ ...props }) {
       );
     }
     if (walletAddress) {
-      disconnectWallet();
+      onBalanceModalOpen();
     } else {
       connectWallet();
     }
   }
 
-  const buttonText = walletAddress
-    ? `Sign out from ${walletAddress.substr(0, 3)}..${walletAddress.substr(-3)}`
-    : 'Connect Wallet';
+  let buttonText = () => {
+    if (!walletAddress) {
+      return 'Connect Wallet';
+    }
+    if (ensName) {
+      return ensName;
+    }
+    return `${walletAddress.substr(0, 3)}..${walletAddress.substr(-3)}`;
+  };
 
   return (
-    <Button onClick={handleClick} {...props}>
-      {buttonText}
-    </Button>
+    <>
+      <BallanceModal
+        isOpen={balanceModalIsOpen}
+        onClose={onBalanceModalClose}
+      />
+      <ButtonGroup size={props.size} isAttached onClick={handleClick}>
+        {bankBalance !== null && (
+          <Button bg="black" color="white">
+            {compactFormatter.format(bankBalance)} BANK
+          </Button>
+        )}
+        <Button>{buttonText()}</Button>
+      </ButtonGroup>
+    </>
   );
 }
