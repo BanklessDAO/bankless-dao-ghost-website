@@ -756,12 +756,12 @@ export default {
         gap: '1rem',
       },
       md: {
-        justifyItems: 'start',
-        gridAutoFlow: 'row',
+      //   justifyItems: 'start',
+        // gridAutoFlow: 'row',
       },
       lg: {
-        justifyItems: 'center',
-        gridAutoFlow: 'column',
+      //   justifyItems: 'start',
+        // gridAutoFlow: 'column',
       },
     },
     '.footer-link': {
