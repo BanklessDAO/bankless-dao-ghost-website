@@ -14,18 +14,17 @@ import {
   DrawerContent,
   DrawerBody,
   DrawerCloseButton,
+  ButtonGroup,
+  ButtonProps,
+  DrawerFooter,
 } from '@chakra-ui/react';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
 import { useHotkeys } from 'react-hotkeys-hook';
-import {
-  checkWallet,
-  checkWeb3,
-  connectWallet,
-  disconnectWallet,
-} from '../lib/web3';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from './Link';
+import BallanceModal from './BalanceModal';
+import { useWeb3 } from '../contexts/Web3Context';
 
 export default function Navbar() {
   const {
@@ -100,11 +99,11 @@ export default function Navbar() {
                       <Box marginRight="4">Search</Box>
                       <ListIcon as={Search2Icon} color="white" />
                     </ListItem>
-                    <ListItem>
-                      <ConnectionButton size="sm" />
-                    </ListItem>
                   </List>
                 </DrawerBody>
+                <DrawerFooter>
+                  <ConnectionButton size="sm" />
+                </DrawerFooter>
               </DrawerContent>
             </Drawer>
           </Flex>
@@ -121,7 +120,9 @@ export default function Navbar() {
               </ListItem>
             </List>
             <List>
-              <ConnectionButton fontSize="12px" marginRight="18px" />
+              <ListItem marginRight="18px">
+                <ConnectionButton size="sm" />
+              </ListItem>
               <ListItem>
                 <Button
                   variant="unstyled"
@@ -138,46 +139,68 @@ export default function Navbar() {
   );
 }
 
-function ConnectionButton({ ...props }) {
-  const [wallet, setWallet] = useState('');
-  // Defining button actions
-  async function connectionIntent() {
-    console.log('Connecting wallet...');
-    let web3Check = await checkWeb3();
-    console.log('Web3 exists?', web3Check);
-    if (web3Check) {
-      let connected = await connectWallet();
-      console.log(connected);
-      if (connected !== false && connected.indexOf('0x') === 0) {
-        setWallet(connected);
-      }
-    } else {
-      alert('Please browse website with Metamask Mobile!');
-    }
-  }
-  async function signoutIntent() {
-    await disconnectWallet();
-    setWallet('');
-  }
-  // Check if wallet is connected
-  checkWallet().then((check) => {
-    if (check !== false) {
-      setWallet(check);
-    }
-  });
-  let text, onClick;
+function ConnectionButton(props: ButtonProps) {
+  const {
+    hasWeb3,
+    walletAddress,
+    ensName,
+    connectWallet,
+    disconnectWallet,
+    isConnected,
+    bankBalance,
+    loadBankBalance,
+  } = useWeb3();
+  const {
+    isOpen: balanceModalIsOpen,
+    onOpen: onBalanceModalOpen,
+    onClose: onBalanceModalClose,
+  } = useDisclosure();
 
-  if (wallet.length === 0) {
-    text = 'Connect Wallet';
-    onClick = connectionIntent;
-  } else {
-    text = `Sign out from ${wallet.substr(0, 3)}..${wallet.substr(-3)}`;
-    onClick = signoutIntent;
+  useEffect(() => {
+    if (isConnected) {
+      loadBankBalance();
+    }
+  }, [isConnected]);
+
+  const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
+
+  function handleClick() {
+    if (!hasWeb3) {
+      alert(
+        'Please use a Web3 compatible browser or extension, such as MetaMask',
+      );
+    }
+    if (walletAddress) {
+      onBalanceModalOpen();
+    } else {
+      connectWallet();
+    }
   }
+
+  let buttonText = () => {
+    if (!walletAddress) {
+      return 'Connect Wallet';
+    }
+    if (ensName) {
+      return ensName;
+    }
+    return `${walletAddress.substr(0, 3)}..${walletAddress.substr(-3)}`;
+  };
 
   return (
-    <Button onClick={onClick} {...props}>
-      {text}
-    </Button>
+    <>
+      <BallanceModal
+        isOpen={balanceModalIsOpen}
+        onClose={onBalanceModalClose}
+      />
+      <ButtonGroup size={props.size} isAttached onClick={handleClick}>
+        {bankBalance !== null && (
+          <Button bg="black" color="white">
+            {compactFormatter.format(bankBalance)} BANK
+          </Button>
+        )}
+        <Button>{buttonText()}</Button>
+      </ButtonGroup>
+    </>
   );
 }

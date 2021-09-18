@@ -27,6 +27,7 @@
     "@tryghost/helpers": "^1.1.49",
     "@walletconnect/web3-provider": "^1.6.5",
     "electron": "^14.0.0",
+    "ethers": "^5.4.6",
     "framer-motion": "^4",
     "next": "11.0.1",
     "react": "17.0.2",

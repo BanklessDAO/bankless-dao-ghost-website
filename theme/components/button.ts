@@ -15,6 +15,11 @@ const Button: ComponentSingleStyleConfig = {
         bg: 'red.600',
       },
     },
+    outline: {
+      _hover: {
+        bg: 'black',
+      },
+    },
     loadMore: {
       display: 'none',
       width: '50px',
