@@ -48,7 +48,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`tag/${tag.slug}`}>
+                href={`/tag/${tag.slug}`}>
                 #{tag.name}
               </Link>
             ))}

@@ -50,7 +50,7 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`tag/${tag.slug}`}>
+                href={`/tag/${tag.slug}`}>
                 #{tag.name}
               </Link>
             ))}
