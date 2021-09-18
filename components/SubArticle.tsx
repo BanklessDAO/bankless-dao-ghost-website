@@ -11,8 +11,9 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
   return (
     <Box
       as="article"
-      className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
-      maxW="50%">
+      className={`item is-image post ${
+        index % 2 !== 0 ? 'is-even' : 'is-odd'
+      }`}>
       <Flex className="item-container">
         <Box className="item-content">
           <Link

@@ -88,14 +88,12 @@ export default {
         flexWrap: 'wrap',
       },
       sm: {
-        margin: '10vh auto 25px',
         marginTop: 0,
       },
       md: {
         marginTop: 0,
       },
       lg: {
-        marginTop: '5vh',
         maxW: '100%',
       },
       xl: {
@@ -140,7 +138,7 @@ export default {
       marginLeft: '7%',
       marginBottom: '15px',
       _after: {
-        background: 'orange',
+        background: 'rgb(30,39,50)',
       },
       '.is-hero &': {
         right: '40px',
@@ -315,13 +313,16 @@ export default {
         maxW: '100%',
       },
       md: {
-        // marginTop: "5vh",
+        margin: '10vh auto 25px',
       },
-      xl: {
-        flexBasis: '25%',
+      lg: {
+        marginTop: '5vh',
       },
     },
     '.pinned-pages+.pinned-posts': {
+      lg: {
+        marginTop: '5vh',
+      },
       xl: {
         marginLeft: '35px',
       },
@@ -349,31 +350,47 @@ export default {
     },
     '.item': {
       base: {
-        maxW: '100%',
         '&.is-hero': {
-          maxW: '100%',
-          marginTop: '10vh',
           padding: '50px 0',
-          flexBasis: '100%',
         },
       },
       sm: {
         flexBasis: '100%',
-        marginTop: 0,
+        marginTop: '4vh',
         paddingTop: '0',
         paddingBottom: '0',
         marginBottom: '20px',
+        '&.is-even': {
+          paddingRight: '10%',
+          paddingLeft: '10%',
+        },
+        '&.is-odd': {
+          paddingRight: '10%',
+          paddingLeft: '10%',
+        },
         '&.is-hero.is-first': {
-          marginTop: 0,
+          marginTop: '10vh',
+          maxW: '100%',
+          flexBasis: '100%',
         },
       },
       md: {
-        marginTop: '10vh',
-        maxW: '50%',
+        maxW: '100%',
         paddingTop: 0,
         paddingBottom: 0,
         flex: '1 0 50%',
+        flexBasis: '100%',
         marginBottom: 0,
+      },
+      lg: {
+        '&.is-hero.is-first': {
+          marginTop: '10vh',
+        },
+      },
+      xl: {
+        maxW: '50%',
+        flexBasis: '50%',
+        marginTop: '10vh',
         '&.is-even': {
           paddingRight: '2%',
           paddingLeft: 0,
@@ -381,11 +398,6 @@ export default {
         '&.is-odd': {
           paddingRight: 0,
           paddingLeft: '2%',
-        },
-      },
-      lg: {
-        '&.is-hero.is-first': {
-          marginTop: '3vh',
         },
       },
     },
@@ -399,6 +411,12 @@ export default {
         flexWrap: 'wrap',
         '.post-header.is-hero &': {
           alignItems: 'center',
+        },
+        '.item.is-even &': {
+          borderLeft: 'none',
+        },
+        '.item.is-odd &': {
+          borderLeft: 'var(--border) var(--color-three)',
         },
       },
       md: {
@@ -424,17 +442,19 @@ export default {
             position: 'absolute',
             width: '100%',
             maxW: '245px',
-            background: '#ff4a97',
+            background: 'rgb(30,39,50)',
             top: '-4vh',
             bottom: '3vh',
             right: '26px',
             content: "''",
           },
         },
-        '.item.is-odd &': {
+      },
+      xl: {
+        '.item.is-even &': {
           borderLeft: 'var(--border) var(--color-three)',
         },
-        '.item.is-even &': {
+        '.item.is-odd &': {
           borderLeft: 'var(--border) var(--color-three)',
         },
       },
@@ -486,10 +506,12 @@ export default {
         width: '100%',
       },
       sm: {
-        padding: '10px 0 10px 5%',
+        padding: 0,
         paddingLeft: 0,
       },
-      md: {
+      md: {},
+      xl: {
+        padding: '10px 0 10px 5%',
         paddingLeft: '5%',
       },
     },
@@ -719,7 +741,7 @@ export default {
         boxSizing: 'border-box',
         flexWrap: 'wrap',
       },
-      lg: {
+      xl: {
         flexWrap: 'nowrap',
       },
     },
@@ -727,6 +749,8 @@ export default {
       base: {
         boxSizing: 'border-box',
         paddingRight: '5%',
+      },
+      sm: {
         flex: '999 0 30%',
       },
       md: {

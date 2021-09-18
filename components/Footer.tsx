@@ -28,7 +28,12 @@ export default function Footer(): JSX.Element {
             <SocialIcons />
           </Box>
         </Box>
-        <Box>
+        <Box
+          flex={{
+            sm: {
+              flex: '1 0 auto',
+            },
+          }}>
           <UnorderedList className="footer-links" mx="0">
             <ListItem className="footer-link">
               <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
@@ -42,9 +47,7 @@ export default function Footer(): JSX.Element {
               <Link href="https://forum.bankless.community/">Forum</Link>
             </ListItem>
             <ListItem className="footer-link">
-              <Link href="https://snapshot.org/#/banklessvault.eth">
-                Vote
-              </Link>
+              <Link href="https://snapshot.org/#/banklessvault.eth">Vote</Link>
             </ListItem>
           </UnorderedList>
         </Box>
