@@ -5,6 +5,7 @@ import {
   Image,
   ListItem,
   UnorderedList,
+  HStack,
 } from '@chakra-ui/react';
 import Link from './Link';
 import SocialIcons from './SocialIcons';
@@ -28,7 +29,7 @@ export default function Footer(): JSX.Element {
             <SocialIcons />
           </Box>
         </Box>
-        <Flex mx={4} flexDirection={{ base: 'column', md: 'row' }}>
+        <HStack spacing={16} wrap="wrap">
           <UnorderedList className="footer-links" mx="0">
             <ListItem className="footer-link">
               <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
@@ -69,7 +70,7 @@ export default function Footer(): JSX.Element {
               </Link>
             </ListItem>
           </UnorderedList>
-        </Flex>
+        </HStack>
       </Flex>
       <Box className="footer-copyright">
         GoBankless &copy; 2021. All Rights Reserved. Published with{' '}
