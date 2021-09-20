@@ -140,7 +140,7 @@ export default {
       marginLeft: '7%',
       marginBottom: '15px',
       _after: {
-        background: 'orange',
+        background: 'rgb(30, 39, 50)',
       },
       '.is-hero &': {
         right: '40px',
@@ -424,7 +424,7 @@ export default {
             position: 'absolute',
             width: '100%',
             maxW: '245px',
-            background: '#ff4a97',
+            background: 'rgb(30,39,50)',
             top: '-4vh',
             bottom: '3vh',
             right: '26px',
@@ -551,7 +551,7 @@ export default {
           _after: {
             zIndex: -3,
             maxWidth: '240px',
-            background: '#ff4a97',
+            background: 'rgb(30,39,50)',
             position: 'absolute',
             top: '-35px',
             bottom: '40px',
