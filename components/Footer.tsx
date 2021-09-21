@@ -5,9 +5,9 @@ import {
   Image,
   ListItem,
   UnorderedList,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import Link from './Link';
-import SocialIcons from "./SocialIcons";
+import SocialIcons from './SocialIcons';
 
 export default function Footer(): JSX.Element {
   return (
@@ -28,43 +28,29 @@ export default function Footer(): JSX.Element {
             <SocialIcons />
           </Box>
         </Box>
-        <Flex className="footer-nav">
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">
-                  Wiki
-                </Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://forum.bankless.community/">Forum</Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-          <Box className="footer-nav-column">
-            <UnorderedList>
-              <ListItem>
-                <Link href="https://snapshot.org/#/banklessvault.eth">
-                  Vote
-                </Link>
-              </ListItem>
-            </UnorderedList>
-          </Box>
-        </Flex>
+        <Box>
+          <UnorderedList className="footer-links" mx="0">
+            <ListItem className="footer-link">
+              <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
+            </ListItem>
+            <ListItem className="footer-link">
+              <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">
+                Wiki
+              </Link>
+            </ListItem>
+            <ListItem className="footer-link">
+              <Link href="https://forum.bankless.community/">Forum</Link>
+            </ListItem>
+            <ListItem className="footer-link">
+              <Link href="https://snapshot.org/#/banklessvault.eth">
+                Vote
+              </Link>
+            </ListItem>
+          </UnorderedList>
+        </Box>
       </Flex>
       <Box className="footer-copyright">
-        GoBankless &copy; 2021. All Rights Reserved. Published with{" "}
+        GoBankless &copy; 2021. All Rights Reserved. Published with{' '}
         <Link href="https://ghost.org" target="_blank">
           Ghost
         </Link>

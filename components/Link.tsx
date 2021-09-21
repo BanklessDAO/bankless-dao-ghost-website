@@ -1,14 +1,14 @@
-import { PropsWithChildren } from "react"
-import NextLink from "next/link"
-import { LinkProps as NextLinkProps } from "next/dist/client/link"
+import { PropsWithChildren } from 'react';
+import NextLink from 'next/link';
+import { LinkProps as NextLinkProps } from 'next/dist/client/link';
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react';
 
 type NextChakraLinkProps = PropsWithChildren<
-  NextLinkProps & Omit<ChakraLinkProps, "as">
->
+  NextLinkProps & Omit<ChakraLinkProps, 'as'>
+>;
 
 const Link = ({
   href,
@@ -28,11 +28,10 @@ const Link = ({
       replace={replace}
       scroll={scroll}
       shallow={shallow}
-      prefetch={prefetch}
-    >
+      prefetch={prefetch}>
       <ChakraLink {...chakraProps}>{children}</ChakraLink>
     </NextLink>
-  )
-}
+  );
+};
 
-export default Link
+export default Link;

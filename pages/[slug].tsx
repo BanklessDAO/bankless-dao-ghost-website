@@ -1,12 +1,23 @@
 // pages/posts/[slug].js
-import { getSinglePost, getPosts, getPostsWithTag, getNewerPost, getOlderPost } from '../lib/posts';
 import {
-  getSinglePage,
-  getPages,
-  PostsOrPages
-} from '../lib/pages';
+  getSinglePost,
+  getPosts,
+  getPostsWithTag,
+  getNewerPost,
+  getOlderPost,
+} from '../lib/posts';
+import { getSinglePage, getPages, PostsOrPages } from '../lib/pages';
 // import Header from '../../components/Header';
-import { Link, Flex, Box, Heading, Container, Text, Image, chakra } from '@chakra-ui/react';
+import {
+  Link,
+  Flex,
+  Box,
+  Heading,
+  Container,
+  Text,
+  Image,
+  chakra,
+} from '@chakra-ui/react';
 import { Author, PostOrPage } from '../lib/types/ghost-types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -23,9 +34,8 @@ import Post from '../components/Post';
 
 // PostPage page component
 const PostPage = ({ cmsData }: any) => {
-
   const router = useRouter();
-  if(router.isFallback) return <div>Loading...</div>;
+  if (router.isFallback) return <div>Loading...</div>;
 
   const { isPost } = cmsData;
 
@@ -34,7 +44,7 @@ const PostPage = ({ cmsData }: any) => {
   } else {
     return <Page cmsData={cmsData} />;
   }
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts: PostOrPage[] = await getPosts();
@@ -53,14 +63,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [...postRoutes, ...pageRoutes];
 
   // { fallback: false } means posts not found should 404.
-  return { paths, fallback: false }
-}
-
+  return { paths, fallback: false };
+};
 
 // Pass the page slug over to the "getSinglePost" function
 // In turn passing it to the posts.read() to query the Ghost Content API
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-
   const slug: any = params!.slug;
 
   let post: any = null;
@@ -72,7 +80,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!isPost) {
     page = await getSinglePage(slug);
-  } else if(post?.primary_tag) {
+  } else if (post?.primary_tag) {
     relatedPosts = await getPostsWithTag(post?.tags);
   } else {
     var { published_at } = post;
@@ -84,22 +92,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!post && !page) {
     return {
       notFound: true,
-    }
+    };
   }
 
   return {
     props: {
-      cmsData:{
+      cmsData: {
         post,
         page,
         isPost,
         relatedPosts,
         newerPost,
-        olderPost
-      }
-    }
-  }
-
-}
+        olderPost,
+      },
+    },
+  };
+};
 
 export default PostPage;

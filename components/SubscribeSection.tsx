@@ -15,7 +15,7 @@ export const ALERT_MESSAGES: AlertMessages = {
 
 const AlertBox = chakra(Box, {
   baseStyle: {
-    fontFamily: 'four',
+    fontFamily: 'mono',
     fontSize: '12px',
     lineHeight: 1.1,
     position: 'absolute',
@@ -78,7 +78,7 @@ export default function SubscribeSection() {
             onChange={handleChange}
             isRequired
           />
-          <Button className="global-button" type="submit">
+          <Button height="auto" type="submit">
             Subscribe
           </Button>
           <AlertBox>{ALERT_MESSAGES[message]}</AlertBox>

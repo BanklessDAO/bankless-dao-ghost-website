@@ -1,8 +1,6 @@
 export default {
-    baseStyle: {},
-    sizes: {},
-    variants: {
-
-    },
-    defaultProps: {}
-}
+  baseStyle: {},
+  sizes: {},
+  variants: {},
+  defaultProps: {},
+};
