@@ -7,28 +7,9 @@ import {
   getOlderPost,
 } from '../lib/posts';
 import { getSinglePage, getPages, PostsOrPages } from '../lib/pages';
-// import Header from '../../components/Header';
-import {
-  Link,
-  Flex,
-  Box,
-  Heading,
-  Container,
-  Text,
-  Image,
-  chakra,
-} from '@chakra-ui/react';
-import { Author, PostOrPage } from '../lib/types/ghost-types';
+import { PostOrPage } from '../lib/types/ghost-types';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import SubscribeSection from '../components/SubscribeSection';
-import RelatedPosts from '../components/RelatedPosts';
-import { Tag } from '../lib/types/ghost-types';
-import ShareLinks from '../components/ShareLinks';
-import NextPrevSection from '../components/NextPrevPost';
 import Page from '../components/Page';
 import Post from '../components/Post';
 
