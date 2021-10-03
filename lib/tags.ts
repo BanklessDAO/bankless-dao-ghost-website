@@ -4,6 +4,10 @@ import { BrowseResults } from './pages';
 
 export interface Tags extends BrowseResults<Tag> {}
 
+export function urlForTag(tag: Tag): string {
+  return `/${tag.slug}`;
+}
+
 export async function getAllTags(): Promise<Tags | null> {
   let results: Tags;
   try {
