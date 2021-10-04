@@ -18,7 +18,7 @@ import { useRouter } from 'next/dist/client/router';
 import NextLink from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { getAllPosts } from '../lib/posts';
+import { getAllPosts, urlForPost } from '../lib/posts';
 
 export interface SearchModalProps {
   isOpen: boolean;
@@ -83,7 +83,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   function handleEnterKey() {
     // Be sure there's a result at activeIndex
     if (filteredResults[activeIndex] !== undefined) {
-      router.push(filteredResults[activeIndex].slug);
+      router.push(urlForPost(filteredResults[activeIndex]));
     }
   }
 
@@ -169,8 +169,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     activeIndex === index ? 'rgba(0,0,0, 0.3)' : 'transparent'
                   }
                   onMouseEnter={() => setActiveIndex(index)}>
-                  <NextLink href={post.slug}>
-                    <LinkOverlay href={post.slug} />
+                  <NextLink href={urlForPost(post)}>
+                    <LinkOverlay href={urlForPost(post)} />
                   </NextLink>
                   <Box fontFamily="mono" fontSize="small">
                     Published - {formatDate(post.published_at || '')}

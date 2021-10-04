@@ -2,6 +2,10 @@ import { PostOrPage } from '@tryghost/content-api';
 import api from './ghost-api';
 import { PostsOrPages } from './pages';
 
+export function urlForPost(post: PostOrPage): string {
+  return `/${post.slug}`;
+}
+
 export async function getPosts(): Promise<any> {
   return await api.posts
     .browse({
