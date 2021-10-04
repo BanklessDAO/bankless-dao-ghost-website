@@ -39,7 +39,6 @@ export async function getAllPosts() {
   // fetch all results
   while (keepGoing) {
     let nextResults = await api.posts.browse({
-      limit: 2,
       page: nextPage,
       formats: ['html'],
       include: ['tags', 'authors'],

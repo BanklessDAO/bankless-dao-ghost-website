@@ -75,7 +75,7 @@ const PostsByTag = ({
 export default PostsByTag;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const tags: Tags | null = await getAllTags();
+  const tags: Tag[] | null = await getAllTags();
 
   const tagRoutes = (tags as Tags).map((tag) => ({
     params: { slug: tag.slug },
