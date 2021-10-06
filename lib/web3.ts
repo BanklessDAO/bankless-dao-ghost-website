@@ -72,7 +72,7 @@ export function getENSName(): string | null {
     return null;
   }
   const connected = window.localStorage.getItem('ensName');
-  if (connected !== null && connected.length) {
+  if (connected !== null && connected.length && connected !== 'null') {
     return connected;
   }
   return null;
