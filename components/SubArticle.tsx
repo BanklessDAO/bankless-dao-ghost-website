@@ -1,5 +1,7 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '@tryghost/content-api';
+import { urlForPost } from '../lib/posts';
+import { urlForTag } from '../lib/tags';
 import Link from './Link';
 
 type SubArticleProps = {
@@ -18,7 +20,7 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
           <Link
             style={{ boxShadow: 'none' }}
             className="item-image global-image"
-            href={`/${post.slug}`}>
+            href={urlForPost(post)}>
             <Image
               loading="lazy"
               src={post.feature_image!}
@@ -29,7 +31,7 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
             <Link
               style={{ boxShadow: 'none' }}
               className="global-underline"
-              href={`/${post.slug}`}
+              href={urlForPost(post)}
               textDecoration="none">
               {post.title}
             </Link>
@@ -50,7 +52,7 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`tag/${tag.slug}`}>
+                href={urlForTag(tag)}>
                 #{tag.name}
               </Link>
             ))}
