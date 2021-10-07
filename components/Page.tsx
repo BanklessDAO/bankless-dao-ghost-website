@@ -32,47 +32,7 @@ export default function Page({ cmsData }: any): JSX.Element {
           marginTop="10vh"
           marginBottom="8vh"
           position="relative">
-          <Flex
-            sx={{
-              _before: {
-                base: {
-                  '.item.is-hero.is-image &': {
-                    maxW: '491px',
-                  },
-                  '.item.is-hero &': {
-                    position: 'absolute',
-                    width: '100%',
-                    content: "''",
-                    zIndex: '-2',
-                    top: '-6vh',
-                    right: '0',
-                    bottom: '-4vh',
-                    maxW: '59.7%',
-                    background: 'radial-gradient(white 6%, transparent 0)',
-                    backgroundSize: '28px 28px',
-                  },
-                },
-              },
-              _after: {
-                base: {
-                  content: "''",
-                  background: '#ff4a97',
-                  width: '100%',
-                  position: 'absolute',
-                  '.item.is-hero &': {
-                    zIndex: '-3',
-                    top: '-7vh',
-                    right: '70px',
-                    bottom: '4vh',
-                    maxW: 'calc(59.7% - 65px)',
-                  },
-                  '.item.is-hero.is-image &': {
-                    maxW: '427px',
-                  },
-                },
-              },
-            }}
-            className="item-container global-color">
+          <Flex className="item-container global-color">
             <Box className="item-image global-image global-color">
               <Image
                 src={page.feature_image}
@@ -81,7 +41,7 @@ export default function Page({ cmsData }: any): JSX.Element {
             </Box>
             <Box
               className="item-content"
-              transform={{ base: 'translateY(0)', sm: 'translateY(-4vh)' }}
+              transform={{ sm: 'translateY(0)', md: 'translateY(-4vh)' }}
               padding={{ base: '0' }}
               paddingRight="5%"
               width="100%">
@@ -97,6 +57,8 @@ export default function Page({ cmsData }: any): JSX.Element {
                 margin={{
                   base: '0 0 2vh -2px',
                 }}
+                fontFamily="spartan"
+                fontWeight={500}
                 marginTop="0px"
                 marginLeft="-4px"
                 letterSpacing="-.5px">
@@ -108,6 +70,12 @@ export default function Page({ cmsData }: any): JSX.Element {
         </Box>
         <Box
           className="postContent"
+          sx={{
+            '& a': {
+              color: '#02bfe7',
+              borderBottom: '1px solid #02bfe7',
+            },
+          }}
           dangerouslySetInnerHTML={{ __html: page.html }}
           maxW="700px"
           margin="0 auto"
