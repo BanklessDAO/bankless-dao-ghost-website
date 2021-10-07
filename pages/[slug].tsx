@@ -3,6 +3,7 @@ import {
   getSinglePost,
   getPosts,
   getPostsWithTag,
+  getAllPosts,
   getNewerPost,
   getOlderPost,
 } from '../lib/posts';
@@ -28,7 +29,7 @@ const PostPage = ({ cmsData }: any) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts: PostOrPage[] = await getPosts();
+  const posts: PostOrPage[] = await getAllPosts();
   const pages: PostOrPage[] = await getPages();
 
   // Get the paths we want to create based on posts
@@ -56,6 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let page: any = null;
 
   post = await getSinglePost(slug);
+
   const isPost = !!post;
   let relatedPosts: PostOrPage[] | never[] = [];
 

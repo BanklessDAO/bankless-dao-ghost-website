@@ -21,7 +21,7 @@ export default function PinnedPosts({
       {postsOrPages.map((postOrPage) => (
         <Box key={postOrPage.id} as="article">
           <Heading as="h3">
-            <Link href={postOrPage.slug} className="global-underline">
+            <Link href={`/${postOrPage.slug}`} className="global-underline">
               {postOrPage.title}
             </Link>
           </Heading>
