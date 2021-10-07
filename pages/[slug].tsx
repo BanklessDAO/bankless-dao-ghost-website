@@ -8,7 +8,7 @@ import {
   getOlderPost,
 } from '../lib/posts';
 import { getSinglePage, getPages, PostsOrPages } from '../lib/pages';
-import { PostOrPage } from '../lib/types/ghost-types';
+import { PostOrPage } from '@tryghost/content-api';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Page from '../components/Page';
