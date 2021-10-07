@@ -12,7 +12,8 @@
     "*.{js,jsx,ts,tsx,.md}": [
       "prettier --write",
       "eslint --fix"
-    ]
+    ],
+    "*.{ts,tsx}": "tsc-files --noEmit --pretty"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
@@ -45,6 +46,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
+    "tsc-files": "^1.1.2",
     "typescript": "4.3.5"
   }
 }
