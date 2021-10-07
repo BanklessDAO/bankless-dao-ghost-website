@@ -19,7 +19,7 @@ export default function Page({ cmsData }: any): JSX.Element {
   return (
     <>
       <Head>
-        <title fontFamily="spartan">{page.title}</title>
+        <title>{page.title}</title>
         <meta name="description" content={page.excerpt} />
       </Head>
       <chakra.article maxW="1200px" mx="auto">
@@ -57,6 +57,8 @@ export default function Page({ cmsData }: any): JSX.Element {
                 margin={{
                   base: '0 0 2vh -2px',
                 }}
+                fontFamily="spartan"
+                fontWeight={500}
                 marginTop="0px"
                 marginLeft="-4px"
                 letterSpacing="-.5px">

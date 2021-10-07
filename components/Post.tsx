@@ -77,6 +77,8 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
                   lg: '65px',
                   xl: '23px',
                 }}
+                fontFamily="spartan"
+                fontWeight={500}
                 lineHeight="1.3"
                 maxW="1000px"
                 margin={{
