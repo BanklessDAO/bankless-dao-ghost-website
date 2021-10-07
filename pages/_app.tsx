@@ -1,7 +1,7 @@
 // fonts
 import '@fontsource/mulish/400.css';
 import '@fontsource/source-code-pro/500.css';
-import '@fontsource/spartan/700.css';
+import '@fontsource/spartan/500.css';
 
 // normal imports
 import type { AppProps } from 'next/app';
