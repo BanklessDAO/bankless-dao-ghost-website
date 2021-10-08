@@ -184,7 +184,7 @@ function ConnectionButton(props: ButtonProps) {
     if (ensName) {
       return ensName;
     }
-    return `${walletAddress.substr(0, 3)}..${walletAddress.substr(-3)}`;
+    return `${walletAddress.substr(0, 4)}..${walletAddress.substr(-3)}`;
   };
 
   return (

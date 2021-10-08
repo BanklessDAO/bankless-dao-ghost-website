@@ -3,32 +3,14 @@ import {
   getSinglePost,
   getPosts,
   getPostsWithTag,
+  getAllPosts,
   getNewerPost,
   getOlderPost,
 } from '../lib/posts';
 import { getSinglePage, getPages, PostsOrPages } from '../lib/pages';
-// import Header from '../../components/Header';
-import {
-  Link,
-  Flex,
-  Box,
-  Heading,
-  Container,
-  Text,
-  Image,
-  chakra,
-} from '@chakra-ui/react';
-import { Author, PostOrPage } from '../lib/types/ghost-types';
+import { PostOrPage } from '@tryghost/content-api';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import SubscribeSection from '../components/SubscribeSection';
-import RelatedPosts from '../components/RelatedPosts';
-import { Tag } from '../lib/types/ghost-types';
-import ShareLinks from '../components/ShareLinks';
-import NextPrevSection from '../components/NextPrevPost';
 import Page from '../components/Page';
 import Post from '../components/Post';
 
@@ -47,7 +29,7 @@ const PostPage = ({ cmsData }: any) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts: PostOrPage[] = await getPosts();
+  const posts: PostOrPage[] = await getAllPosts();
   const pages: PostOrPage[] = await getPages();
 
   // Get the paths we want to create based on posts
@@ -75,6 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let page: any = null;
 
   post = await getSinglePost(slug);
+
   const isPost = !!post;
   let relatedPosts: PostOrPage[] | never[] = [];
 

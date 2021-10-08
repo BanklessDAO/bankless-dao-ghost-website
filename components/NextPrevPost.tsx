@@ -49,7 +49,7 @@ const NextPrevSection = ({ newerPost, olderPost }: NextPrevSectionProps) => {
                 left: '-10px',
                 content: "''",
                 pointerEvents: 'none',
-                background: '#ff4a97',
+                background: 'rgb(30,39,50)',
               },
             }}>
             <Image

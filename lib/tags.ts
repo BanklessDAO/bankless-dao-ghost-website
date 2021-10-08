@@ -4,14 +4,33 @@ import { BrowseResults } from './pages';
 
 export interface Tags extends BrowseResults<Tag> {}
 
-export async function getAllTags(): Promise<Tags | null> {
-  let results: Tags;
-  try {
-    results = await api.tags.browse({
-      include: ['count.posts'],
-      order: ['count.posts ASC'],
-    });
+export function urlForTag(tag: Tag): string {
+  return `/tag/${tag.slug}`;
+}
 
+export async function getAllTags(): Promise<Tag[] | null> {
+  let results: Tag[] = [];
+
+  let keepGoing = true;
+  let nextPage = 1;
+
+  try {
+    // fetch all results
+    while (keepGoing) {
+      let nextResults = await api.tags.browse({
+        page: nextPage,
+        include: ['count.posts'],
+        order: ['count.posts ASC'],
+      });
+
+      results = [...results, ...nextResults];
+
+      if (nextResults.meta.pagination.next) {
+        nextPage = nextResults.meta.pagination.next;
+      } else {
+        keepGoing = false;
+      }
+    }
     if (!results) return null;
   } catch (error: any) {
     if (error.response?.status !== 404) throw new Error(error);
