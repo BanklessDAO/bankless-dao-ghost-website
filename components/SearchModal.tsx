@@ -84,6 +84,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     // Be sure there's a result at activeIndex
     if (filteredResults[activeIndex] !== undefined) {
       router.push(urlForPost(filteredResults[activeIndex]));
+      onClose();
     }
   }
 
@@ -168,7 +169,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   background={
                     activeIndex === index ? 'rgba(0,0,0, 0.3)' : 'transparent'
                   }
-                  onMouseEnter={() => setActiveIndex(index)}>
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onClick={onClose}>
                   <NextLink href={urlForPost(post)}>
                     <LinkOverlay href={urlForPost(post)} />
                   </NextLink>
