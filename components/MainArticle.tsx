@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '@tryghost/content-api';
+import { formatDistance, subDays, parseISO } from 'date-fns';
 import { urlForPost } from '../lib/posts';
 import { urlForTag } from '../lib/tags';
 import Link from './Link';
@@ -10,6 +11,14 @@ type MainArticleProps = {
 };
 
 const MainArticle = ({ post, index }: MainArticleProps) => {
+  const relativePublishDate = formatDistance(
+    subDays(parseISO(post.published_at as string), 3),
+    new Date(),
+    {
+      addSuffix: true,
+    },
+  );
+
   return (
     <Box as="article" className="item is-hero is-first is-image">
       <Flex className="item-container global-color">
@@ -31,8 +40,8 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
           paddingRight="5%"
           willChange="transfrom">
           <Text className="global-meta">
-            A long time ago by {post.primary_author!.name} - {post.reading_time}{' '}
-            minutes
+            {relativePublishDate} by {post.primary_author!.name} -{' '}
+            {post.reading_time} min read
           </Text>
           <Heading as="h2" className="item-title">
             <Link

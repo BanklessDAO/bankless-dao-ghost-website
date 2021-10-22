@@ -4,6 +4,8 @@ import Head from 'next/head';
 // chakra imports
 import { chakra, Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 
+import { formatDistance, subDays, parseISO } from 'date-fns';
+
 // type imports
 import { PostOrPage } from '@tryghost/content-api';
 
@@ -27,6 +29,16 @@ export interface PostOrPageProps {
 
 export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
   const { post, relatedPosts, newerPost, olderPost } = cmsData;
+
+  console.log(post.authors);
+
+  const relativePublishDate = formatDistance(
+    subDays(parseISO(post.published_at as string), 3),
+    new Date(),
+    {
+      addSuffix: true,
+    },
+  );
 
   return (
     <>
@@ -68,7 +80,7 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
                 position="relative"
                 fontSize="13px"
                 className="item-meta">
-                A year ago by Authors - {post.reading_time} minutes
+                {relativePublishDate} by Authors - {post.reading_time} min read
               </Text>
               <Heading
                 as="h1"
