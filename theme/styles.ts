@@ -793,7 +793,6 @@ export default {
         display: 'flex',
         width: '85px',
         height: '64px',
-        pointerEvents: 'none',
         border: 0,
         justifyContent: 'center',
         alignItems: 'center',
