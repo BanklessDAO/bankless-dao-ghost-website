@@ -19,7 +19,7 @@ export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
           return (
             <Box key={page.id} as="article" className="is-first">
               <Heading as="h3">
-                <Link key={page.id} href={`/${page.slug}`}>
+                <Link key={page.id} href={`/${page.slug}`} className="global-underline">
                   {page.title}
                 </Link>
               </Heading>
@@ -38,7 +38,7 @@ export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
           return (
             <Box key={page.id} as="article">
               <Heading as="h3">
-                <Link key={page.id} href={`/${page.slug}`}>
+                <Link key={page.id} href={`/${page.slug}`} className="global-underline">
                   {page.title}
                 </Link>
               </Heading>
