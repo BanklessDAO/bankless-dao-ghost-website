@@ -12,7 +12,10 @@ type MainArticleProps = {
 const MainArticle = ({ post, index }: MainArticleProps) => {
   return (
     <Box as="article" className="item is-hero is-first is-image">
-      <Flex className="item-container global-color">
+      <Flex 
+        className="item-container global-color" 
+        flexDirection={{ sm: 'column', md: 'column-reverse', lg: 'row' }}
+      >
         <Link
           className="item-image global-image global-color"
           style={{ boxShadow: 'none' }}
