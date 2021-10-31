@@ -1,7 +1,8 @@
 // import Header from '../../components/Header';
 import copy from 'copy-to-clipboard';
 import { useEffect, useState } from 'react';
-import { Link, Flex, chakra, Icon, Box } from '@chakra-ui/react';
+import { Flex, chakra, Icon, Box } from '@chakra-ui/react';
+import { Link } from './Link';
 import { FaTwitter, FaFacebook, FaCopy } from 'react-icons/fa';
 import { TwitterShareButton, FacebookShareButton } from 'react-share';
 
