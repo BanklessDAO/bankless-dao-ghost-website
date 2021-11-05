@@ -1,5 +1,7 @@
 import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '@tryghost/content-api';
+import { urlForPost } from '../lib/posts';
+import { urlForTag } from '../lib/tags';
 import Link from './Link';
 
 type MainArticleProps = {
@@ -10,11 +12,14 @@ type MainArticleProps = {
 const MainArticle = ({ post, index }: MainArticleProps) => {
   return (
     <Box as="article" className="item is-hero is-first is-image">
-      <Flex className="item-container global-color">
+      <Flex 
+        className="item-container global-color" 
+        flexDirection={{ sm: 'column', md: 'column-reverse', lg: 'row' }}
+      >
         <Link
           className="item-image global-image global-color"
           style={{ boxShadow: 'none' }}
-          href={`/${post.slug}`}>
+          href={urlForPost(post)}>
           <Image
             loading="lazy"
             objectFit="cover"
@@ -37,7 +42,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
               className="global-underline"
               style={{ boxShadow: 'none' }}
               textDecoration="none"
-              href={`/${post.slug}`}>
+              href={urlForPost(post)}>
               {post.title}
             </Link>
           </Heading>
@@ -48,7 +53,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
                 key={tag.id}
                 textTransform="lowercase"
                 textDecoration="none"
-                href={`/tag/${tag.slug}`}>
+                href={urlForTag(tag)}>
                 #{tag.name}
               </Link>
             ))}

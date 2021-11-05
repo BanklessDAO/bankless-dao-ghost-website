@@ -71,9 +71,9 @@ export function getENSName(): string | null {
   if (typeof window === 'undefined') {
     return null;
   }
-  const connected = window.localStorage.getItem('ensName');
-  if (connected !== null && connected.length) {
-    return connected;
+  const name = window.localStorage.getItem('ensName');
+  if (name !== null && name.length && name !== 'null') {
+    return name;
   }
   return null;
 }
@@ -129,8 +129,12 @@ export async function connectWallet(): Promise<false | string> {
       const walletAddress = accounts[0];
       const name = await loadENSName(walletAddress);
       // Saving wallet to localstorage
-      localStorage.setItem('wallet', walletAddress);
-      localStorage.setItem('ensName', name);
+      if (walletAddress) {
+        localStorage.setItem('wallet', walletAddress);
+      }
+      if (name) {
+        localStorage.setItem('ensName', name);
+      }
       console.log('Connected account is:', walletAddress, name);
       return accounts[0];
     } catch (e) {
