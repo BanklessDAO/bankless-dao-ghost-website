@@ -95,6 +95,9 @@ export default function Navbar() {
                     <ListItem>
                       <Link href="/contribute">Contribute</Link>
                     </ListItem>
+                    <ListItem>
+                      <Link href="/bed-index">BED Index</Link>
+                    </ListItem>
                     <ListItem display="flex" onClick={onSearchModalOpen}>
                       <Box marginRight="4">Search</Box>
                       <ListIcon as={Search2Icon} color="white" />
@@ -117,6 +120,9 @@ export default function Navbar() {
               </ListItem>
               <ListItem>
                 <Link href="/contribute">Contribute</Link>
+              </ListItem>
+              <ListItem>
+                <Link href="/bed-index">BED Index</Link>
               </ListItem>
             </List>
             <List>
