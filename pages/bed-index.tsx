@@ -1,18 +1,100 @@
 // next imports
 import Head from 'next/head';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 // chakra imports
-import { Box, Button, Flex, Grid, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Input,
+  InputGroup,
+  InputRightAddon,
+  Select,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 
 // component imports
-import PriceChart from '../components/PriceChart';
+import PriceChart, { PriceData } from '../components/PriceChart';
+import PortfolioChart, { PortfolioData } from '../components/PortfolioChart';
+
+// api imports
+import { getTokenTotalSupply, getTokenPriceData, getTokenRangePriceData } from '../lib/tokens';
 
 // image imports
 import BedIndexImg from '../public/images/bed-index.png';
 import TokenMaskImg from '../public/images/token-mask.svg';
 import TokenMask2Img from '../public/images/token-mask-2.svg';
+import formatNumber from '../util/formatNumber';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
-export default function BedIndex() {
+export default function BedIndex({
+  bedTotalSupply,
+  bedPriceData
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [priceData, setPriceData] = useState<PriceData[]>(bedPriceData);
+
+  const [firstPrice, setFirstPrice] = useState<PriceData>(priceData[0]);
+  const [lastPrice, setLastPrice] = useState<PriceData>(priceData[priceData.length - 1]);
+  const [activePrice, setActivePrice] = useState<PriceData>(lastPrice);
+
+  const [portfolioData, setPortfolioData] = useState<PortfolioData[]>([]);
+  const [startDay, setStartDay] = useState<string>();
+  const [investedValue, setInvestedValue] = useState<number>(0);
+
+  const [days, setDays] = useState<number>(30);
+
+  useEffect(() => {
+    getTokenPriceData('bankless-bed-index', days)
+      .then(data => setPriceData(data))
+      .catch(() => {
+        setPriceData(bedPriceData);
+        setDays(30);
+      })
+  }, [days]);
+
+  useEffect(() => {
+    setFirstPrice(priceData[0]);
+    setLastPrice(priceData[priceData.length - 1]);
+    setActivePrice(priceData[priceData.length - 1]);
+  }, [priceData]);
+
+  const getPercentageChange = () => {
+    const priceChange = activePrice.price - firstPrice.price;
+    const pricePercentageChange = (priceChange / firstPrice.price) * 100;
+
+    return pricePercentageChange.toFixed(2);
+  }
+
+  const calculateGainLoss = () => {
+    if (!startDay || !investedValue) return;
+
+    const from = moment(startDay).valueOf() / 1000;
+    const to = lastPrice.timestamp / 1000;
+
+    getTokenRangePriceData('bankless-bed-index', from, to)
+      .then(data => {
+        const portfolioValueData: PortfolioData[] = [];
+        const bedValue = investedValue / data[0].price;
+
+        data.map(({timestamp, price}) => {
+          portfolioValueData.push({
+            timestamp,
+            value: price * bedValue
+          })
+        });
+
+        setPortfolioData(portfolioValueData);
+        console.log(portfolioValueData);
+      })
+      .catch(() => {});
+  };
+
   return (
     <>
       <Head>
@@ -70,29 +152,138 @@ export default function BedIndex() {
           <HStack m={0} spacing={7}>
             <VStack align="flex-start">
               <Text as="h6" size="sm" fontWeight="bold" m={0}>Market Cap</Text>
-              <Text mt="0 !important">$4.8M</Text>
+              <Text mt="0 !important">${formatNumber(activePrice.market_cap)}</Text>
             </VStack>
             <VStack align="flex-start">
               <Text as="h6" size="sm" fontWeight="bold" m={0}>Current Supply</Text>
-              <Text mt="0 !important">--</Text>
+              <Text mt="0 !important">{formatNumber(bedTotalSupply)}</Text>
             </VStack>
             <VStack align="flex-start">
               <Text as="h6" size="sm" fontWeight="bold" m={0}>Volume</Text>
-              <Text mt="0 !important">$35.6K</Text>
+              <Text mt="0 !important">${formatNumber(activePrice.total_volume)}</Text>
             </VStack>
           </HStack>
           <HStack spacing={3} align="flex-end">
-            <Heading as="h3" fontFamily="spartan" mt={5}>$169.91</Heading>
-            <Text color={"limegreen"} fontFamily="spartan" fontWeight="semibold">16.58%</Text>
+            <Heading as="h3" fontFamily="spartan" mt={5}>${activePrice.price.toFixed(2)}</Heading>
+            <Text color={getPercentageChange() > 0 ? "limegreen" : "red.500"} fontFamily="spartan" fontWeight="semibold">
+              {getPercentageChange()}%
+            </Text>
           </HStack>
+          <Text mt="0 !important">{moment(activePrice.timestamp).format('DD MMMM, YYYY')}</Text>
           <Box spacing={3} w="full" h={260}>
             <PriceChart
-              data={[{timestamp: 1636227751, price: 169.95}, {timestamp: 1636227798, price: 149.95}]}
-              setActivePrice={(activePrice) => console.log(activePrice)}
+              data={priceData}
+              setActivePrice={(activePriceData) => setActivePrice(activePriceData)}
             />
           </Box>
+          <HStack spacing={3} alignSelf="flex-end">
+            <Button
+              variant="black"
+              p="16px 14px 10px 14px"
+              bg={days === 7 ? "red.500": "black"}
+              onClick={() => setDays(7)}
+            >
+              1W
+            </Button>
+            <Button
+              variant="black"
+              p="16px 14px 10px 14px"
+              bg={days === 30 ? "red.500": "black"}
+              onClick={() => setDays(30)}
+            >
+              1M
+            </Button>
+            <Button
+              variant="black"
+              p="16px 14px 10px 14px"
+              bg={days === 90 ? "red.500": "black"}
+              onClick={() => setDays(90)}
+            >
+              3M
+            </Button>
+            <Button
+              variant="black"
+              p="16px 14px 10px 14px"
+              bg={days === 180 ? "red.500": "black"}
+              onClick={() => setDays(180)}
+            >
+              6M
+            </Button>
+            <Button
+              variant="black"
+              p="16px 14px 10px 14px"
+              bg={days === 365 ? "red.500": "black"}
+              onClick={() => setDays(365)}
+            >
+              1Y
+            </Button>
+          </HStack>
+        </VStack>
+
+        {/* Gain/Loss Calculator */}
+        <VStack mt={10} spacing={7} align="flex-start">
+          <Heading as="h2" fontSize={41} fontFamily="spartan" mb={0}>Gain/Loss Calculator</Heading>
+
+          <Flex w="full">
+            <Box flex={7} px={2}>
+              <PortfolioChart
+                data={portfolioData}
+                setActiveValue={activeValue => console.log(activeValue)}
+              />
+            </Box>
+            <Box flex={3} px={2}>
+              <VStack spacing={4} p={4} bg="#1E2732">
+                <Box w="full">
+                  <Text mb={2}>Start Date</Text>
+                  <Input
+                    type="date"
+                    variant="solid"
+                    value={startDay}
+                    max={moment().format('YYYY-MM-DD')}
+                    onChange={e => setStartDay(e.target.value)}
+                  />
+                </Box>
+                <Box w="full">
+                  <Text mb={2}>Amount</Text>
+                  <InputGroup variant="solid">
+                    <Input
+                      type="number"
+                      value={investedValue}
+                      onChange={e => setInvestedValue(parseInt(e.target.value))}
+                      placeholder="Amount"
+                    />
+                    <InputRightAddon children="USD" />
+                  </InputGroup>
+                </Box>
+                <Button
+                  marginTop="1.5rem !important"
+                  w="full"
+                  variant="red"
+                  onClick={() => calculateGainLoss()}
+                >
+                  Calculate
+                </Button>
+              </VStack>
+            </Box>
+          </Flex>
         </VStack>
       </Flex>
     </>
   );
 };
+
+export async function getStaticProps(context: GetStaticProps) {
+  const bedTotalSupply: number = await getTokenTotalSupply('bankless-bed-index');
+  const bedPriceData: PriceData[] = await getTokenPriceData('bankless-bed-index', 30);
+
+  if (!bedTotalSupply) {
+    return { props: { notFound: true } };
+  }
+
+  return {
+    props: {
+      bedTotalSupply,
+      bedPriceData,
+    },
+  };
+}

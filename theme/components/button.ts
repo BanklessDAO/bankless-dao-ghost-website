@@ -5,6 +5,9 @@ const baseButton = {
   cursor: 'pointer',
   letterSpacing: '1px',
   borderRadius: 0,
+  _focus: {
+    boxShadow: "none"
+  },
 }
 
 const Button: ComponentSingleStyleConfig = {

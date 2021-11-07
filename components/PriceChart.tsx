@@ -3,6 +3,8 @@ import {ResponsiveContainer, AreaChart, Area, Tooltip} from 'recharts';
 export interface PriceData {
   timestamp: number,
   price: number,
+  market_cap: number,
+  total_volume: number
 }
 
 export interface PriceChartProps {
