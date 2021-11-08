@@ -1,4 +1,5 @@
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 export interface PortfolioData {
   timestamp: number,
@@ -14,7 +15,13 @@ export default function PortfolioChart({
   data,
   setActiveValue
 }: PortfolioChartProps): JSX.Element {
-  if (data.length === 0) return <></>;
+  if (data.length === 0) return (
+    <Flex w="full" h="full" align="center" justify="center">
+      <Box py={2} px={4} bg="#1E2732">
+        <Text m="0 !important" fontSize="sm">Select Start Date & Amount</Text>
+      </Box>
+    </Flex>
+  );
 
   return (
     <ResponsiveContainer width="100%">

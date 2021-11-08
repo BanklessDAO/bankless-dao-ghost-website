@@ -46,6 +46,8 @@ export default function BedIndex({
   const [portfolioData, setPortfolioData] = useState<PortfolioData[]>([]);
   const [startDay, setStartDay] = useState<string>();
   const [investedValue, setInvestedValue] = useState<number>(0);
+  const [lastPortfolioData, setLastPortfolioData] = useState<PortfolioData>();
+  const [activePortfolioData, setActivePortfolioData] = useState<PortfolioData>();
 
   const [days, setDays] = useState<number>(30);
 
@@ -64,9 +66,16 @@ export default function BedIndex({
     setActivePrice(priceData[priceData.length - 1]);
   }, [priceData]);
 
-  const getPercentageChange = () => {
-    const priceChange = activePrice.price - firstPrice.price;
-    const pricePercentageChange = (priceChange / firstPrice.price) * 100;
+  useEffect(() => {
+    if (portfolioData) {
+      setLastPortfolioData(portfolioData[portfolioData.length - 1]);
+      setActivePortfolioData(portfolioData[portfolioData.length - 1]);
+    }
+  }, [portfolioData]);
+
+  const getPercentageChange = (startPrice: number, endPrice: number) => {
+    const priceChange = endPrice - startPrice;
+    const pricePercentageChange = (priceChange / startPrice) * 100;
 
     return pricePercentageChange.toFixed(2);
   }
@@ -165,8 +174,8 @@ export default function BedIndex({
           </HStack>
           <HStack spacing={3} align="flex-end">
             <Heading as="h3" fontFamily="spartan" mt={5}>${activePrice.price.toFixed(2)}</Heading>
-            <Text color={getPercentageChange() > 0 ? "limegreen" : "red.500"} fontFamily="spartan" fontWeight="semibold">
-              {getPercentageChange()}%
+            <Text color={getPercentageChange(firstPrice.price, activePrice.price) > 0 ? "limegreen" : "red.500"} fontFamily="spartan" fontWeight="semibold">
+              {getPercentageChange(firstPrice.price, activePrice.price)}%
             </Text>
           </HStack>
           <Text mt="0 !important">{moment(activePrice.timestamp).format('DD MMMM, YYYY')}</Text>
@@ -224,11 +233,19 @@ export default function BedIndex({
         <VStack mt={10} spacing={7} align="flex-start">
           <Heading as="h2" fontSize={41} fontFamily="spartan" mb={0}>Gain/Loss Calculator</Heading>
 
+          <HStack spacing={3} align="flex-end">
+            <Heading as="h3" fontFamily="spartan" mt={5}>
+              {activePortfolioData && `$${activePortfolioData.value.toFixed(2)}`}
+            </Heading>
+            <Text color={getPercentageChange(investedValue, activePortfolioData?.value) > 0 ? "limegreen" : "red.500"} fontFamily="spartan" fontWeight="semibold">
+              {activePortfolioData && `${getPercentageChange(investedValue, activePortfolioData?.value)}%`}
+            </Text>
+          </HStack>
           <Flex w="full">
             <Box flex={7} px={2}>
               <PortfolioChart
                 data={portfolioData}
-                setActiveValue={activeValue => console.log(activeValue)}
+                setActiveValue={activeData => setActivePortfolioData(activeData)}
               />
             </Box>
             <Box flex={3} px={2}>
