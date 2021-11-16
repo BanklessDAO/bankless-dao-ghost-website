@@ -62,9 +62,9 @@ export default function multiSig() {
               <Text className="bank-hero">B</Text>
             </Box>
           </Stack>
-          <Grid w="full" gap='5px' alignItems='center' templateColumns={{ base: "100%", lg: "10px 1fr 10px 1fr" }} templateRows={{ base: "repeat(7, 1fr)", lg: "repeat(4, 1fr)" }}>
+          <Grid w="full" gap={{ base: "20px", lg: "10px" }} alignItems="center" templateColumns={{ base: "100%", lg: "26px 1fr 26px 1fr" }} templateRows={{ base: "repeat(3, min-content) 0px repeat(4, min-content)", lg: "repeat(4, 1fr)" }}>
             {/* Section 1 */}
-            <Box h='100%' gridColumn='1' gridRow='1/6' borderLeft={{ base: "none", lg: "2px dotted #2F3E4E"}} display={{ base: "none", lg: "initial" }} />
+            <Box h="100%" gridColumn="1" gridRow="1/6" borderLeft={{ base: "none", lg: "2px dotted #2F3E4E"}} display={{ base: "none", lg: "initial" }} />
             <GridItem rowStart={1}>
               <Heading m="0" as="h3" fontSize="24px">Liquidity Pools</Heading>
             </GridItem>
@@ -76,17 +76,17 @@ export default function multiSig() {
               <Button gridRow={{ base: "3", lg: "4" }} w="min-content" m="auto 0" color="white" fontSize="12px">Sushiswap Pool</Button>
             </Stack>
             {/* Section 2 */}
-            <Box h='100%' gridColumn='3' gridRow='1/6' borderLeft={{ base: "none", lg: "2px dotted #2F3E4E"}} display={{ base: "none", lg: "initial" }} />
-            <GridItem rowStart={{ base: 4, lg: 1 }}>
+            <Box h="100%" gridColumn={{ base: "auto", lg: "3" }} gridRow={{ base: "4", lg: "1/6" }} borderLeft={{ base: "none", lg: "2px dotted #2F3E4E"}} />
+            <GridItem rowStart={{ base: 5, lg: 1 }}>
               <Heading m="0" as="h3" fontSize="24px">Contribute</Heading>
             </GridItem>
-            <GridItem rowStart={{ base: 5, lg: 2 }}>
+            <GridItem rowStart={{ base: 6, lg: 2 }}>
               <Text m="auto 0" textAlign="start" fontSize="13px" lineHeight="15px">Have an Idea to help the world go Bankless?</Text>
             </GridItem>
-            <GridItem rowStart={{ base: 6, lg: 3 }}>
+            <GridItem rowStart={{ base: 7, lg: 3 }}>
               <Text m="auto 0" textAlign="start" fontSize="13px" lineHeight="15px">Join the Discord. Get a Guest Pass and start contributing.</Text>
             </GridItem>
-            <GridItem rowStart={{ base: 7, lg: 4 }}>
+            <GridItem rowStart={{ base: 8, lg: 4 }}>
               <Button w="min-content" color="white" fontSize="12px">Join Discord</Button>
             </GridItem>
           </Grid>
