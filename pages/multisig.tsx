@@ -105,41 +105,49 @@ export default function multiSig() {
                 <Tr maxWidth="100%">
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>1</Td>
                   <Td className="vault-item">Developer's Guild</Td>
-                  <Td className="vault-item flex-between">
-                    <span>0x8a3</span>
-                    <span className="dash-fill" />
-                    <span className="no-flex-shrink">9BD8F637</span>
+                  <Td className="vault-item">
+                    <div className="flex-between">
+                      <span>0x8a3</span>
+                      <span className="dash-fill" />
+                      <span className="no-flex-shrink">9BD8F637</span>
+                    </div>
                   </Td>
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>View</Td>
                 </Tr>
                 <Tr maxWidth="100%">
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>2</Td>
                   <Td className="vault-item">Writer's Guild</Td>
-                  <Td className="vault-item flex-between">
-                    <span>0x8a3</span>
-                    <span className="dash-fill" />
-                    <span className="no-flex-shrink">9BD8F637</span>
+                  <Td className="vault-item">
+                    <div className="flex-between">
+                      <span>0x8a3</span>
+                      <span className="dash-fill" />
+                      <span className="no-flex-shrink">9BD8F637</span>
+                    </div>
                   </Td>
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>View</Td>
                 </Tr>
                 <Tr maxWidth="100%">
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>3</Td>
                   <Td className="vault-item">Operation's Guild</Td>
-                  <Td className="vault-item flex-between">
-                    <span>0x8a3</span>
-                    <span className="dash-fill" />
-                    <span className="no-flex-shrink">BD8F637</span>
+                  <Td className="vault-item">
+                    <div className="flex-between">
+                      <span>0x8a3</span>
+                      <span className="dash-fill" />
+                      <span className="no-flex-shrink">BD8F637</span>
+                    </div>
                   </Td>
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>View</Td>
                 </Tr>
                 <Tr maxWidth="100%">
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>4</Td>
                   <Td className="vault-item">Designer's Guild</Td>
-                  <Td className="vault-item flex-between">
-                  <span>0x8a3</span>
-                  <span className="dash-fill" />
-                  <span className="no-flex-shrink">9BD8F637</span>
-                </Td>
+                  <Td className="vault-item">
+                    <div className="flex-between">
+                      <span>0x8a3</span>
+                      <span className="dash-fill" />
+                      <span className="no-flex-shrink">9BD8F637</span>
+                    </div>
+                  </Td>
                   <Td className="vault-item" display={{ base: "none", lg: "table-cell" }}>View</Td>
                 </Tr>
               </Tbody>
