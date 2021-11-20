@@ -34,6 +34,11 @@ export default function Footer(): JSX.Element {
               <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
             </ListItem>
             <ListItem className="footer-link">
+              <Link href="https://pro.olympusdao.finance/?utm_source=banklessdao&utm_medium=affiliate&utm_campaign=op-affiliate">
+                Join Olympus Pro
+              </Link>
+              </ListItem>
+            <ListItem className="footer-link">
               <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">
                 Wiki
               </Link>
@@ -46,6 +51,7 @@ export default function Footer(): JSX.Element {
                 Vote
               </Link>
             </ListItem>
+            
           </UnorderedList>
         </Box>
       </Flex>
