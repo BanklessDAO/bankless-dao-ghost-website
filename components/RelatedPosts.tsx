@@ -1,4 +1,5 @@
-import { Heading, Text, Box, Flex, Link, chakra } from '@chakra-ui/react';
+import { Heading, Text, Box, Flex, chakra } from '@chakra-ui/react';
+import Link from './Link';
 import { PostOrPage, Author, Tag } from '@tryghost/content-api';
 
 type PinnedPagesProps = {
