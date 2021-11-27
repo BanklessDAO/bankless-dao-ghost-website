@@ -11,7 +11,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <chakra.div className="global-wrap">
-      <chakra.div className="global-content" maxW="100%">
+      <chakra.div className="global-content" minW="350px" maxW="100%">
         <Head>
           <title>Bankless DAO</title>
           <meta name="description" content="Bankless DAO community site" />
