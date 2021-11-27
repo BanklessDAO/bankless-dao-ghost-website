@@ -18,6 +18,8 @@ import {
   ButtonProps,
   DrawerFooter,
 } from '@chakra-ui/react';
+import Davatar from '@davatar/react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -177,15 +179,24 @@ function ConnectionButton(props: ButtonProps) {
     }
   }
 
-  let buttonText = () => {
-    if (!walletAddress) {
-      return 'Connect Wallet';
-    }
-    if (ensName) {
-      return ensName;
-    }
-    return `${walletAddress.substr(0, 4)}..${walletAddress.substr(-3)}`;
-  };
+  function WalletFallback({error, resetErrorBoundary}) {
+
+    console.log(error.message);
+    resetErrorBoundary();
+    let buttonText = () => {
+      if (!walletAddress) {
+        return 'Connect Wallet';
+      }
+      if (ensName) {
+        return ensName;
+      }
+      return `${walletAddress.substr(0, 4)}..${walletAddress.substr(-3)}`;
+    };
+
+    return (
+      <span>{buttonText()}</span>
+    )
+  }
 
   return (
     <>
@@ -199,7 +210,11 @@ function ConnectionButton(props: ButtonProps) {
             {compactFormatter.format(bankBalance)} BANK
           </Button>
         )}
-        <Button>{buttonText()}</Button>
+        <Button>
+          <ErrorBoundary FallbackComponent={WalletFallback} >
+              <Davatar size={24} address={walletAddress || ""} />
+          </ErrorBoundary>
+        </Button>
       </ButtonGroup>
     </>
   );
