@@ -158,10 +158,10 @@ function ConnectionButton(props: ButtonProps) {
   } = useDisclosure();
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && (bankBalance == null)) {
       loadBankBalance();
     }
-  }, [isConnected]);
+  });
 
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
@@ -194,6 +194,7 @@ function ConnectionButton(props: ButtonProps) {
         onClose={onBalanceModalClose}
       />
       <ButtonGroup size={props.size} isAttached onClick={handleClick}>
+        {console.log(bankBalance)}
         {bankBalance !== null && (
           <Button bg="black" color="white">
             {compactFormatter.format(bankBalance)} BANK
