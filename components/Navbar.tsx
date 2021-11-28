@@ -194,7 +194,6 @@ function ConnectionButton(props: ButtonProps) {
         onClose={onBalanceModalClose}
       />
       <ButtonGroup size={props.size} isAttached onClick={handleClick}>
-        {console.log(bankBalance)}
         {bankBalance !== null && (
           <Button bg="black" color="white">
             {compactFormatter.format(bankBalance)} BANK
