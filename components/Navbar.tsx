@@ -199,7 +199,7 @@ function ConnectionButton(props: ButtonProps) {
             {compactFormatter.format(bankBalance)} BANK
           </Button>
         )}
-        <Button>{buttonText()}</Button>
+        <Button title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
       </ButtonGroup>
     </>
   );
