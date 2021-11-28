@@ -7,13 +7,11 @@ import {
   Box,
   Button,
   Flex,
-  Grid,
   Heading,
   HStack,
   Input,
   InputGroup,
   InputRightAddon,
-  Select,
   Text,
   VStack,
 } from '@chakra-ui/react';
@@ -23,7 +21,12 @@ import PriceChart, { PriceData } from '../components/PriceChart';
 import PortfolioChart, { PortfolioData } from '../components/PortfolioChart';
 
 // api imports
-import { getTokenTotalSupply, getTokenPriceData, getTokenRangePriceData } from '../lib/tokens';
+import {
+  getTokenTotalSupply,
+  getTokenPriceData,
+  getTokenRangePriceData
+} from '../lib/tokens';
+import { addBedIndexToMetaMask } from '../lib/web3';
 
 // image imports
 import BedIndexImg from '../public/images/bed-index.png';
@@ -44,9 +47,13 @@ export default function BedIndex({
   const [activePrice, setActivePrice] = useState<PriceData>(lastPrice);
 
   const [portfolioData, setPortfolioData] = useState<PortfolioData[]>([]);
+
   const [startDay, setStartDay] = useState<string>();
   const [investedValue, setInvestedValue] = useState<number>(0);
-  const [lastPortfolioData, setLastPortfolioData] = useState<PortfolioData>();
+
+  const [currentStartDay, setCurrentStartDay] = useState<string>();
+  const [currentInvestedValue, setCurrentInvestedValue] = useState<number>(0);
+
   const [activePortfolioData, setActivePortfolioData] = useState<PortfolioData>();
 
   const [days, setDays] = useState<number>(30);
@@ -68,7 +75,6 @@ export default function BedIndex({
 
   useEffect(() => {
     if (portfolioData) {
-      setLastPortfolioData(portfolioData[portfolioData.length - 1]);
       setActivePortfolioData(portfolioData[portfolioData.length - 1]);
     }
   }, [portfolioData]);
@@ -77,11 +83,14 @@ export default function BedIndex({
     const priceChange = endPrice - startPrice;
     const pricePercentageChange = (priceChange / startPrice) * 100;
 
-    return pricePercentageChange.toFixed(2);
+    return parseInt(pricePercentageChange.toFixed(2));
   }
 
   const calculateGainLoss = () => {
     if (!startDay || !investedValue) return;
+
+    setCurrentStartDay(startDay);
+    setCurrentInvestedValue(investedValue);
 
     const from = moment(startDay).valueOf() / 1000;
     const to = lastPrice.timestamp / 1000;
@@ -99,7 +108,6 @@ export default function BedIndex({
         });
 
         setPortfolioData(portfolioValueData);
-        console.log(portfolioValueData);
       })
       .catch(() => {});
   };
@@ -125,23 +133,47 @@ export default function BedIndex({
             in crypto: store of value, programmable money, and decentralized finance.
           </Text>
           <HStack spacing={3}>
-            <Button variant="red">Buy on Uniswap</Button>
-            <Button variant="black">Add to Metamask</Button>
+            <Button
+              variant="red"
+              as="a"
+              target="_blank"
+              href="https://app.uniswap.org/#/swap?inputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&outputCurrency=0x2af1df3ab0ab157e1e2ad8f88a7d04fbea0c7dc6"
+            >
+              Buy on Uniswap
+            </Button>
+            <Button
+              variant="black"
+              onClick={addBedIndexToMetaMask}
+            >
+              Add to Metamask
+            </Button>
           </HStack>
         </Box>
 
         {/* Methodology */}
-        <Grid mt={10} templateColumns="1fr 1fr" gap={6}>
-          <Box>
+        <Flex mt={10} flexDirection={{ base: 'column-reverse', sm: 'column-reverse', lg: 'row' }}>
+          <Box width={{base: '100%', sm: '100%', lg: '50%'}}>
             <Heading as="h2" fontSize={41} fontFamily="spartan">Methodology</Heading>
             <Text mb={26} fontSize={14} fontFamily="spartan">
               BED Index is composed from 33.3% <br /> of Bitcoin, 33.3% of Ether, and 33.3% of DPI.
               <br /><br />
               Index is rebalanced every first Friday of each calendar month. <br /> The Fund is rebalanced in accordance with its Underlying Index.
             </Text>
-            <Button variant="black">More Info</Button>
+            <Button
+              variant="black"
+              as="a"
+              href="https://www.indexcoop.com/bankless-bed-index.html"
+              target="_blank"
+            >
+              More Info
+            </Button>
           </Box>
-          <Flex pos="relative" justify="center">
+          <Flex
+            width={['100%', '50%']}
+            my={{ base: 10, sm: 10, lg: 0 }}
+            pos="relative"
+            justify="center"
+          >
             <Box
               width={240}
               height={240}
@@ -150,10 +182,16 @@ export default function BedIndex({
               backgroundPosition="center"
               backgroundImage={BedIndexImg.src}
             />
-            <TokenMaskImg style={{ zIndex: 1, position: 'absolute', top: '-40px' }} />
+            <TokenMaskImg
+              style={{
+                zIndex: 1,
+                position: 'absolute',
+                top: '-40px'
+              }}
+            />
             <TokenMask2Img style={{ position: 'absolute', top: '-40px', left: '10%' }} />
           </Flex>
-        </Grid>
+        </Flex>
 
         {/* Stats */}
         <VStack mt={10} spacing={7} align="flex-start">
@@ -237,18 +275,28 @@ export default function BedIndex({
             <Heading as="h3" fontFamily="spartan" mt={5}>
               {activePortfolioData && `$${activePortfolioData.value.toFixed(2)}`}
             </Heading>
-            <Text color={getPercentageChange(investedValue, activePortfolioData?.value) > 0 ? "limegreen" : "red.500"} fontFamily="spartan" fontWeight="semibold">
-              {activePortfolioData && `${getPercentageChange(investedValue, activePortfolioData?.value)}%`}
+            <Text
+              fontFamily="spartan" fontWeight="semibold"
+              color={getPercentageChange(currentInvestedValue, activePortfolioData?.value || 0) > 0 ? "limegreen" : "red.500"}
+            >
+              {activePortfolioData && `${getPercentageChange(currentInvestedValue, activePortfolioData?.value)}%`}
             </Text>
           </HStack>
-          <Flex w="full">
-            <Box flex={7} px={2}>
+          {activePortfolioData && (
+            <Text mt="0 !important">
+              {moment(currentStartDay).format('DD MMMM, YYYY')}
+              &nbsp;-&nbsp;
+              {moment(activePortfolioData.timestamp).format('DD MMMM, YYYY')}
+            </Text>
+          )}
+          <Flex w="full" alignItems="center" flexDirection={{ base: 'column', sm: 'column', lg: 'row' }}>
+            <Box w={{ base: '100%', sm: '100%', lg: '60%', xl: '70%' }} px={2}>
               <PortfolioChart
                 data={portfolioData}
                 setActiveValue={activeData => setActivePortfolioData(activeData)}
               />
             </Box>
-            <Box flex={3} px={2}>
+            <Box w={{ base: '100%', sm: '100%', lg: '40%', xl: '30%' }} px={2}>
               <VStack spacing={4} p={4} bg="#1E2732">
                 <Box w="full">
                   <Text mb={2}>Start Date</Text>
