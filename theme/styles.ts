@@ -1,3 +1,6 @@
+import { position, background, color, border } from "@chakra-ui/react"
+import { transform } from "framer-motion"
+
 /*
  TODO: TURN MOST OF THESE STYLES INTO NON-GLOBAL STYLES BY USING COMPONENTS OR STYLE MIXINS
 
@@ -352,7 +355,6 @@ export default {
         maxW: '100%',
         '&.is-hero': {
           maxW: '100%',
-          marginTop: '10vh',
           padding: '50px 0',
           flexBasis: '100%',
         },
@@ -443,21 +445,27 @@ export default {
       base: {
         fontSize: '24px',
         width: '100%',
-        margin: '0 0 2vh -2px',
+        margin: '0 0 2vh 0',
+      },
+      md: {
         '.item.is-hero &': {
-          fontSize: '32px',
-          marginBottom: '0',
-          marginLeft: '-1px',
+          fontSize: '42px',
+          fontWeight: '700',
         },
       },
       xl: {
         fontSize: '30px',
+        '.item.is-hero &': {
+          fontSize: '56px',
+          fontWeight: '900',
+          letterSpacing: '2px',
+        },
       },
     },
     '.item-excerpt': {
       base: {
         fontFamily: 'spartan',
-        fontSize: '13px',
+        fontSize: '14px',
         lineHeight: '1.6',
         width: '95%',
         maxW: '400px',
@@ -465,16 +473,25 @@ export default {
         marginBottom: '0',
         padding: '5px 0 10px',
         '.item.is-hero &': {
-          lineHeight: 1.7,
-          columnCount: 1,
           paddingTop: '15px',
           paddingBottom: '5px',
+          fontWeight: '600',
+          lineHeight: 1.7,
+          maxW: '500px',
+        },
+      },
+      md: {
+        '.item.is-hero &':{
+          columnCount: 1,
         },
       },
       lg: {
-        maxW: '500px',
         paddingTop: '10px',
         paddingBottom: '3vh',
+        maxW: '500px',
+        '.item.is-hero &':{
+          columnCount: 2,
+        },
       },
       xl: {
         lineHeight: 1.7,
@@ -731,7 +748,7 @@ export default {
         minWidth: '120px',
         height: '120px',
         minHeight: '120px',
-        borderWidth: '6px',       
+        borderWidth: '6px',
         _before: {
           width: '160px',
           height: '160px',

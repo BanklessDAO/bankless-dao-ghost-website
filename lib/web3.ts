@@ -11,6 +11,12 @@ export const BANKLESS_DAO_TOKEN_ADDRESS =
 const BANKLESS_TOKEN_SYMBOL = 'BANK';
 const BANKLESS_TOKEN_DECIMALS = 18;
 
+/* ERC-20 address for the BED Index token */
+export const BED_TOKEN_ADDRESS =
+  '0x2aF1dF3AB0ab157e1E2Ad8F88A7D04fbea0c7dc6';
+const BED_TOKEN_SYMBOL = 'BED';
+const BED_TOKEN_DECIMALS = 18;
+
 const providerOptions = {
   injected: {
     package: null,
@@ -210,6 +216,43 @@ export async function addBankToMetaMask(): Promise<boolean> {
           symbol: 'BANK',
           decimals: 18,
           image: `${window.location.origin}/images/token-metamask.svg`,
+        },
+      },
+    });
+
+    if (wasAdded) {
+      console.log('Thanks for your interest!');
+    } else {
+      console.log('Your loss!');
+    }
+
+    return wasAdded;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function addBedIndexToMetaMask(): Promise<boolean> {
+  if (!window.ethereum) {
+    return false;
+  }
+  console.log(
+    'Adding BED TOKEN',
+    `${window.location.origin}/images/bed-index.png`,
+  );
+
+  try {
+    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+    const wasAdded = await window.ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20', // Initially only supports ERC20, but eventually more!
+        options: {
+          address: BED_TOKEN_ADDRESS,
+          symbol: BED_TOKEN_SYMBOL,
+          decimals: BED_TOKEN_DECIMALS,
+          image: `${window.location.origin}/images/bed-index.png`,
         },
       },
     });

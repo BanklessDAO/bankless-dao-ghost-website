@@ -6,6 +6,7 @@ const colors: Colors = {
   },
   red: {
     '500': '#ff1a1a',
+    '700': '#be0000'
   },
   steel: {
     '100': '#182029',
