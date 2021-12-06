@@ -45,7 +45,7 @@ const PostsByTag = ({
         <meta name="description" content="Posts by tag" />
       </Head>
       <Flex justifyContent="center">
-        <GuildTag variant="secondary" guild={tag} />
+        <GuildTag variant="secondary" guild={tag} tagLevel={true} />
       </Flex>
       <Flex className="loop-wrap">
         {posts &&
