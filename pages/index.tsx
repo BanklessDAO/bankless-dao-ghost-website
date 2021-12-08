@@ -32,7 +32,7 @@ export default function Home({
         featuredPages={featuredPages}
         featuredPosts={featuredPosts}
       />
-      <Flex className="loop-wrap">
+      <Flex className="loop-wrap" flexDirection={{ sm: 'column', md: 'column', lg: 'row' }}>
         {posts.map((post: PostOrPage, index: number) => {
           const Article = index % 5 === 0 ? MainArticle : SubArticle;
           return <Article key={post.id} post={post} index={index} />;

@@ -1,4 +1,5 @@
-import { Heading, Text, Box, Flex, Link, chakra } from '@chakra-ui/react';
+import { Heading, Text, Box, Flex, chakra } from '@chakra-ui/react';
+import Link from './Link';
 import { PostOrPage, Author, Tag } from '@tryghost/content-api';
 
 type PinnedPagesProps = {
@@ -18,7 +19,11 @@ export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
         if (i == 0) {
           return (
             <Box key={page.id} as="article" className="is-first">
-              <Heading as="h3">{page.title}</Heading>
+              <Heading as="h3">
+                <Link key={page.id} href={`/${page.slug}`} className="global-underline">
+                  {page.title}
+                </Link>
+              </Heading>
               {page.authors && (
                 <Box className="global-meta">
                   {page.authors.map((author: Author) => (
@@ -33,7 +38,11 @@ export default function RelatedPosts({ relatedPages }: PinnedPagesProps) {
         } else {
           return (
             <Box key={page.id} as="article">
-              <Heading as="h3">{page.title}</Heading>
+              <Heading as="h3">
+                <Link key={page.id} href={`/${page.slug}`} className="global-underline">
+                  {page.title}
+                </Link>
+              </Heading>
               {page.authors && (
                 <Box className="global-meta">
                   {page.authors.map((author: Author) => (

@@ -18,6 +18,7 @@ import {
   ButtonProps,
   DrawerFooter,
 } from '@chakra-ui/react';
+import Davatar from '@davatar/react';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import SearchModal from './SearchModal';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -95,6 +96,9 @@ export default function Navbar() {
                     <ListItem>
                       <Link href="/contribute">Contribute</Link>
                     </ListItem>
+                    <ListItem>
+                      <Link href="/bed-index">BED Index</Link>
+                    </ListItem>
                     <ListItem display="flex" onClick={onSearchModalOpen}>
                       <Box marginRight="4">Search</Box>
                       <ListIcon as={Search2Icon} color="white" />
@@ -117,6 +121,9 @@ export default function Navbar() {
               </ListItem>
               <ListItem>
                 <Link href="/contribute">Contribute</Link>
+              </ListItem>
+              <ListItem>
+                <Link href="/bed-index">BED Index</Link>
               </ListItem>
             </List>
             <List>
@@ -157,10 +164,10 @@ function ConnectionButton(props: ButtonProps) {
   } = useDisclosure();
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && (bankBalance == null)) {
       loadBankBalance();
     }
-  }, [isConnected]);
+  });
 
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
@@ -181,11 +188,10 @@ function ConnectionButton(props: ButtonProps) {
     if (!walletAddress) {
       return 'Connect Wallet';
     }
-    if (ensName) {
-      return ensName;
-    }
-    return `${walletAddress.substr(0, 4)}..${walletAddress.substr(-3)}`;
-  };
+    return (
+      <Davatar size={24} address={walletAddress || ""} />
+    )
+  }
 
   return (
     <>
@@ -199,7 +205,7 @@ function ConnectionButton(props: ButtonProps) {
             {compactFormatter.format(bankBalance)} BANK
           </Button>
         )}
-        <Button>{buttonText()}</Button>
+        <Button title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
       </ButtonGroup>
     </>
   );

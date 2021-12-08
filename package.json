@@ -12,7 +12,8 @@
     "*.{js,jsx,ts,tsx,.md}": [
       "prettier --write",
       "eslint --fix"
-    ]
+    ],
+    "*.{ts,tsx}": "tsc-files --noEmit --pretty"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.14",
@@ -26,14 +27,18 @@
     "@tryghost/content-api": "^1.5.9",
     "@tryghost/helpers": "^1.1.49",
     "@walletconnect/web3-provider": "^1.6.5",
+    "@davatar/react": "^1.8.1",
+    "axios": "^0.24.0",
     "electron": "^14.0.0",
     "ethers": "^5.4.6",
     "framer-motion": "^4",
-    "next": "11.0.1",
+    "moment": "^2.29.1",
+    "next": "11.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hotkeys-hook": "^3.4.0",
     "react-icons": "^4.2.0",
+    "recharts": "^2.1.6",
     "web3": "^1.5.2",
     "web3modal": "^1.9.4"
   },
@@ -45,6 +50,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
+    "tsc-files": "^1.1.2",
     "typescript": "4.3.5"
   }
 }

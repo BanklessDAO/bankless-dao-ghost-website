@@ -29,7 +29,7 @@ export default function Guilds({ tags }: any) {
         marginBottom="8vh"
         overflowWrap="break-word">
         {mostPosts.map((guild: Tag, index: number) => (
-          <GuildTag key={index} guild={guild} variant="primary" />
+          <GuildTag key={index} guild={guild} variant="primary" tagLevel={false} />
         ))}
         <Heading
           as="h4"
@@ -45,7 +45,7 @@ export default function Guilds({ tags }: any) {
           See Also
         </Heading>
         {restGuilds.map((guild: Tag, index: number) => (
-          <GuildTag key={index} variant="secondary" guild={guild} />
+          <GuildTag key={index} variant="secondary" guild={guild} tagLevel={false} />
         ))}
       </Flex>
     </>
