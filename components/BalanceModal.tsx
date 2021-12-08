@@ -38,7 +38,7 @@ export default function BallanceModal(props: BalanceModalProps) {
     if (props.isOpen) {
       loadBankBalance();
     }
-  }, [props.isOpen]);
+  }, [props.isOpen, loadBankBalance]);
 
   let compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
   let longFormatter = Intl.NumberFormat('en');
