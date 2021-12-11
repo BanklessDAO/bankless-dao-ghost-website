@@ -1,27 +1,33 @@
 // chakra imports
 import {
   Box,
-  Link,
   Image,
   Heading,
   useMultiStyleConfig,
   useTheme,
 } from '@chakra-ui/react';
 
+import Link from './Link';
+
 // ghost types import
 import { Tag } from '@tryghost/content-api';
 
 // GuildTag Definition.
+// tagLevel: [slug] is relative to here, not a level down
 export interface GuildTagProps {
   variant: string;
   guild: Tag;
+  tagLevel: boolean;
 }
 
 export default function GuildTag({
   variant,
   guild,
+  tagLevel
 }: GuildTagProps): JSX.Element {
   let posts = guild.count!.posts;
+
+  let slugPath = tagLevel ? '' : 'tag/';
 
   const styles = useMultiStyleConfig('GuildTag', { variant });
 
@@ -29,7 +35,7 @@ export default function GuildTag({
 
   return (
     <Box sx={styles.container}>
-      <Link sx={styles.primarylink} href={`tag/${guild.slug}`}>
+      <Link sx={styles.primarylink} href={slugPath + guild.slug}>
         <Image
           sx={styles.linkimage}
           src={guild.feature_image!}
@@ -38,7 +44,7 @@ export default function GuildTag({
         />
       </Link>
       <Heading sx={styles.heading} as="h2">
-        <Link className="global-underline" href={`tag/${guild.slug}`}>
+        <Link className="global-underline" href={slugPath + guild.slug}>
           #{guild.name}
         </Link>
       </Heading>

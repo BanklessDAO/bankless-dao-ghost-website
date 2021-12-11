@@ -1,3 +1,6 @@
+import { position, background, color, border } from "@chakra-ui/react"
+import { transform } from "framer-motion"
+
 /*
  TODO: TURN MOST OF THESE STYLES INTO NON-GLOBAL STYLES BY USING COMPONENTS OR STYLE MIXINS
 
@@ -352,7 +355,6 @@ export default {
         maxW: '100%',
         '&.is-hero': {
           maxW: '100%',
-          marginTop: '10vh',
           padding: '50px 0',
           flexBasis: '100%',
         },
@@ -443,21 +445,27 @@ export default {
       base: {
         fontSize: '24px',
         width: '100%',
-        margin: '0 0 2vh -2px',
+        margin: '0 0 2vh 0',
+      },
+      md: {
         '.item.is-hero &': {
-          fontSize: '32px',
-          marginBottom: '0',
-          marginLeft: '-1px',
+          fontSize: '42px',
+          fontWeight: '700',
         },
       },
       xl: {
         fontSize: '30px',
+        '.item.is-hero &': {
+          fontSize: '56px',
+          fontWeight: '900',
+          letterSpacing: '2px',
+        },
       },
     },
     '.item-excerpt': {
       base: {
         fontFamily: 'spartan',
-        fontSize: '13px',
+        fontSize: '14px',
         lineHeight: '1.6',
         width: '95%',
         maxW: '400px',
@@ -465,16 +473,25 @@ export default {
         marginBottom: '0',
         padding: '5px 0 10px',
         '.item.is-hero &': {
-          lineHeight: 1.7,
-          columnCount: 1,
           paddingTop: '15px',
           paddingBottom: '5px',
+          fontWeight: '600',
+          lineHeight: 1.7,
+          maxW: '500px',
+        },
+      },
+      md: {
+        '.item.is-hero &':{
+          columnCount: 1,
         },
       },
       lg: {
-        maxW: '500px',
         paddingTop: '10px',
         paddingBottom: '3vh',
+        maxW: '500px',
+        '.item.is-hero &':{
+          columnCount: 2,
+        },
       },
       xl: {
         lineHeight: 1.7,
@@ -699,6 +716,123 @@ export default {
         margin: '10vh auto 15vh',
       },
     },
+    '.circular-hero': {
+      base: {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        bg: 'transparent',
+        borderStyle: 'solid',
+        borderColor: 'white',
+        borderRadius: '50%',
+        _before: {
+          zIndex: -2,
+          position: 'absolute',
+          background: 'radial-gradient(var(--color-dots) 10%, transparent 0)',
+          backgroundSize: '9px 9px',
+          borderRadius: '50%',
+          content: "''",
+        },
+        _after: {
+          zIndex: -3,
+          position: 'absolute',
+          background: '#1E2732',
+          borderRadius: '50%',
+          content: "''",
+        },
+      },
+      sm: {
+        margin: '25px !important',
+        width: '120px',
+        minWidth: '120px',
+        height: '120px',
+        minHeight: '120px',
+        borderWidth: '6px',
+        _before: {
+          width: '160px',
+          height: '160px',
+          top: '-5.5vh',
+          right: '-5vh',
+        },
+        _after: {
+          height: '147px',
+          width: '147px',
+          top: '-4.25vh',
+          right: '0',
+        },
+      },
+      lg: {
+        width: '240px',
+        minWidth: '240px',
+        height: '240px',
+        minHeight: '240px',
+        borderWidth: '11px',
+        _before: {
+          width: '321px',
+          height: '321px',
+          top: '-9vh',
+          right: '-10vh',
+        },
+        _after: {
+          height: '295px',
+          width: '295px',
+          top: '-11vh',
+          right: '4.5vh',
+        }
+      },
+    },
+    '.bank-hero': {
+      base: {
+        mb: 'auto',
+        color: 'white',
+        fontWeight: '700',
+        borderBottomStyle: 'solid',
+        borderBottomColor: '#FF1A1A',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      sm: {
+        mt: '0.35rem',
+        h: '85px',
+        w: '53px',
+        lineHeight: '121.55px',
+        fontSize: '75px',
+        borderBottomWidth: '6px',
+      },
+      lg: {
+        mt: '0.75rem',
+        h: '170px',
+        w: '106px',
+        lineHeight: '259.3px',
+        fontSize: '160px',
+        borderBottomWidth: '11px',
+      },
+    },
+    '.vault-item': {
+      base: {
+        fontSize: '12px',
+        whiteSpace: 'nowrap',
+        textAlign: 'left',
+        pl: '0 !important',
+      },
+      lg: {
+        fontSize: '14px',
+      },
+    },
+    '.flex-between': {
+      display: 'flex',
+      justifyContent: 'space-between'
+    },
+    '.dash-fill': {
+      width: '100%',
+      height: '10px',
+      borderBottom: '1px dashed #fff',
+    },
+    '.no-flex-shrink': {
+      flexShrink: 0,
+    },
     '.global-footer': {
       width: '100%',
       maxW: '1200px',
@@ -754,14 +888,6 @@ export default {
         padding: 0,
         display: 'grid',
         gap: '1rem',
-      },
-      md: {
-        justifyItems: 'start',
-        gridAutoFlow: 'row',
-      },
-      lg: {
-        justifyItems: 'center',
-        gridAutoFlow: 'column',
       },
     },
     '.footer-link': {

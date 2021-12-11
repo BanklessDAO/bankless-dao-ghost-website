@@ -14,13 +14,16 @@ const SubArticle = ({ post, index }: SubArticleProps) => {
     <Box
       as="article"
       className={`item is-image post ${index % 2 !== 0 ? 'is-even' : 'is-odd'}`}
-      maxW="50%">
+      maxW={{ sm: '100%', md: '100%', lg: '50%' }}
+    >
       <Flex className="item-container">
         <Box className="item-content">
           <Link
             style={{ boxShadow: 'none' }}
             className="item-image global-image"
-            href={urlForPost(post)}>
+            href={urlForPost(post)}
+            w={{ sm: '100%', md: '100%', lg: '95px' }}
+          >
             <Image
               loading="lazy"
               src={post.feature_image!}

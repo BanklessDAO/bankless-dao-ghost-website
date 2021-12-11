@@ -12,7 +12,10 @@ type MainArticleProps = {
 const MainArticle = ({ post, index }: MainArticleProps) => {
   return (
     <Box as="article" className="item is-hero is-first is-image">
-      <Flex className="item-container global-color">
+      <Flex
+        className="item-container global-color"
+        flexDirection={{ sm: 'column', md: 'column-reverse', lg: 'row' }}
+      >
         <Link
           className="item-image global-image global-color"
           style={{ boxShadow: 'none' }}
@@ -34,7 +37,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
             A long time ago by {post.primary_author!.name} - {post.reading_time}{' '}
             minutes
           </Text>
-          <Heading as="h2" className="item-title">
+          <Heading as="h2" className="item is-hero item-title">
             <Link
               className="global-underline"
               style={{ boxShadow: 'none' }}
@@ -43,7 +46,7 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
               {post.title}
             </Link>
           </Heading>
-          <Text className="item-excerpt">{post.excerpt}</Text>
+          <Text className="is-hero item-excerpt">{post.excerpt}</Text>
           <Box className="global-tags">
             {post.tags!.map((tag: Tag) => (
               <Link
