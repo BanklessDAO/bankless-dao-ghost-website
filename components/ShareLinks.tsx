@@ -40,7 +40,7 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ postTitle = '' }) => {
           display="inline-flex"
           width="100%"
           justifyContent="center">
-          <Link>
+          <Link href={link}>
             <TwitterShareButton
               url={link}
               title={postTitle}
@@ -48,12 +48,12 @@ const ShareLinks: React.FC<ShareLinksProps> = ({ postTitle = '' }) => {
               <Icon as={FaTwitter} boxSize="24px" />
             </TwitterShareButton>
           </Link>
-          <Link>
+          <Link href={link}>
             <FacebookShareButton url={link} quote={postTitle}>
               <Icon as={FaFacebook} boxSize="24px" />
             </FacebookShareButton>
           </Link>
-          <Link onClick={copyToClipboard}>
+          <Link href={link} onClick={copyToClipboard}>
             {showCopyTooltip && (
               <Box
                 w="120px"
