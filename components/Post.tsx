@@ -115,7 +115,7 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
           maxW="700px"
           margin="0 auto"
         />
-        <ShareLinks />
+        <ShareLinks postTitle={post.title} />
       </chakra.article>
       <RelatedPosts relatedPages={relatedPosts} />
       <NextPrevSection
