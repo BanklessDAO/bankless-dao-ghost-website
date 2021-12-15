@@ -186,7 +186,7 @@ export async function getBankBalance(): Promise<number> {
   return Number(Web3.utils.fromWei(result)); // 29803630.997051883414242659
 }
 
-export async function loadENSName(address: string): Promise<string> {
+export async function loadENSName(address: string): Promise<string | null> {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const name = await provider.lookupAddress(address);
   console.log('loadENSName', name);
