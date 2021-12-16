@@ -8,5 +8,14 @@ module.exports = {
     });
 
     return config;
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/join',
+        destination: 'https://join.bankless.community',
+        permanent: true,
+      },
+    ]
+  },
 };
