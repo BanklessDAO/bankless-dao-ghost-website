@@ -10,6 +10,7 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 import '../styles/Mobile.css';
+import '../styles/globals.css';
 import Head from 'next/head';
 import { Web3Provider } from '../contexts/Web3Context';
 import Layout from '../components/Layout';

@@ -13,6 +13,7 @@ import ShareLinks from './ShareLinks';
 import RelatedPosts from './RelatedPosts';
 import NextPrevSection from './NextPrevPost';
 import SubscribeSection from './SubscribeSection';
+import { MotionBox } from './MotionBox';
 
 export interface PostOrPageProps {
   cmsData: {
@@ -35,8 +36,11 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
         <meta name="description" content={post.excerpt} />
       </Head>
       <chakra.article maxW="1200px" mx="auto">
-        <Box
-          className="post-header item is-hero is-image"
+        <MotionBox 
+    //      animate={{y:-40}}
+    //  transition={{ease: "easeIn" ,delay: 0.5 }}
+        > <Box
+          className="post-header item is-hero is-image slide-up"
           flexBasis="100%"
           maxWidth="100%"
           padding="50px 0"
@@ -102,7 +106,8 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
               </Box>
             </Box>
           </Flex>
-        </Box>
+        </Box> </MotionBox >
+
         <Box
           className="postContent"
           dangerouslySetInnerHTML={{ __html: post.html! }}
