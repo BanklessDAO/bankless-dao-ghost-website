@@ -2,6 +2,8 @@ import { Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage, Tag } from '@tryghost/content-api';
 import { urlForPost } from '../lib/posts';
 import { urlForTag } from '../lib/tags';
+
+import AnalyticsEventTracker from './AnalyticsEventTracker';
 import Link from './Link';
 
 type MainArticleProps = {
@@ -38,13 +40,23 @@ const MainArticle = ({ post, index }: MainArticleProps) => {
             minutes
           </Text>
           <Heading as="h2" className="item is-hero item-title">
-            <Link
-              className="global-underline"
-              style={{ boxShadow: 'none' }}
-              textDecoration="none"
-              href={urlForPost(post)}>
-              {post.title}
-            </Link>
+            <AnalyticsEventTracker
+              events={[{
+                eventType: "click",
+                eventName: "CLICK_ARTICLE",
+                data: {
+                  link: urlForPost(post),
+                  title: post.title
+                }
+              }]}>
+              <Link
+                className="global-underline"
+                style={{ boxShadow: 'none' }}
+                textDecoration="none"
+                href={urlForPost(post)}>
+                {post.title}
+              </Link>
+            </AnalyticsEventTracker>
           </Heading>
           <Text className="is-hero item-excerpt">{post.excerpt}</Text>
           <Box className="global-tags">
