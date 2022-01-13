@@ -123,7 +123,8 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
           eventType: "view",
           eventName: "VIEWED_PAGE",
           data: {
-            pageTitle: "POST"
+            pageTitle: `${post.title}_PAGE`,
+            title: post.title
           }
         }]} />
       <RelatedPosts relatedPages={relatedPosts} />

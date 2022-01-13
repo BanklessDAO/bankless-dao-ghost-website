@@ -86,9 +86,10 @@ export default function Page({ cmsData }: any): JSX.Element {
       <AnalyticsEventTracker
         events={[{
           eventType: "view",
-          eventName: "VIEWED_PAGE",
+          eventName: `VIEWED_PAGE`,
           data: {
-            pageTitle: "PAGE"
+            pageTitle: `${page.title}_PAGE`,
+            title: page.title
           }
         }]} />
     </>
