@@ -18,14 +18,24 @@ import {
   ButtonProps,
   DrawerFooter,
 } from '@chakra-ui/react';
+
 import Davatar from '@davatar/react';
 import { HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
-import SearchModal from './SearchModal';
 import { useHotkeys } from 'react-hotkeys-hook';
 import React, { useEffect, useState } from 'react';
-import Link from './Link';
-import BallanceModal from './BalanceModal';
 import { useWeb3 } from '../contexts/Web3Context';
+
+import AnalyticsEventTracker from './AnalyticsEventTracker';
+import BallanceModal from './BalanceModal';
+import Link from './Link';
+import SearchModal from './SearchModal';
+
+const NAVBAR_LINKS = [
+  { name: 'Home', href: '/' },
+  { name: 'Guilds', href: '/guilds' },
+  { name: 'Contribute', href: '/contribute' },
+  { name: 'BED Index', href: '/bed-index' },
+]
 
 export default function Navbar() {
   const {
@@ -87,18 +97,22 @@ export default function Navbar() {
 
                 <DrawerBody paddingTop="4">
                   <List spacing="2" fontWeight="bold" fontFamily="spartan">
-                    <ListItem>
-                      <Link href="/">Home</Link>
-                    </ListItem>
-                    <ListItem>
-                      <Link href="/guilds">Guilds</Link>
-                    </ListItem>
-                    <ListItem>
-                      <Link href="/contribute">Contribute</Link>
-                    </ListItem>
-                    <ListItem>
-                      <Link href="/bed-index">BED Index</Link>
-                    </ListItem>
+                    {NAVBAR_LINKS.map(_navBarLink => {
+                      return <AnalyticsEventTracker
+                        key={_navBarLink.name}
+                        events={[{
+                          eventType: "click",
+                          eventName: "CLICK_NAV_LINK",
+                          data: {
+                            link: _navBarLink.href,
+                            title: _navBarLink.name
+                          }
+                        }]}>
+                        <ListItem>
+                          <Link href={_navBarLink.href}>{_navBarLink.name}</Link>
+                        </ListItem>
+                      </AnalyticsEventTracker>
+                    })}
                     <ListItem display="flex" onClick={onSearchModalOpen}>
                       <Box marginRight="4">Search</Box>
                       <ListIcon as={Search2Icon} color="white" />
@@ -113,18 +127,22 @@ export default function Navbar() {
           </Flex>
           <Flex as="nav">
             <List>
-              <ListItem>
-                <Link href="/">Home</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/guilds">Guilds</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/contribute">Contribute</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="/bed-index">BED Index</Link>
-              </ListItem>
+              {NAVBAR_LINKS.map(_navBarLink => {
+                return <AnalyticsEventTracker
+                  key={_navBarLink.name}
+                  events={[{
+                    eventType: "click",
+                    eventName: "CLICK_NAV_LINK",
+                    data: {
+                      link: _navBarLink.href,
+                      title: _navBarLink.name
+                    }
+                  }]}>
+                  <ListItem>
+                    <Link href={_navBarLink.href}>{_navBarLink.name}</Link>
+                  </ListItem>
+                </AnalyticsEventTracker>
+              })}
             </List>
             <List>
               <ListItem marginRight="18px">
