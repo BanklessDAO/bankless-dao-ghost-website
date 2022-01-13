@@ -15,6 +15,15 @@ import { Web3Provider } from '../contexts/Web3Context';
 import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  // Production MixPanel -> Bankless DAO
+  const MIX_PANEL_ID = '0715c4ae0cba2709f3d752f073ef2824'
+  const DEBUG = false
+
+  // Development MixPanel -> Bankless DAO Dev
+  // const MIX_PANEL_ID = '63978c515162fcb62e8a7da786c5a17b'
+  // const DEBUG = true
+
   return (
     <ChakraProvider theme={theme}>
       <Web3Provider>
@@ -34,8 +43,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                   /**
                    * Initialize a Mixpanel instance using your project token and proxy domain
                    */
-                  // Development MixPanel -> Bankless DAO Dev
-                   mixpanel.init('63978c515162fcb62e8a7da786c5a17b', {debug: true});
+                  
+                   mixpanel.init('${MIX_PANEL_ID}', {debug: ${DEBUG}});
               `}} />
         </Head>
         <Layout>
