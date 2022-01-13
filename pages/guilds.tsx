@@ -11,6 +11,7 @@ import { Flex, Heading } from '@chakra-ui/react';
 import { getAllTags } from '../lib/tags';
 
 // component imports
+import AnalyticsEventTracker from '../components/AnalyticsEventTracker';
 import GuildTag from '../components/GuildTag';
 
 export default function Guilds({ tags }: any) {
@@ -48,6 +49,14 @@ export default function Guilds({ tags }: any) {
           <GuildTag key={index} variant="secondary" guild={guild} tagLevel={false} />
         ))}
       </Flex>
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: "VIEWED_PAGE",
+          data: {
+            pageTitle: "ALL_GUILD_PAGE"
+          }
+        }]} />
     </>
   );
 }

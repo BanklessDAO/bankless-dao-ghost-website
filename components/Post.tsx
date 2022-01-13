@@ -8,6 +8,7 @@ import { chakra, Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage } from '@tryghost/content-api';
 
 // component imports
+import AnalyticsEventTracker from './AnalyticsEventTracker';
 import Link from './Link';
 import ShareLinks from './ShareLinks';
 import RelatedPosts from './RelatedPosts';
@@ -117,6 +118,14 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
         />
         <ShareLinks postTitle={post.title} />
       </chakra.article>
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: "VIEWED_PAGE",
+          data: {
+            pageTitle: "POST"
+          }
+        }]} />
       <RelatedPosts relatedPages={relatedPosts} />
       <NextPrevSection
         newerPost={newerPost[0] ? newerPost[0] : null}
