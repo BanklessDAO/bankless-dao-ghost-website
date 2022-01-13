@@ -56,6 +56,7 @@ export default function Footer(): JSX.Element {
           <UnorderedList className="footer-links" mx="0">
             {SOCIALS_LEFT.map(_social => {
               return <AnalyticsEventTracker
+                key={_social.name}
                 events={[{
                   eventType: "click",
                   eventName: "CLICK_FOOTER_LINK",
@@ -73,6 +74,7 @@ export default function Footer(): JSX.Element {
           <UnorderedList className="footer-links" mx="0">
             {SOCIALS_RIGHT.map(_social => {
               return <AnalyticsEventTracker
+              key={_social.name}
                 events={[{
                   eventType: "click",
                   eventName: "CLICK_FOOTER_LINK",
