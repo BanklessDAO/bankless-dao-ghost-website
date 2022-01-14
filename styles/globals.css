@@ -19,3 +19,16 @@ a {
   background: blue;
   padding: 16px;
 }
+
+@keyframes SlideUp {
+  0% {
+    transform: translateY(20%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: SlideUp .5s ease;
+}
