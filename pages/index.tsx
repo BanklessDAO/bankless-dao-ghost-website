@@ -8,6 +8,7 @@ import { PostOrPage } from '@tryghost/content-api';
 
 import debounce from '../util/debounce';
 
+import AnalyticsEventTracker from '../components/AnalyticsEventTracker';
 import MainArticle from '../components/MainArticle';
 import SubArticle from '../components/SubArticle';
 import SubscribeSection from '../components/SubscribeSection';
@@ -52,6 +53,14 @@ export default function Home({
         </Box>
       )}
       <SubscribeSection />
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: "VIEWED_PAGE",
+          data: {
+            pageTitle: "HOME_PAGE"
+          }
+        }]} />
     </>
   );
 }

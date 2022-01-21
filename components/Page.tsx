@@ -12,6 +12,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 
+import AnalyticsEventTracker from './AnalyticsEventTracker';
+
 // Component definition.
 export default function Page({ cmsData }: any): JSX.Element {
   const { page } = cmsData;
@@ -81,6 +83,15 @@ export default function Page({ cmsData }: any): JSX.Element {
           margin="0 auto"
         />
       </chakra.article>
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: `VIEWED_PAGE`,
+          data: {
+            pageTitle: `${page.title}_PAGE`,
+            title: page.title
+          }
+        }]} />
     </>
   );
 }

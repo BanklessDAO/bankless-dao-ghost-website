@@ -1,6 +1,8 @@
 import { Heading, Box, Flex, Input, Button, chakra } from '@chakra-ui/react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+import AnalyticsEventTracker from './AnalyticsEventTracker';
+
 export interface AlertMessages {
   [loading: string]: string;
   success: string;
@@ -78,9 +80,18 @@ export default function SubscribeSection() {
             onChange={handleChange}
             isRequired
           />
-          <Button height="auto" type="submit">
-            Subscribe
-          </Button>
+          <AnalyticsEventTracker
+            events={[{
+              eventType: "click",
+              eventName: "SUBSCRIBE",
+              data: {
+                email
+              }
+            }]}>
+            <Button height="auto" type="submit">
+              Subscribe
+            </Button>
+          </AnalyticsEventTracker>
           <AlertBox>{ALERT_MESSAGES[message]}</AlertBox>
         </chakra.form>
       </Flex>

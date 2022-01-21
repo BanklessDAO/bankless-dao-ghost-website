@@ -7,8 +7,31 @@ import {
   UnorderedList,
   HStack,
 } from '@chakra-ui/react';
+
+import AnalyticsEventTracker from './AnalyticsEventTracker';
 import Link from './Link';
 import SocialIcons from './SocialIcons';
+
+interface socialLink {
+  name: string;
+  href: string;
+}
+
+
+let SOCIALS_LEFT: socialLink[] = [
+  { name: 'Discord', href: 'https://discord.gg/bjPz2w9Zts' },
+  { name: 'Join Olympus Pro', href: 'https://pro.olympusdao.finance/?utm_source=banklessdao&utm_medium=affiliate&utm_campaign=op-affiliate' },
+  { name: 'Wiki', href: 'https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f' },
+  { name: 'Forum', href: 'https://forum.bankless.community/' },
+  { name: 'Vote', href: 'https://snapshot.org/#/banklessvault.eth' },
+]
+
+let SOCIALS_RIGHT: socialLink[] = [
+  { name: 'BANK', href: '/multisig' },
+  { name: 'Privacy', href: '#' },
+  { name: 'Github', href: 'https://github.com/BanklessDAO' },
+  { name: 'TwitchTV', href: 'https://www.twitch.tv/banklessdao' },
+]
 
 export default function Footer(): JSX.Element {
   return (
@@ -31,50 +54,40 @@ export default function Footer(): JSX.Element {
         </Box>
         <HStack spacing={16} wrap="wrap">
           <UnorderedList className="footer-links" mx="0">
-            <ListItem className="footer-link">
-              <Link href="https://discord.gg/bjPz2w9Zts">Discord</Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://pro.olympusdao.finance/?utm_source=banklessdao&utm_medium=affiliate&utm_campaign=op-affiliate">
-                Join Olympus Pro
-              </Link>
-              </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://www.notion.so/BanklessDAO-Wiki-82ba81e7da1c42adb7c4ab67a4f22e8f">
-                Wiki
-              </Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://forum.bankless.community/">Forum</Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://snapshot.org/#/banklessvault.eth">
-                Vote
-              </Link>
-            </ListItem>
-            
+            {SOCIALS_LEFT.map(_social => {
+              return <AnalyticsEventTracker
+                key={_social.name}
+                events={[{
+                  eventType: "click",
+                  eventName: "CLICK_FOOTER_LINK",
+                  data: {
+                    link: _social.href,
+                    title: _social.name
+                  }
+                }]}>
+                <ListItem className="footer-link">
+                  <Link href={_social.href}>{_social.name}</Link>
+                </ListItem>
+              </AnalyticsEventTracker>
+            })}
           </UnorderedList>
           <UnorderedList className="footer-links" mx="0">
-            <ListItem className="footer-link">
-              <Link href="/multisig">
-                BANK
-              </Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="#">
-                Privacy
-              </Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://github.com/BanklessDAO">
-                Github
-              </Link>
-            </ListItem>
-            <ListItem className="footer-link">
-              <Link href="https://www.twitch.tv/banklessdao">
-                TwitchTV
-              </Link>
-            </ListItem>
+            {SOCIALS_RIGHT.map(_social => {
+              return <AnalyticsEventTracker
+              key={_social.name}
+                events={[{
+                  eventType: "click",
+                  eventName: "CLICK_FOOTER_LINK",
+                  data: {
+                    link: _social.href,
+                    title: _social.name
+                  }
+                }]}>
+                <ListItem className="footer-link">
+                  <Link href={_social.href}>{_social.name}</Link>
+                </ListItem>
+              </AnalyticsEventTracker>
+            })}
           </UnorderedList>
         </HStack>
       </Flex>
