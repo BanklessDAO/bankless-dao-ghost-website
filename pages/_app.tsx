@@ -25,6 +25,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   // const MIX_PANEL_ID = '63978c515162fcb62e8a7da786c5a17b'
   // const DEBUG = true
 
+  console.log('TEST LOG. MY APP IS RUNNING')
+
   return (
     <ChakraProvider theme={theme}>
       <Web3Provider>
