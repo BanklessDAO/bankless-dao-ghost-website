@@ -8,11 +8,13 @@ import { chakra, Box, Flex, Image, Heading, Text } from '@chakra-ui/react';
 import { PostOrPage } from '@tryghost/content-api';
 
 // component imports
+import AnalyticsEventTracker from './AnalyticsEventTracker';
 import Link from './Link';
 import ShareLinks from './ShareLinks';
 import RelatedPosts from './RelatedPosts';
 import NextPrevSection from './NextPrevPost';
 import SubscribeSection from './SubscribeSection';
+import { MotionBox } from './MotionBox';
 
 export interface PostOrPageProps {
   cmsData: {
@@ -35,8 +37,11 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
         <meta name="description" content={post.excerpt} />
       </Head>
       <chakra.article maxW="1200px" mx="auto">
-        <Box
-          className="post-header item is-hero is-image"
+        <MotionBox 
+    //      animate={{y:-40}}
+    //  transition={{ease: "easeIn" ,delay: 0.5 }}
+        > <Box
+          className="post-header item is-hero is-image slide-up"
           flexBasis="100%"
           maxWidth="100%"
           padding="50px 0"
@@ -102,7 +107,8 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
               </Box>
             </Box>
           </Flex>
-        </Box>
+        </Box> </MotionBox >
+
         <Box
           className="postContent"
           dangerouslySetInnerHTML={{ __html: post.html! }}
@@ -117,6 +123,15 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
         />
         <ShareLinks postTitle={post.title} />
       </chakra.article>
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: "VIEWED_PAGE",
+          data: {
+            pageTitle: `${post.title}_PAGE`,
+            title: post.title
+          }
+        }]} />
       <RelatedPosts relatedPages={relatedPosts} />
       <NextPrevSection
         newerPost={newerPost[0] ? newerPost[0] : null}

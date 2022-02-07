@@ -4,6 +4,8 @@ import Substack from '../public/images/substack.svg';
 import Medium from '../public/images/medium.svg';
 import Twitter from '../public/images/twitter.svg';
 import Github from '../public/images/github.svg';
+
+import AnalyticsEventTracker from './AnalyticsEventTracker';
 import Link from './Link';
 
 // Should I lift this out to a common directory?
@@ -66,9 +68,20 @@ export default function SocialIcons(): JSX.Element {
   return (
     <>
       {SOCIAL.map((icon: socialLink, index: number) => (
-        <SocialLink href={icon.href} target="_blank" key={index}>
-          {icon.src}
-        </SocialLink>
+        <AnalyticsEventTracker
+          key={index}
+          events={[{
+            eventType: "click",
+            eventName: "CLICK_FOOTER_SOCIAL",
+            data: {
+              link: icon.href,
+              title: icon.alt
+            }
+          }]}>
+          <SocialLink href={icon.href} target="_blank" key={index}>
+            {icon.src}
+          </SocialLink>
+        </AnalyticsEventTracker>
       ))}
     </>
   );

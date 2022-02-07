@@ -17,6 +17,7 @@ import debounce from '../../util/debounce';
 
 // component imports
 import { Flex, Box, Button } from '@chakra-ui/react';
+import AnalyticsEventTracker from '../../components/AnalyticsEventTracker';
 import GuildTag from '../../components/GuildTag';
 import MainArticle from '../../components/MainArticle';
 import SubArticle from '../../components/SubArticle';
@@ -68,6 +69,15 @@ const PostsByTag = ({
         </Box>
       )}
       <SubscribeSection />
+      <AnalyticsEventTracker
+        events={[{
+          eventType: "view",
+          eventName: "VIEWED_PAGE",
+          data: {
+            pageTitle: "GUILD_PAGE",
+            guild: tag.name
+          }
+        }]} />
     </>
   );
 };
