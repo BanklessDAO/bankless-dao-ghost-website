@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-// import { useWeb3 } from '../contexts/Web3Context';
+import React, { useEffect } from 'react';
 
 declare global {
     interface Window {
@@ -20,8 +19,6 @@ export interface AnalyticsEventTrackerProps {
   }
 
 export default function AnalyticsEventTracker(props: AnalyticsEventTrackerProps) {
-
-    // const { walletAddress } = useWeb3();
 
     useEffect(() => {
         handleOnPageViewed()
@@ -59,5 +56,4 @@ export default function AnalyticsEventTracker(props: AnalyticsEventTrackerProps)
     }
 
     return <span onMouseDown={handleOnClick}>{props.children}</span>
-
 }
