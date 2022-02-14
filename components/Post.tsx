@@ -37,10 +37,7 @@ export default function Post({ cmsData }: PostOrPageProps): JSX.Element {
         <meta name="description" content={post.excerpt} />
       </Head>
       <chakra.article maxW="1200px" mx="auto">
-        <MotionBox 
-    //      animate={{y:-40}}
-    //  transition={{ease: "easeIn" ,delay: 0.5 }}
-        > <Box
+        <MotionBox> <Box
           className="post-header item is-hero is-image slide-up"
           flexBasis="100%"
           maxWidth="100%"

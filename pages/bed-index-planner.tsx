@@ -1,4 +1,5 @@
 // next imports
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
@@ -33,7 +34,6 @@ import BedIndexImg from '../public/images/bed-index.png';
 import TokenMaskImg from '../public/images/token-mask.svg';
 import TokenMask2Img from '../public/images/token-mask-2.svg';
 import formatNumber from '../util/formatNumber';
-import { useEffect, useState } from 'react';
 import moment from 'moment';
 
 export default function BedIndex({
@@ -248,7 +248,7 @@ export default function BedIndex({
           <Text mt="0 !important">
             {moment(activePrice.timestamp).format('DD MMMM, YYYY')}
           </Text>
-          <Box spacing={3} w="full" h={260}>
+          <Box w="full" h={260}>
             <PriceChart
               data={priceData}
               setActivePrice={(activePriceData) =>
