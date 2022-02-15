@@ -1,6 +1,12 @@
 module.exports = {
   reactStrictMode: true,
   target: "serverless",
+  // https://github.com/vercel/next.js/issues/21079
+  // Remove this workaround whenever the issue is fixed
+  images: {
+    loader: 'imgix',
+    path: '/',
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
