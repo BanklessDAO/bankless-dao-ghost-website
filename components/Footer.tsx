@@ -28,7 +28,7 @@ let SOCIALS_LEFT: socialLink[] = [
 
 let SOCIALS_RIGHT: socialLink[] = [
   { name: 'BANK', href: '/multisig' },
-  { name: 'Privacy', href: '#' },
+  { name: 'Privacy', href: 'https://forum.bankless.community/privacy' },
   { name: 'Github', href: 'https://github.com/BanklessDAO' },
   { name: 'TwitchTV', href: 'https://www.twitch.tv/banklessdao' },
 ]
