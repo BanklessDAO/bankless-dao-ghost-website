@@ -92,7 +92,7 @@ export default function Footer(): JSX.Element {
         </HStack>
       </Flex>
       <Box className="footer-copyright">
-        GoBankless &copy; 2021. All Rights Reserved. Published with{' '}
+        GoBankless &copy; 2022. All Rights Reserved. Published with{' '}
         <Link href="https://ghost.org" target="_blank">
           Ghost
         </Link>
